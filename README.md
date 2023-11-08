@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![db-schema-with-relationships]
+https://dbdiagram.io/d/652dc9baffbf5169f0cf2d89
 
 ## API Documentation
 
@@ -1451,5 +1451,3 @@ Return spots filtered by query parameters.
       }
     }
     ```
-
-[db-schema-with-relationships]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-11/assessments/practice-db-schema-with-relationships.png
