@@ -1,8 +1,10 @@
-# `errB Squared`
+# `Wanderly`
 
 ## Database Schema Design
 
-https://dbdiagram.io/d/652dc9baffbf5169f0cf2d89
+![db-schema]
+
+[db-schema]: ./images/db_schema.png
 
 ## API Documentation
 
