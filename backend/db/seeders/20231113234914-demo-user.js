@@ -22,7 +22,8 @@ module.exports = {
      * }], {});
     */
 
-    await User.bulkCreate([
+    options.tableName = 'Users';
+    await User.bulkCreate(options, [
       {
         firstName: 'Demo',
         lastName: 'User',
