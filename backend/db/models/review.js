@@ -25,6 +25,15 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId'
         }
       );
+
+      Review.hasMany(
+        models.Image, {
+        foreignKey: 'imageableId',
+        constraints: false,
+        scope: {
+          imageableType: 'Review'
+        }
+      });
     }
   }
   Review.init({
