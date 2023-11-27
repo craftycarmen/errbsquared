@@ -10,6 +10,30 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
+const listOfUsers = [
+  {
+    firstName: 'Steve',
+    lastName: 'Rogers',
+    email: 'steve2@captainamerica.com',
+    username: 'CaptainAmerica2',
+    hashedPassword: bcrypt.hashSync('password')
+  },
+  {
+    firstName: 'Peter',
+    lastName: 'Parker',
+    email: 'peter1@spiderman.com',
+    username: 'SpiderMan2',
+    hashedPassword: bcrypt.hashSync('password')
+  },
+  {
+    firstName: 'Tony',
+    lastName: 'Starks',
+    email: 'tony1@ironman.com',
+    username: 'IronMan2',
+    hashedPassword: bcrypt.hashSync('password')
+  },
+]
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -22,29 +46,12 @@ module.exports = {
      * }], {});
     */
 
-    await User.bulkCreate([
-      {
-        firstName: 'Demo',
-        lastName: 'User',
-        email: 'demo@user.io',
-        username: 'Demo-lition',
-        hashedPassword: bcrypt.hashSync('password')
-      },
-      {
-        firstName: 'Demo1',
-        lastName: 'User',
-        email: 'user1@user.io',
-        username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password1')
-      },
-      {
-        firstName: 'Demo2',
-        lastName: 'User',
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-    ], { validate: true });
+    try {
+      await User.bulkCreate(listOfUsers, { validate: true })
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
   },
 
   async down(queryInterface, Sequelize) {
@@ -57,8 +64,6 @@ module.exports = {
 
     options.tableName = 'Users';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
-    }, {});
+    return queryInterface.bulkDelete(options, { [Op.or]: listOfUsers }, {});
   }
 };
