@@ -11,24 +11,32 @@ if (process.env.NODE_ENV === 'production') {
 
 const listOfBookings = [
   {
-    userId: 4,
-    spotId: 4,
+    userId: 7,
+    spotId: 5,
     startDate: '2024-01-01',
     endDate: '2024-01-04'
   },
   {
-    userId: 5,
-    spotId: 3,
+    userId: 7,
+    spotId: 6,
     startDate: '2024-02-01',
     endDate: '2024-02-04'
   },
   {
-    userId: 6,
-    spotId: 2,
+    userId: 8,
+    spotId: 6,
     startDate: '2024-03-01',
     endDate: '2024-03-04'
+  },
+  {
+    userId: 9,
+    spotId: 7,
+    startDate: '2024-05-01',
+    endDate: '2024-05-05'
   }
 ]
+
+
 
 module.exports = {
   async up(queryInterface, Sequelize) {

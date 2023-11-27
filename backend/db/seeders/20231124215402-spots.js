@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const listOfSpots = [
   {
-    ownerId: 4,
+    ownerId: 1,
     address: '244 Marvel Ave',
     city: 'Los Angeles',
     state: 'California',
@@ -23,7 +23,7 @@ const listOfSpots = [
     price: 50
   },
   {
-    ownerId: 5,
+    ownerId: 2,
     address: '259 Marvel Ave',
     city: 'Los Angeles',
     state: 'California',
@@ -35,7 +35,7 @@ const listOfSpots = [
     price: 75
   },
   {
-    ownerId: 6,
+    ownerId: 3,
     address: '260 Marvel Ave',
     city: 'Los Angeles',
     state: 'California',

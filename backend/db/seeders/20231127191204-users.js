@@ -14,22 +14,22 @@ const listOfUsers = [
   {
     firstName: 'Steve',
     lastName: 'Rogers',
-    email: 'steve@captainamerica.com',
-    username: 'CaptainAmerica',
+    email: 'steve2@captainamerica.com',
+    username: 'CaptainAmerica2',
     hashedPassword: bcrypt.hashSync('password')
   },
   {
     firstName: 'Peter',
     lastName: 'Parker',
-    email: 'peter@spiderman.com',
-    username: 'SpiderMan',
+    email: 'peter1@spiderman.com',
+    username: 'SpiderMan2',
     hashedPassword: bcrypt.hashSync('password')
   },
   {
     firstName: 'Tony',
     lastName: 'Starks',
-    email: 'tony@ironman.com',
-    username: 'IronMan',
+    email: 'tony1@ironman.com',
+    username: 'IronMan2',
     hashedPassword: bcrypt.hashSync('password')
   },
 ]
