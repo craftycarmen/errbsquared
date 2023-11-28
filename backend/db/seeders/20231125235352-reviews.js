@@ -12,19 +12,19 @@ if (process.env.NODE_ENV === 'production') {
 const listOfReviews = [
   {
     userId: 1,
-    spotId: 14,
+    spotId: 1,
     review: 'This place was awesome!',
     stars: 5
   },
   {
     userId: 2,
-    spotId: 15,
+    spotId: 2,
     review: 'Highly recommend!',
     stars: 5
   },
   {
     userId: 3,
-    spotId: 16,
+    spotId: 3,
     review: 'Very clean',
     stars: 4
   },
