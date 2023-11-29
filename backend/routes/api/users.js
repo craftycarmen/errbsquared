@@ -67,7 +67,7 @@ router.post('/', validateSignup, async (req, res) => {
         let errObj = {}
         errObj[path] = err.message;
 
-        return res.json({
+        return res.status(500).json({
             message: 'User already exists',
             errors: errObj
         });
