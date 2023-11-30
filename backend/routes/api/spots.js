@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     });
 
 
-    return res.json(spotsList)
+    return res.json({ Spots: spotsList })
 })
 
 module.exports = router;
