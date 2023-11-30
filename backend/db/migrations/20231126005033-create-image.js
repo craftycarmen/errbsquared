@@ -20,7 +20,7 @@ module.exports = {
         allowNull: false
       },
       imageableType: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('Spot', 'Review'),
         allowNull: false
       },
       url: {

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       return this[mixinMethodName](options);
     }
 
-    associate(models) {
+    static associate(models) {
       // define association here
 
       Image.belongsTo(models.Spot, {

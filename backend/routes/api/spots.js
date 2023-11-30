@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, Review } = require('../../db/models');
+const { Spot, Review, Image } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -10,8 +10,12 @@ router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
         include: [{
             model: Review
+        },
+        {
+            model: Image
         }]
     })
+
 
     let spotsList = [];
 
@@ -27,9 +31,24 @@ router.get('/', async (req, res) => {
                 spot.avgRating = avgStars;
             }
         });
-
         delete spot.Reviews;
     });
+
+    const images = await Image.findAll({
+        include: [Spot]
+    })
+
+    spotsList.forEach(spot => {
+        images.forEach(image => {
+            console.log("hi", image);
+            if (image.previewImage === true) {
+                spot.previewImage = image.url
+            }
+        });
+
+        delete spot.Images;
+    });
+
 
 
     return res.json({ Spots: spotsList })
