@@ -47,17 +47,10 @@ router.get('/', async (req, res) => {
     return res.json({ Spots: spotsList })
 });
 
-router.get('/current', async (req, res) => {
+router.get('/current', requireAuth, async (req, res) => {
     const { user } = req;
 
     if (user) {
-        const safeUser = {
-            id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            username: user.username
-        };
 
         const spots = await Spot.findAll({
             include: [{
@@ -100,7 +93,7 @@ router.get('/current', async (req, res) => {
         return res.json({
             Spots: spotsList
         });
-    } else return res.json({ user: null })
+    }
 })
 
 module.exports = router;
