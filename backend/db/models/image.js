@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    preview: {
+    previewImage: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },

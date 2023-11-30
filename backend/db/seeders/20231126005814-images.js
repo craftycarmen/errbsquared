@@ -14,25 +14,25 @@ const listOfImages = [
     imageableId: 1,
     imageableType: 'Review',
     url: 'https://thepopinsider.com/wp-content/uploads/sites/6/2018/05/popinsider_marvel_header.jpg',
-    preview: true
+    previewImage: true
   },
   {
     imageableId: 2,
     imageableType: 'Review',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
-    preview: true
+    previewImage: false
   },
   {
     imageableId: 5,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/9/141225_800x.jpg',
-    preview: true
+    previewImage: true
   },
   {
     imageableId: 4,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',
-    preview: true
+    previewImage: true
   },
 ]
 
