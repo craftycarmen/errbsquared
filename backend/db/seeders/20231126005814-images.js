@@ -17,19 +17,25 @@ const listOfImages = [
     previewImage: true
   },
   {
-    imageableId: 2,
+    imageableId: 1,
     imageableType: 'Review',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
     previewImage: false
   },
   {
-    imageableId: 5,
+    imageableId: 1,
+    imageableType: 'Spot',
+    url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
+    previewImage: false
+  },
+  {
+    imageableId: 2,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/9/141225_800x.jpg',
     previewImage: true
   },
   {
-    imageableId: 4,
+    imageableId: 3,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',
     previewImage: true

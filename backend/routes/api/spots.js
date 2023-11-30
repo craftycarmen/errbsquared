@@ -10,18 +10,18 @@ router.get('/', async (req, res) => {
     const spots = await Spot.findAll({
         include: [{
             model: Review
-        },
-        {
-            model: Image
         }]
     })
-
 
     let spotsList = [];
 
     spots.forEach(spot => {
         spotsList.push(spot.toJSON());
     });
+
+    const images = await Image.findAll({
+        include: [Spot]
+    })
 
     spotsList.forEach(spot => {
         spot.Reviews.forEach(review => {
@@ -31,23 +31,28 @@ router.get('/', async (req, res) => {
                 spot.avgRating = avgStars;
             }
         });
-        delete spot.Reviews;
-    });
 
-    const images = await Image.findAll({
-        include: [Spot]
-    })
-
-    spotsList.forEach(spot => {
         images.forEach(image => {
-            console.log("hi", image);
-            if (image.previewImage === true) {
+            if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.previewImage === true) {
                 spot.previewImage = image.url
             }
         });
 
         delete spot.Images;
+        delete spot.Reviews;
     });
+
+
+
+    // spotsList.forEach(spot => {
+    //     images.forEach(image => {
+    //         if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.previewImage === true) {
+    //             spot.previewImage = image.url
+    //         }
+    //     });
+
+    //     delete spot.Images;
+    // });
 
 
 
