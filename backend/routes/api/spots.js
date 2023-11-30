@@ -21,13 +21,11 @@ router.get('/', async (req, res) => {
 
     spotsList.forEach(spot => {
         spot.Reviews.forEach(review => {
-            let stars = review.stars
-            if (stars) {
+            if (review.stars) {
                 let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
                 avgStars = totalStars / spot.Reviews.length
                 spot.avgRating = avgStars;
             }
-
         });
 
         delete spot.Reviews;
