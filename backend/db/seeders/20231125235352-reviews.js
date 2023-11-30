@@ -23,10 +23,22 @@ const listOfReviews = [
     stars: 5
   },
   {
+    userId: 1,
+    spotId: 2,
+    review: 'Good!',
+    stars: 4
+  },
+  {
     userId: 3,
     spotId: 3,
     review: 'Very clean',
     stars: 4
+  },
+  {
+    userId: 1,
+    spotId: 3,
+    review: 'It was aite',
+    stars: 3
   },
 ]
 
