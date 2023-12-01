@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
         spotsList.push(spot.toJSON());
     });
 
-    const images = await Image.findAll({
+    const images = await Image.unscoped().findAll({
         include: [Spot]
     })
 
@@ -105,7 +105,7 @@ router.get('/current', requireAuth, async (req, res) => {
             spotsList.push(spot.toJSON());
         });
 
-        const images = await Image.findAll({
+        const images = await Image.unscoped().findAll({
             include: [Spot]
         })
 
@@ -144,8 +144,7 @@ router.get('/:spotId', async (req, res) => {
                 model: Review
             },
             {
-                model: Image,
-                attributes: ['id', 'url', 'preview']
+                model: Image
             },
             {
                 model: User,
