@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, Review, Image } = require('../../db/models');
+const { Spot, Review, Image, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -106,6 +106,10 @@ router.get('/:spotId', async (req, res) => {
             {
                 model: Image,
                 as: 'SpotImages'
+            },
+            {
+                model: User,
+                as: 'Owner'
             }
         ]
     })
