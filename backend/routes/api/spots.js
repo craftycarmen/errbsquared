@@ -76,7 +76,6 @@ router.get('/', async (req, res) => {
             }
         });
 
-        delete spot.Images;
         delete spot.Reviews;
     });
 
@@ -122,7 +121,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             });
 
-            delete spot.Images;
             delete spot.Reviews;
         });
 
@@ -141,11 +139,10 @@ router.get('/:spotId', async (req, res) => {
             },
             {
                 model: Image,
-                as: 'SpotImages'
+                attributes: ['id', 'url', 'preview']
             },
             {
                 model: User,
-                as: 'Owner',
                 attributes: ['id', 'firstName', 'lastName']
             }
         ]
@@ -179,8 +176,8 @@ router.get('/:spotId', async (req, res) => {
 
         getSpotById.numReviews = numReviews;
         getSpotById.avgStarRating = avgStars;
-        getSpotById.SpotImages = spot.SpotImages;
-        getSpotById.Owner = spot.Owner;
+        getSpotById.SpotImages = spot.Images;
+        getSpotById.Owner = spot.User;
 
         return res.json(getSpotById)
     } else {
