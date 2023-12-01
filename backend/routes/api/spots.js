@@ -94,6 +94,37 @@ router.get('/current', requireAuth, async (req, res) => {
             Spots: spotsList
         });
     }
+});
+
+router.get('/:spotId', async (req, res) => {
+
+    const spot = await Spot.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: Image,
+                // as: 'SpotImages'
+            }
+        ]
+    })
+
+    if (req.params.spotId) {
+        let reviews = spot.Reviews
+        let numReviews = reviews.length
+
+        currSpot = spot.toJSON()
+        currSpot.numReviews = numReviews
+
+        let totalStars = reviews.reduce((sum, review) => (sum + review.stars), 0)
+        avgStars = totalStars / reviews.length
+        currSpot.avgRating = avgStars;
+
+        delete currSpot.Reviews;
+    }
+
+    return res.json(currSpot)
 })
 
 module.exports = router;
