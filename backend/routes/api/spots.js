@@ -109,12 +109,13 @@ router.get('/:spotId', async (req, res) => {
             },
             {
                 model: User,
-                as: 'Owner'
+                as: 'Owner',
+                attributes: ['id', 'firstName', 'lastName']
             }
         ]
     })
 
-    if (req.params.spotId) {
+    if (spot) {
         let reviews = spot.Reviews
         let numReviews = reviews.length
 
@@ -123,12 +124,16 @@ router.get('/:spotId', async (req, res) => {
 
         let totalStars = reviews.reduce((sum, review) => (sum + review.stars), 0)
         avgStars = totalStars / reviews.length
-        currSpot.avgRating = avgStars;
+        currSpot.avgStarRating = avgStars;
 
         delete currSpot.Reviews;
+        return res.json(currSpot)
+    } else {
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
     }
 
-    return res.json(currSpot)
 })
 
 module.exports = router;
