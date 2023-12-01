@@ -7,7 +7,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-const validateCreateSpot = [
+const validateSpot = [
     check('address')
         .exists({ checkFalsy: true })
         .withMessage('Street address is required'),
@@ -192,7 +192,7 @@ router.get('/:spotId', async (req, res) => {
     }
 });
 
-router.post('/', requireAuth, validateCreateSpot, async (req, res) => {
+router.post('/', requireAuth, validateSpot, async (req, res) => {
     try {
         const spot = await Spot.findByPk(req.user.id)
         const ownerId = spot.ownerId
@@ -234,6 +234,19 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
         image.preview = newImage.preview
 
     return res.json(image)
-})
+});
+
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
+    const spotId = req.params.spotId
+    const spot = await Spot.findByPk(spotId)
+
+    if (!spot) res.status(404).json({ message: "Spot couldn't be found" })
+
+    if (req.user.id !== spot.ownerId) {
+        return res.status(403).json({ message: 'Forbidden' })
+    };
+
+
+});
 
 module.exports = router;
