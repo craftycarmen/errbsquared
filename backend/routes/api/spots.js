@@ -105,7 +105,7 @@ router.get('/:spotId', async (req, res) => {
             },
             {
                 model: Image,
-                // as: 'SpotImages'
+                as: 'SpotImages'
             }
         ]
     })
