@@ -133,7 +133,22 @@ router.get('/:spotId', async (req, res) => {
             message: "Spot couldn't be found"
         })
     }
+});
 
+router.post('/', requireAuth, async (req, res) => {
+    try {
+        const owner = await Spot.findByPk(req.user.id)
+        const ownerId = owner.ownerId
+
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+        const newSpot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price })
+
+        return res.status(201).json(newSpot)
+
+    } catch (err) {
+        return res.json(err.message)
+    }
 })
 
 module.exports = router;
