@@ -246,7 +246,11 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         return res.status(403).json({ message: 'Forbidden' })
     };
 
+    spot.set(req.body)
 
+    await spot.save()
+
+    return res.json(spot)
 });
 
 module.exports = router;
