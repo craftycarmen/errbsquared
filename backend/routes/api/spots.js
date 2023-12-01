@@ -152,18 +152,37 @@ router.get('/:spotId', async (req, res) => {
     })
 
     if (spot) {
+        let getSpotById = {}
         let reviews = spot.Reviews
         let numReviews = reviews.length
 
         currSpot = spot.toJSON()
-        currSpot.numReviews = numReviews
 
         let totalStars = reviews.reduce((sum, review) => (sum + review.stars), 0)
         avgStars = totalStars / reviews.length
-        currSpot.avgStarRating = avgStars;
 
-        delete currSpot.Reviews;
-        return res.json(currSpot)
+        getSpotById = {
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+        }
+
+        getSpotById.numReviews = numReviews;
+        getSpotById.avgStarRating = avgStars;
+        getSpotById.SpotImages = spot.SpotImages;
+        getSpotById.Owner = spot.Owner;
+
+        return res.json(getSpotById)
     } else {
         return res.status(404).json({
             message: "Spot couldn't be found"
