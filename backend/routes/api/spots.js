@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
         });
 
         images.forEach(image => {
-            if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.previewImage === true) {
+            if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.preview === true) {
                 spot.previewImage = image.url
             }
         });
@@ -81,7 +81,7 @@ router.get('/current', requireAuth, async (req, res) => {
             });
 
             images.forEach(image => {
-                if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.previewImage === true) {
+                if (image.imageableType === 'Spot' && image.imageableId === spot.id && image.preview === true) {
                     spot.previewImage = image.url
                 }
             });

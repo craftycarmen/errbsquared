@@ -14,31 +14,43 @@ const listOfImages = [
     imageableId: 1,
     imageableType: 'Review',
     url: 'https://thepopinsider.com/wp-content/uploads/sites/6/2018/05/popinsider_marvel_header.jpg',
-    previewImage: true
+    preview: true
   },
   {
     imageableId: 1,
     imageableType: 'Review',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
-    previewImage: false
+    preview: false
   },
   {
     imageableId: 1,
     imageableType: 'Spot',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
-    previewImage: false
+    preview: false
   },
   {
     imageableId: 2,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/9/141225_800x.jpg',
-    previewImage: true
+    preview: true
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://i.pinimg.com/564x/b8/83/d2/b883d2b98b3af44aa77aefeccad4ddc7.jpg',
+    preview: false
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://cdn.shopify.com/s/files/1/0268/8483/3383/files/xl-wall-mural-featuring-avengers-age-of-ultron-1024x1024.jpg?v=1582061926',
+    preview: true
   },
   {
     imageableId: 3,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',
-    previewImage: true
+    preview: true
   },
 ]
 
