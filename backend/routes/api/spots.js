@@ -43,6 +43,17 @@ const validateSpot = [
     handleValidationErrors
 ];
 
+const validateReviews = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+]
+
 router.get('/', async (req, res) => {
 
     const spots = await Spot.findAll({
@@ -246,7 +257,21 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         return res.status(403).json({ message: 'Forbidden' })
     };
 
-    spot.set(req.body);
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    // spot.set(req.body);
+    spot.set({
+        address: address,
+        city: city,
+        state: state,
+        country: country,
+        lat: lat,
+        lng: lng,
+        name: name,
+        description: description,
+        price: price
+
+    })
 
     await spot.save();
 
@@ -292,6 +317,40 @@ router.get('/:spotId/reviews', async (req, res) => {
 
     return res.json({ Reviews: reviews });
 
+});
+
+router.post('/:spotId/reviews', requireAuth, validateReviews, async (req, res) => {
+    try {
+        const spotId = req.params.spotId;
+        const userId = req.user.id;
+        const spot = await Spot.findByPk(spotId);
+
+        if (!spot) res.status(404).json({ message: "Spot couldn't be found" });
+
+        const userReview = await Review.findAll({
+            where: {
+                userId: userId,
+                spotId: spot.id
+            }
+        })
+
+        if (userReview.length === 0) {
+            const { review, stars } = req.body;
+
+            const newReview = await Review.create({
+                userId: userId,
+                spotId: spotId,
+                review: review,
+                stars: stars
+            })
+
+            return res.status(201).json(newReview);
+        } else {
+            return res.status(500).json({ message: 'User already has a review for this spot' })
+        }
+    } catch (err) {
+        return res.json(err.message);
+    }
 })
 
 module.exports = router;
