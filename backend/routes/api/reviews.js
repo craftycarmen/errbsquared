@@ -67,7 +67,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
             imageableId: reviewId,
             imageableType: 'Review'
         }
-    })
+    });
 
     if (images.length <= 10) {
         const newImage = await Image.create({
