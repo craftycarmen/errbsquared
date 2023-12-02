@@ -43,7 +43,7 @@ const validateSpot = [
     handleValidationErrors
 ];
 
-const validateReviews = [
+const validateReview = [
     check('review')
         .exists({ checkFalsy: true })
         .withMessage('Review text is required'),
@@ -52,7 +52,7 @@ const validateReviews = [
         .isInt({ min: 1, max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
-]
+];
 
 router.get('/', async (req, res) => {
 
@@ -270,8 +270,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         name: name,
         description: description,
         price: price
-
-    })
+    });
 
     await spot.save();
 
@@ -319,7 +318,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 });
 
-router.post('/:spotId/reviews', requireAuth, validateReviews, async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
     try {
         const spotId = req.params.spotId;
         const userId = req.user.id;
