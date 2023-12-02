@@ -1,5 +1,5 @@
 const express = require('express');
-const { Spot, Review, Image, User } = require('../../db/models');
+const { Spot, Review, Image, User, Booking } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -297,6 +297,7 @@ router.get('/:spotId/reviews', async (req, res) => {
     const spot = await Spot.findByPk(spotId);
 
     if (!spot) res.status(404).json({ message: "Spot couldn't be found" });
+
     const reviews = await Review.findAll({
         where: {
             spotId: spotId
@@ -350,6 +351,61 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     } catch (err) {
         return res.json(err.message);
     }
-})
+});
+
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) res.status(404).json({ message: "Spot couldn't be found" });
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: spot.id
+        },
+        include: [
+            {
+                model: User
+            }
+        ]
+    })
+
+    let bookingsList = [];
+    let userBookings = {};
+
+    if (userId === spot.ownerId) {
+        bookings.forEach(booking => {
+            bookingsList.push(
+                userBookings = {
+                    User: {
+                        id: booking.User.id,
+                        firstName: booking.User.firstName,
+                        lastName: booking.User.lastName
+                    },
+                    id: booking.id,
+                    spotId: booking.spotId,
+                    userId: booking.userId,
+                    startDate: booking.startDate,
+                    endDate: booking.endDate,
+                    createdAt: booking.createdAt,
+                    updatedAt: booking.updatedAt
+                }
+            )
+            return res.json({ Bookings: bookingsList })
+        })
+    } else {
+        bookings.forEach(booking => {
+            bookingsList.push(
+                userBookings = {
+                    spotId: booking.spotId,
+                    startDate: booking.startDate,
+                    endDate: booking.endDate
+                }
+            )
+        })
+        return res.json({ Bookings: bookingsList })
+    }
+});
 
 module.exports = router;

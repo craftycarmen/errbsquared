@@ -59,6 +59,7 @@ router.get('/current', requireAuth, async (req, res) => {
                     createdAt: booking.createdAt,
                     updatedAt: booking.updatedAt
                 })
+
             images.forEach(image => {
                 if (image.imageableType === 'Spot' && image.imageableId === booking.spotId) {
                     userBookings.Spot.previewImage = image.url

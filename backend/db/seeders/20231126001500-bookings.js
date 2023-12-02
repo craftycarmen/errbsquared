@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 const listOfBookings = [
   {
     userId: 1,
-    spotId: 1,
+    spotId: 2,
     startDate: '2024-01-01',
     endDate: '2024-01-04'
   },
