@@ -15,14 +15,34 @@ module.exports = (sequelize, DataTypes) => {
       Review.hasMany(
         models.Image, {
         foreignKey: 'imageableId',
+        as: 'ReviewImages',
         constraints: false,
         scope: {
           imageableType: 'Review'
         }
       });
+
+      Review.belongsTo(
+        models.User,
+        {
+          foreignKey: 'userId'
+        }
+      );
+
+      Review.belongsTo(
+        models.Spot,
+        {
+          foreignKey: 'spotId'
+        }
+      );
     }
   }
   Review.init({
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false

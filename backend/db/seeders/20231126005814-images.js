@@ -23,6 +23,18 @@ const listOfImages = [
     preview: false
   },
   {
+    imageableId: 2,
+    imageableType: 'Review',
+    url: 'https://projectnursery.com/wp-content/uploads/2017/05/IMG_9314-728x728.jpg',
+    preview: true
+  },
+  {
+    imageableId: 3,
+    imageableType: 'Review',
+    url: 'https://uc.orez.io/i/dd5dcb76e8b64f849121e592cde0c1fd-Large',
+    preview: true
+  },
+  {
     imageableId: 1,
     imageableType: 'Spot',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
