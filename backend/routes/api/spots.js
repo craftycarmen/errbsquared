@@ -54,6 +54,28 @@ const validateReview = [
     handleValidationErrors
 ];
 
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const date = new Date(value);
+            const today = new Date();
+            if (date < today) {
+                throw new Error('startDate cannot be in the past')
+            }
+        }),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const start = new Date(this.startDate)
+            const end = new Date(value);
+            if (end <= start) {
+                throw new Error('endDate cannot be on or before startDate')
+            }
+        }),
+    handleValidationErrors
+];
+
 router.get('/', async (req, res) => {
 
     const spots = await Spot.findAll({
@@ -406,6 +428,87 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         })
         return res.json({ Bookings: bookingsList })
     }
+});
+
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res) => {
+    try {
+        const spotId = req.params.spotId;
+        const userId = req.user.id;
+        const spot = await Spot.findByPk(spotId);
+
+        if (!spot) res.status(404).json({ message: "Spot couldn't be found" });
+
+        if (req.user.id === spot.ownerId) {
+            return res.status(403).json({ message: 'Forbidden' });
+        };
+
+        const allBookings = await Booking.findAll({
+            where: {
+                spotId: spot.id
+            }
+        });
+
+        // let bookedStartDate
+        // let bookedEndDate
+        // let requestedStartDate = new Date(startDate).getTime();
+        // let requestedEndDate = new Date(endDate).getTime();
+
+        // allBookings.forEach(booking => {
+        //     bookedStartDate = new Date(booking.startDate).getTime();
+        //     bookedEndDate = new Date(booking.endDate).getTime();
+
+        //     // if ((requestedStartDate >= bookedStartDate && requestedEndDate <= bookedEndDate) || (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedEndDate)) {
+        //     //     booked = true
+        //     // }
+        // })
+
+        // let errObj = {
+        //     message: "Sorry, this spot is already booked for the specified dates"
+        // }
+        // errObj = err.type;
+
+        // if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate) {
+        //     return res.json(errObj)
+        // }
+
+        // else {
+
+        const startDate = new Date(req.body.startDate).getTime();
+        const endDate = new Date(req.body.endDate).getTime();
+        let bookedStartDate;
+        let bookedEndDate;
+        let errType;
+
+        allBookings.forEach(booking => {
+            bookedStartDate = new Date(booking.startDate).getTime();
+            bookedEndDate = new Date(booking.endDate).getTime();
+        })
+
+        if (startDate >= bookedStartDate && startDate <= bookedEndDate) {
+
+        }
+
+        const newBooking = await Booking.create({
+            userId: userId,
+            spotId: spotId,
+            startDate: startDate,
+            endDate: endDate
+        })
+
+        return res.json(newBooking)
+        // }
+    } catch (err) {
+        console.log(err);
+        let path = err.errors[0].path;
+        let errObj = {}
+        errObj[path] = err.errors[0].message;
+
+        return res.status(400).json({
+            message: 'Bad request',
+            errors: errObj
+        });
+    }
+
 });
 
 module.exports = router;
