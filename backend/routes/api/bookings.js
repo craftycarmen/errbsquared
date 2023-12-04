@@ -7,6 +7,28 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const date = new Date(value);
+            const today = new Date();
+            if (date < today) {
+                throw new Error('startDate cannot be in the past')
+            }
+        }),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const start = new Date(this.startDate)
+            const end = new Date(value);
+            if (end <= start) {
+                throw new Error('endDate cannot be on or before startDate')
+            }
+        }),
+    handleValidationErrors
+];
+
 router.get('/', async (req, res) => {
     return res.json({
         message: 'success'
@@ -71,7 +93,24 @@ router.get('/current', requireAuth, async (req, res) => {
 
         return res.json({ Bookings: bookingsList })
     };
+});
 
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
+    const bookingId = req.params.bookingId;
+    const booking = await Booking.findByPk(bookingId);
+
+    if (!booking) return res.status(404).json({ message: "Booking couldn't be found" });
+
+    if (req.user.id !== booking.userId) return res.status(403).json({ message: 'Forbidden' });
+
+    booking.set({
+        startDate: req.body.startDate,
+        endDate: req.body.endDate
+    });
+
+    await booking.save();
+
+    return res.json(booking);
 })
 
 module.exports = router;
