@@ -95,13 +95,62 @@ router.get('/current', requireAuth, async (req, res) => {
     };
 });
 
-router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
+router.put('/:bookingId', requireAuth, async (req, res) => {
     const bookingId = req.params.bookingId;
     const booking = await Booking.findByPk(bookingId);
 
     if (!booking) return res.status(404).json({ message: "Booking couldn't be found" });
 
     if (req.user.id !== booking.userId) return res.status(403).json({ message: 'Forbidden' });
+
+    let requestedStartDate = new Date(req.body.startDate);
+    let requestedEndDate = new Date(req.body.endDate);
+    let today = new Date();
+
+    const errObj = {};
+
+    if (requestedStartDate < today) {
+        errObj["startDate"] = "startDate cannot be in the past"
+    }
+
+    if (requestedEndDate <= requestedStartDate) {
+        errObj["endDate"] = "endDate cannot come before startDate"
+    }
+
+    if (errObj.startDate || errObj.endDate) {
+        res.status(400).json({
+            message: 'Bad request',
+            errors: errObj
+        });
+    }
+
+    const existingBookings = await Booking.findAll({
+        where: {
+            spotId: booking.spotId
+        }
+    })
+
+    existingBookings.forEach(booking => {
+
+        let bookedStartDate = new Date(booking.startDate);
+        let bookedEndDate = new Date(booking.endDate);
+
+        if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate) {
+            errObj["startDate"] = "Start date conflicts with an existing booking";
+        }
+
+        if (requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) {
+            errObj["endDate"] = "End date conflicts with an existing booking";
+
+        }
+
+        if (errObj.startDate || errObj.endDate) {
+            res.status(403).json({
+                message: 'Sorry, this spot is already booked for the specified dates',
+                errors: errObj
+            });
+        }
+    })
 
     booking.set({
         startDate: req.body.startDate,
@@ -111,6 +160,15 @@ router.put('/:bookingId', requireAuth, validateBooking, async (req, res) => {
     await booking.save();
 
     return res.json(booking);
-})
+});
+
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const bookingId = req.params.bookingId;
+    const booking = await Booking.findByPk(bookingId);
+
+    if (!booking) return res.status(404).json({ message: "Booking couldn't be found" });
+
+    if (req.user.id !== booking.userId) return res.status(403).json({ message: 'Forbidden' });
+});
 
 module.exports = router;
