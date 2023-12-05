@@ -31,8 +31,20 @@ const listOfBookings = [
   {
     userId: 3,
     spotId: 3,
-    startDate: '2024-05-01',
-    endDate: '2024-05-05'
+    startDate: '2023-05-01',
+    endDate: '2023-05-05'
+  },
+  {
+    userId: 3,
+    spotId: 3,
+    startDate: '2023-12-05',
+    endDate: '2023-12-06'
+  },
+  {
+    userId: 3,
+    spotId: 3,
+    startDate: '2023-12-06',
+    endDate: '2023-12-15'
   }
 ]
 
