@@ -17,7 +17,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 37.7645358,
-    lng: -122.4730327,
+    lng: 122.4730327,
     name: 'Avenger House',
     description: 'Completely Marvel-themed',
     price: 50
@@ -29,7 +29,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 38.7645358,
-    lng: -123.4730327,
+    lng: 123.4730327,
     name: 'Captain America House',
     description: 'Completely Captain America-themed',
     price: 75
@@ -41,7 +41,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 39.7645358,
-    lng: -124.4730327,
+    lng: 124.4730327,
     name: 'Spidey House',
     description: 'Completely Spider-Man-themed',
     price: 75
@@ -53,7 +53,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 40.7645358,
-    lng: -130.4730327,
+    lng: 130.4730327,
     name: 'Steve Roger House',
     description: 'All things Stevey!',
     price: 125
@@ -65,7 +65,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 39.7645358,
-    lng: -129.4730327,
+    lng: 129.4730327,
     name: 'Green House',
     description: 'Perfect for Hulk Lovers',
     price: 70
@@ -77,7 +77,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 39.7645358,
-    lng: -124.4730327,
+    lng: 124.4730327,
     name: 'Spidey House',
     description: 'Hope you like spiders',
     price: 1000

@@ -67,39 +67,29 @@ const validateReview = [
 //       "maxPrice": "Maximum price must be greater than or equal to 0"
 //     }
 //   }
-router.get('/', async (req, res) => {
 
+
+router.get('/', async (req, res) => {
     let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-    const where = {};
+    let results = {}
     const errObj = {};
 
     page = +page
     size = +size
     maxLat = +maxLat
+    minLat = +minLat
+    maxLng = +maxLng
+    minLng = +minLng
+    maxPrice = +maxPrice
+    minPrice = +minPrice
 
-    if (page <= 0 || Number.isNaN(page)) {
-        errObj["page"] = "Page must be greater than or equal to 1"
-    } else if (Number.isNaN(page)) {
-        page = 1
-    } else if (page > 10) {
-        page = 10
-    }
-
-    if (size <= 0 || Number.isNaN(size)) {
-        errObj["size"] = "Size must be greater than or equal to 1"
-    } else if (Number.isNaN(size)) {
-        size = 1
-    } else if (size > 20) {
-        size = 20
-    }
+    let pagination = {}
 
     const spots = await Spot.findAll({
         include: [{
             model: Review
         }],
-        where,
-        limit: size,
-        offset: size * (page - 1)
+        ...pagination
     })
 
     let spotsList = [];
@@ -133,17 +123,35 @@ router.get('/', async (req, res) => {
         delete spot.Reviews;
     });
 
-    const filteredResults = [];
+    if (maxLat > 90 || maxLat < minLat) errObj["maxLat"] = "Maximum latitude is invalid"
+    if (minLat < -90 || minLat > maxLat) errObj["minLat"] = "Minimum latitude is invalid"
 
-    spotsList.forEach(spot => {
-        if (maxLat <= 90) {
-            if (spot.lat <= maxLat) {
-                filteredResults.push(spot)
-            }
-        } else {
-            errObj["maxLat"] = "Maximum latitude is invalid"
+    if (maxLng > 180 || maxLng < minLng) errObj["maxLng"] = "Maximum longitude is invalid"
+    if (minLng < -180 || minLng > maxLng) errObj["minLng"] = "Minimum longitude is invalid"
+
+    const filteredList = spotsList.filter(function (spot) {
+
+        if (minLat && maxLat && minLng && maxLat && minPrice && maxPrice) {
+            if ((spot.lat > minLat) && (spot.lat < maxLat) && (spot.lng > minLng) && (spot.lng < maxLng) && (spot.price > minPrice) && (spot.price < maxPrice)) return spot
+
+        } else if (!minLat) {
+            if (spot.lat <= maxLat) return spot
+
+        } else if (!maxLat) {
+            if (spot.lat >= minLat) return spot
+
+        } else if (minLat && maxLat) {
+            if (spot.lat >= minLat && spot.lat <= maxLat) return spot
+
+        } else if (!minLng) {
+            if (spot.lng <= maxLng) return spot
+
+        } else if (!maxLng) {
+            if (spot.lng >= minLng) return spot
+
+        } else if (minLng && maxLng) {
+            if (spot.lng >= minLng && spot.lng <= maxLng) return spot
         }
-
     })
 
     if (Object.keys(errObj).length) {
@@ -153,7 +161,30 @@ router.get('/', async (req, res) => {
         })
     }
 
-    return res.json({ Spots: filteredResults, page, size });
+    if (filteredList.length > 0) {
+        results.Spots = filteredList
+    } else {
+        results.Spots = spotsList
+    }
+
+    if (page || size) {
+        if (page <= 0 || Number.isNaN(page)) errObj["page"] = "Page must be greater than or equal to 1"
+
+        if (size <= 0 || Number.isNaN(size)) errObj["size"] = "Size must be greater than or equal to 1"
+
+        if (page >= 1 && size >= 1) {
+            pagination.limit = size;
+            pagination.offset = size * (page - 1)
+        }
+
+        if (size > 20) size = 20
+        if (page > 10) page = 10
+
+        if (page) results.page = page;
+        if (size) results.size = size;
+    }
+
+    return res.json(results);
 });
 
 router.get('/current', requireAuth, async (req, res) => {
