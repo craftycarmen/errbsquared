@@ -35,6 +35,12 @@ const listOfImages = [
     preview: true
   },
   {
+    imageableId: 4,
+    imageableType: 'Review',
+    url: 'https://cdn.homecrux.com/wp-content/uploads/2015/05/Avengers-themed-Apartment_4.jpg',
+    preview: true
+  },
+  {
     imageableId: 1,
     imageableType: 'Spot',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
