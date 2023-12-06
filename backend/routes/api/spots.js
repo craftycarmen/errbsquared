@@ -134,19 +134,19 @@ router.get('/', async (req, res) => {
         if (minLat && maxLat && minLng && maxLat && minPrice && maxPrice) {
             if ((spot.lat > minLat) && (spot.lat < maxLat) && (spot.lng > minLng) && (spot.lng < maxLng) && (spot.price > minPrice) && (spot.price < maxPrice)) return spot
 
-        } else if (!minLat) {
+        } if (maxLat) {
             if (spot.lat <= maxLat) return spot
 
-        } else if (!maxLat) {
+        } else if (minLat) {
             if (spot.lat >= minLat) return spot
 
         } else if (minLat && maxLat) {
             if (spot.lat >= minLat && spot.lat <= maxLat) return spot
 
-        } else if (!minLng) {
+        } else if (maxLng) {
             if (spot.lng <= maxLng) return spot
 
-        } else if (!maxLng) {
+        } else if (minLng) {
             if (spot.lng >= minLng) return spot
 
         } else if (minLng && maxLng) {
