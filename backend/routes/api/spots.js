@@ -55,10 +55,23 @@ const validateReview = [
 
 router.get('/', async (req, res) => {
 
+    let { page, size } = req.query;
+
+    page = parseInt(page)
+    size = +size
+
+    if (Number.isNaN(page) || page <= 0) page = 1
+    if (Number.isNaN(size) || size <= 0) size = 20
+
+    if (page > 10) page = 10
+    if (size > 20) size = 20
+
     const spots = await Spot.findAll({
         include: [{
             model: Review
-        }]
+        }],
+        limit: size,
+        offset: size * (page - 1)
     })
 
     let spotsList = [];
@@ -92,7 +105,7 @@ router.get('/', async (req, res) => {
         delete spot.Reviews;
     });
 
-    return res.json({ Spots: spotsList });
+    return res.json({ Spots: spotsList, page, size });
 });
 
 router.get('/current', requireAuth, async (req, res) => {

@@ -46,6 +46,42 @@ const listOfSpots = [
     description: 'Completely Spider-Man-themed',
     price: 75
   },
+  {
+    ownerId: 3,
+    address: '260 Captain America Ave',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'US',
+    lat: 40.7645358,
+    lng: -130.4730327,
+    name: 'Steve Roger House',
+    description: 'All things Stevey!',
+    price: 125
+  },
+  {
+    ownerId: 2,
+    address: '260 Hulk Ave',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'US',
+    lat: 39.7645358,
+    lng: -129.4730327,
+    name: 'Green House',
+    description: 'Perfect for Hulk Lovers',
+    price: 70
+  },
+  {
+    ownerId: 2,
+    address: '260 Black Widow Ave',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'US',
+    lat: 39.7645358,
+    lng: -124.4730327,
+    name: 'Spidey House',
+    description: 'Hope you like spiders',
+    price: 1000
+  },
 ]
 
 module.exports = {
