@@ -136,14 +136,39 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         let bookedEndDate = new Date(booking.endDate);
 
         if (booking.id !== bookingId) {
-            if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate && requestedEndDate >= bookedStartDate) {
+
+            if (requestedStartDate.getTime() === bookedStartDate.getTime() ||
+                requestedStartDate.getTime() === bookedEndDate.getTime() ||
+                (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate)
+            ) {
                 errObj["startDate"] = "Start date conflicts with an existing booking";
             }
 
-            if ((requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
+            if (requestedEndDate.getTime() === bookedStartDate.getTime() ||
+                requestedEndDate.getTime() === bookedEndDate.getTime() ||
+                (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) ||
+                (requestedStartDate >= bookedEndDate && requestedEndDate <= bookedEndDate)
+            ) {
                 errObj["endDate"] = "End date conflicts with an existing booking";
-
             }
+
+            if ((requestedStartDate < bookedStartDate && requestedEndDate > bookedEndDate) || (requestedStartDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
+                errObj["startDate"] = "Start date conflicts with an existing booking";
+                errObj["endDate"] = "End date conflicts with an existing booking";
+            }
+
+            // if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate && requestedEndDate >= bookedStartDate
+            // ) {
+            //     errObj["startDate"] = "Start date conflicts with an existing booking";
+            // }
+
+            // if (
+            //     (requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) ||
+            //     (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate) ||
+            //     (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
+            //     errObj["endDate"] = "End date conflicts with an existing booking";
+
+            // }
 
             if (errObj.startDate || errObj.endDate) {
                 res.status(403).json({

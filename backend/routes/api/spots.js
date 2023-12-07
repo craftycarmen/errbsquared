@@ -39,7 +39,10 @@ const validateSpot = [
         .withMessage('Description is required'),
     check('price')
         .exists({ checkFalsy: true })
-        .withMessage('Price per day is required'),
+        .notEmpty()
+        .withMessage('Price per day is required')
+        .isFloat({ min: 0 })
+        .withMessage('Price per day must be more than $0'),
     handleValidationErrors
 ];
 
@@ -158,7 +161,9 @@ router.get('/', async (req, res) => {
     })
 
     spotsList.forEach(spot => {
+        spot.avgRating = 'No reviews found'
         spot.Reviews.forEach(review => {
+
             if (review.stars) {
                 let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
                 avgStars = totalStars / spot.Reviews.length
@@ -234,7 +239,9 @@ router.get('/current', requireAuth, async (req, res) => {
             include: [Spot]
         })
 
+
         spotsList.forEach(spot => {
+            spot.avgRating = 'No reviews found'
             spot.Reviews.forEach(review => {
                 if (review.stars) {
                     let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
@@ -286,7 +293,12 @@ router.get('/:spotId', async (req, res) => {
         currSpot = spot.toJSON();
 
         let totalStars = reviews.reduce((sum, review) => (sum + review.stars), 0);
-        avgStars = totalStars / reviews.length;
+
+        if (totalStars) {
+            avgStars = totalStars / reviews.length;
+        } else {
+            avgStars = "No reviews found"
+        }
 
         getSpotById = {
             id: spot.id,
@@ -320,12 +332,12 @@ router.get('/:spotId', async (req, res) => {
 router.post('/', requireAuth, validateSpot, async (req, res) => {
     try {
         const spot = await Spot.findByPk(req.user.id)
-        const ownerId = spot.ownerId
+        // const ownerId = spot.ownerId
 
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
         const newSpot = await Spot.create({
-            ownerId: ownerId,
+            ownerId: req.user.id,
             address: address,
             city: city,
             state: state,
@@ -576,14 +588,37 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         let bookedStartDate = new Date(booking.startDate);
         let bookedEndDate = new Date(booking.endDate);
 
-        if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate && requestedEndDate >= bookedStartDate) {
+
+        if (requestedStartDate.getTime() === bookedStartDate.getTime() ||
+            requestedStartDate.getTime() === bookedEndDate.getTime() ||
+            (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate)
+        ) {
             errObj["startDate"] = "Start date conflicts with an existing booking";
         }
 
-        if ((requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
+        if (requestedEndDate.getTime() === bookedStartDate.getTime() ||
+            requestedEndDate.getTime() === bookedEndDate.getTime() ||
+            (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) ||
+            (requestedStartDate >= bookedEndDate && requestedEndDate <= bookedEndDate)
+        ) {
             errObj["endDate"] = "End date conflicts with an existing booking";
-
         }
+
+        if ((requestedStartDate < bookedStartDate && requestedEndDate > bookedEndDate) || (requestedStartDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
+            errObj["startDate"] = "Start date conflicts with an existing booking";
+            errObj["endDate"] = "End date conflicts with an existing booking";
+        }
+
+        // if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate && requestedEndDate >= bookedStartDate
+        // ) {
+        //     errObj["startDate"] = "Start date conflicts with an existing booking";
+        // }
+
+        // if ((requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) ||
+        //     (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate)) {
+        //     errObj["endDate"] = "End date conflicts with an existing booking";
+
+        // }
 
         if (errObj.startDate || errObj.endDate) {
             res.status(403).json({
