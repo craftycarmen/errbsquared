@@ -129,30 +129,48 @@ router.get('/', async (req, res) => {
     if (maxLng > 180 || maxLng < minLng) errObj["maxLng"] = "Maximum longitude is invalid"
     if (minLng < -180 || minLng > maxLng) errObj["minLng"] = "Minimum longitude is invalid"
 
-    const filteredList = spotsList.filter(function (spot) {
+    const filteredList = [];
 
-        if (minLat && maxLat && minLng && maxLat && minPrice && maxPrice) {
-            if ((spot.lat > minLat) && (spot.lat < maxLat) && (spot.lng > minLng) && (spot.lng < maxLng) && (spot.price > minPrice) && (spot.price < maxPrice)) return spot
+    spotsList.forEach(spot => {
 
-        } if (maxLat) {
-            if (spot.lat <= maxLat) return spot
+        if (minLat && maxLat && minLng && maxLng && minPrice && maxPrice) {
+            if ((spot.lat > minLat) && (spot.lat < maxLat) && (spot.lng > minLng) && (spot.lng < maxLng) && (spot.price > minPrice) && (spot.price < maxPrice)) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
 
-        } else if (minLat) {
-            if (spot.lat >= minLat) return spot
+        } else if (!minLat) {
+            if (spot.lat <= maxLat) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
+
+        } else if (!maxLat) {
+            if (spot.lat >= minLat) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
 
         } else if (minLat && maxLat) {
-            if (spot.lat >= minLat && spot.lat <= maxLat) return spot
+            if (spot.lat >= minLat && spot.lat <= maxLat) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
 
-        } else if (maxLng) {
-            if (spot.lng <= maxLng) return spot
+        } else if (!minLng) {
+            if (spot.lng <= maxLng) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
 
-        } else if (minLng) {
-            if (spot.lng >= minLng) return spot
+        } else if (!maxLng) {
+            if (spot.lng >= minLng) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
 
         } else if (minLng && maxLng) {
-            if (spot.lng >= minLng && spot.lng <= maxLng) return spot
+            if (spot.lng >= minLng && spot.lng <= maxLng) {
+                if (!filteredList.includes(spot)) filteredList.push(spot)
+            }
+
         }
     })
+
 
     if (Object.keys(errObj).length) {
         return res.status(400).json({
