@@ -70,8 +70,9 @@ const validateReview = [
 
 
 router.get('/', async (req, res) => {
-    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query;
-    let results = {}
+    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
+
+    const results = {}
     const errObj = {};
 
     page = +page
@@ -83,12 +84,82 @@ router.get('/', async (req, res) => {
     maxPrice = +maxPrice
     minPrice = +minPrice
 
-    let pagination = {}
+    const pagination = {}
+    if (page || size) {
+        if (page <= 0 || Number.isNaN(page)) errObj["page"] = "Page must be greater than or equal to 1"
+
+        if (size <= 0 || Number.isNaN(size)) errObj["size"] = "Size must be greater than or equal to 1"
+
+        if (page >= 1 && size >= 1) {
+            pagination.limit = size;
+            pagination.offset = size * (page - 1)
+        }
+
+        if (size > 20) size = 20
+        if (page > 10) page = 10
+    }
+
+    const where = {};
+    if (minLat && maxLat) {
+        where.lat = {
+            [Op.between]: [minLat, maxLat]
+        }
+    }
+
+    if (minLat && !maxLat) {
+        where.lat = {
+            [Op.gte]: [minLat]
+        }
+    }
+
+    if (maxLat && !minLat) {
+        where.lat = {
+            [Op.lte]: [maxLat]
+        }
+        console.log(where);
+    }
+
+    if (minLng && maxLng) {
+        where.lng = {
+            [Op.between]: [minLng, maxLng]
+        }
+    }
+
+    if (minLng && !maxLng) {
+        where.lng = {
+            [Op.gte]: [minLng]
+        }
+    };
+
+    if (maxLng && !minLng) {
+        where.lng = {
+            [Op.lte]: [maxLng]
+        }
+    };
+
+    if (minPrice && maxPrice) {
+        where.price = {
+            [Op.between]: [minPrice, maxPrice]
+        }
+    }
+
+    if (minPrice && !maxPrice) {
+        where.price = {
+            [Op.gte]: [minPrice]
+        }
+    };
+
+    if (maxPrice && !minPrice) {
+        where.price = {
+            [Op.lte]: [maxPrice]
+        }
+    };
 
     const spots = await Spot.findAll({
         include: [{
             model: Review
         }],
+        where,
         ...pagination
     })
 
@@ -123,54 +194,20 @@ router.get('/', async (req, res) => {
         delete spot.Reviews;
     });
 
-    if (maxLat > 90 || maxLat < minLat) errObj["maxLat"] = "Maximum latitude is invalid"
-    if (minLat < -90 || minLat > maxLat) errObj["minLat"] = "Minimum latitude is invalid"
+    if (maxLat > 90) errObj["maxLat"] = "Maximum latitude is invalid"
+    if (minLat < -90) errObj["minLat"] = "Minimum latitude is invalid"
+    if (maxLat < minLat) errObj["maxLat"] = "Maximum latitude cannot be less than minimum latitude"
+    if (minLat > maxLat) errObj["minLat"] = "Minimum latitude cannot be greater than maximum latitude"
 
     if (maxLng > 180 || maxLng < minLng) errObj["maxLng"] = "Maximum longitude is invalid"
     if (minLng < -180 || minLng > maxLng) errObj["minLng"] = "Minimum longitude is invalid"
+    if (maxLng < minLng) errObj["maxLng"] = "Maximum longitude cannot be less than minimum longitude"
+    if (minLng > maxLng) errObj["minLng"] = "Minimum longitude cannot be greater than maximum longitude"
 
-    const filteredList = [];
-
-    spotsList.forEach(spot => {
-
-        if (minLat && maxLat && minLng && maxLng && minPrice && maxPrice) {
-            if ((spot.lat > minLat) && (spot.lat < maxLat) && (spot.lng > minLng) && (spot.lng < maxLng) && (spot.price > minPrice) && (spot.price < maxPrice)) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (!minLat) {
-            if (spot.lat <= maxLat) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (!maxLat) {
-            if (spot.lat >= minLat) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (minLat && maxLat) {
-            if (spot.lat >= minLat && spot.lat <= maxLat) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (!minLng) {
-            if (spot.lng <= maxLng) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (!maxLng) {
-            if (spot.lng >= minLng) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        } else if (minLng && maxLng) {
-            if (spot.lng >= minLng && spot.lng <= maxLng) {
-                if (!filteredList.includes(spot)) filteredList.push(spot)
-            }
-
-        }
-    })
-
+    if (maxPrice < 0) errObj["maxPrice"] = "Maximum price must be greater than or equal to 0"
+    if (minPrice < 0) errObj["minPrice"] = "Minimum price must be greater than or equal to 0"
+    if (minPrice > maxPrice) errObj["minPrice"] = "Minimum price cannot be greater than maximum price"
+    if (maxPrice < minPrice) errObj["maxPrice"] = "Maximum price cannot be less than minimum price"
 
     if (Object.keys(errObj).length) {
         return res.status(400).json({
@@ -179,28 +216,12 @@ router.get('/', async (req, res) => {
         })
     }
 
-    if (filteredList.length > 0) {
-        results.Spots = filteredList
-    } else {
-        results.Spots = spotsList
-    }
+    if (spotsList.length === 0) return res.status(400).json({ message: "No spots found" });
 
-    if (page || size) {
-        if (page <= 0 || Number.isNaN(page)) errObj["page"] = "Page must be greater than or equal to 1"
+    results.Spots = spotsList
+    if (page) results.page = page;
+    if (size) results.size = size;
 
-        if (size <= 0 || Number.isNaN(size)) errObj["size"] = "Size must be greater than or equal to 1"
-
-        if (page >= 1 && size >= 1) {
-            pagination.limit = size;
-            pagination.offset = size * (page - 1)
-        }
-
-        if (size > 20) size = 20
-        if (page > 10) page = 10
-
-        if (page) results.page = page;
-        if (size) results.size = size;
-    }
 
     return res.json(results);
 });

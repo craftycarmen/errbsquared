@@ -82,6 +82,30 @@ const listOfSpots = [
     description: 'Hope you like spiders',
     price: 1000
   },
+  {
+    ownerId: 1,
+    address: '25950 Marvel Ave',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'US',
+    lat: 37,
+    lng: 124.4730327,
+    name: 'Scarlet Witch',
+    description: 'Red!',
+    price: 800
+  },
+  {
+    ownerId: 1,
+    address: '234 Black Panther Ave',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'US',
+    lat: 36,
+    lng: 120,
+    name: 'Wakanda Forever',
+    description: 'For Black Panther Lovers',
+    price: 800
+  },
 ]
 
 module.exports = {
