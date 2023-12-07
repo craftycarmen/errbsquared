@@ -165,7 +165,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 });
 
 router.delete('/:bookingId', requireAuth, async (req, res) => {
-    const bookingId = req.params.bookingId;
+    const bookingId = Number(req.params.bookingId);
     const booking = await Booking.findByPk(bookingId);
 
     if (!booking) return res.status(404).json({ message: "Booking couldn't be found" });
