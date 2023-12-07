@@ -101,7 +101,6 @@ router.get('/', async (req, res) => {
         where.lat = {
             [Op.lte]: [maxLat]
         }
-        console.log(where);
     }
 
     if (minLng && maxLng) {
@@ -296,11 +295,11 @@ router.get('/:spotId', async (req, res) => {
             city: spot.city,
             state: spot.state,
             country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
+            lat: Number.parseFloat(spot.lat),
+            lng: Number.parseFloat(spot.lng),
             name: spot.name,
             description: spot.description,
-            price: spot.price,
+            price: Number.parseFloat(spot.price),
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
         }
@@ -325,7 +324,18 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-        const newSpot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price })
+        const newSpot = await Spot.create({
+            ownerId: ownerId,
+            address: address,
+            city: city,
+            state: state,
+            country: country,
+            lat: Number.parseFloat(lat),
+            lng: Number.parseFloat(lng),
+            name: name,
+            description: description,
+            price: Number.parseFloat(price)
+        })
 
         return res.status(201).json(newSpot);
 
@@ -380,11 +390,11 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
         city: city,
         state: state,
         country: country,
-        lat: lat,
-        lng: lng,
+        lat: Number.parseFloat(lat),
+        lng: Number.parseFloat(lng),
         name: name,
         description: description,
-        price: price
+        price: Number.parseFloat(price)
     });
 
     await spot.save();
