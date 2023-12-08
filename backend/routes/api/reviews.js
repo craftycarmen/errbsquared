@@ -42,16 +42,31 @@ router.get('/current', requireAuth, async (req, res) => {
                     as: 'ReviewImages',
                     attributes: ['id', 'url']
                 }
-            ],
-
+            ]
         })
+
+        let reviewsList = [];
+
+        reviews.forEach(review => {
+            reviewsList.push(review.toJSON());
+        });
+
+        reviewsList.forEach(review => {
+            review.Spot.lat = Number.parseFloat(review.Spot.lat);
+            review.Spot.lng = Number.parseFloat(review.Spot.lng);
+            review.Spot.price = Number.parseFloat(review.Spot.price);
+
+            if (review.ReviewImages.length === 0)
+                review.ReviewImages = "No review images found"
+        })
+
 
         if (reviews.length === 0) {
             return res.json({ Reviews: "No reviews found" })
         } else {
-            return res.json({ Reviews: reviews });
+            return res.json({ Reviews: reviewsList });
         }
-    };
+    }
 });
 
 router.post('/:reviewId/images', requireAuth, async (req, res) => {

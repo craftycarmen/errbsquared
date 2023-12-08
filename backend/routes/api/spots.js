@@ -161,7 +161,12 @@ router.get('/', async (req, res) => {
     })
 
     spotsList.forEach(spot => {
-        spot.avgRating = 'No reviews found'
+
+        spot.lat = Number.parseFloat(spot.lat);
+        spot.lng = Number.parseFloat(spot.lng);
+        spot.price = Number.parseFloat(spot.price);
+        spot.avgRating = 'No reviews found';
+
         spot.Reviews.forEach(review => {
 
             if (review.stars) {
@@ -229,6 +234,7 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         })
 
+
         let spotsList = [];
 
         spots.forEach(spot => {
@@ -241,7 +247,12 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
         spotsList.forEach(spot => {
+
+            spot.lat = Number.parseFloat(spot.lat);
+            spot.lng = Number.parseFloat(spot.lng);
+            spot.price = Number.parseFloat(spot.price);
             spot.avgRating = 'No reviews found'
+
             spot.Reviews.forEach(review => {
                 if (review.stars) {
                     let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
@@ -340,12 +351,9 @@ router.get('/:spotId', async (req, res) => {
 
 router.post('/', requireAuth, validateSpot, async (req, res) => {
     try {
-        const spot = await Spot.findByPk(req.user.id)
-        // const ownerId = spot.ownerId
-
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-        const newSpot = await Spot.create({
+        const spot = await Spot.create({
             ownerId: req.user.id,
             address: address,
             city: city,
@@ -356,7 +364,24 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
             name: name,
             description: description,
             price: Number.parseFloat(price)
-        })
+        });
+
+        const newSpot = {
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: Number.parseFloat(spot.lat),
+            lng: Number.parseFloat(spot.lng),
+            name: spot.name,
+            description: spot.description,
+            price: Number.parseFloat(spot.price),
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt
+        }
+
 
         return res.status(201).json(newSpot);
 
