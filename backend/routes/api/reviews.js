@@ -46,12 +46,16 @@ router.get('/current', requireAuth, async (req, res) => {
 
         })
 
-        return res.json(reviews);
+        if (reviews.length === 0) {
+            return res.json({ Reviews: "No reviews found" })
+        } else {
+            return res.json({ Reviews: reviews });
+        }
     };
 });
 
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = Number(req.params.reviewId);
     const review = await Review.findByPk(reviewId);
 
     if (!review) res.status(404).json({ message: "Review couldn't be found" });
@@ -69,7 +73,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         }
     });
 
-    if (images.length <= 10) {
+    if (images.length < 10) {
         const newImage = await Image.create({
             imageableId: reviewId,
             imageableType: 'Review',
@@ -88,7 +92,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 });
 
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = Number(req.params.reviewId);
     const review = await Review.findByPk(reviewId);
 
     if (!review) res.status(404).json({ message: "Review couldn't be found" });
@@ -108,7 +112,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
 });
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
-    const reviewId = req.params.reviewId;
+    const reviewId = Number(req.params.reviewId);
     const review = await Review.findByPk(reviewId);
 
     if (!review) res.status(404).json({ message: "Review couldn't be found" });
