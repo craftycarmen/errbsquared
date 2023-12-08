@@ -7,27 +7,27 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-const validateBooking = [
-    check('startDate')
-        .exists({ checkFalsy: true })
-        .custom(async (value, { req }) => {
-            const date = new Date(value);
-            const today = new Date();
-            if (date < today) {
-                throw new Error('startDate cannot be in the past')
-            }
-        }),
-    check('endDate')
-        .exists({ checkFalsy: true })
-        .custom(async (value, { req }) => {
-            const start = new Date(this.startDate)
-            const end = new Date(value);
-            if (end <= start) {
-                throw new Error('endDate cannot be on or before startDate')
-            }
-        }),
-    handleValidationErrors
-];
+// const validateBooking = [
+//     check('startDate')
+//         .exists({ checkFalsy: true })
+//         .custom(async (value, { req }) => {
+//             const date = new Date(value);
+//             const today = new Date();
+//             if (date < today) {
+//                 throw new Error('startDate cannot be in the past')
+//             }
+//         }),
+//     check('endDate')
+//         .exists({ checkFalsy: true })
+//         .custom(async (value, { req }) => {
+//             const start = new Date(this.startDate)
+//             const end = new Date(value);
+//             if (end <= start) {
+//                 throw new Error('endDate cannot be on or before startDate')
+//             }
+//         }),
+//     handleValidationErrors
+// ];
 
 router.get('/', async (req, res) => {
     return res.json({
