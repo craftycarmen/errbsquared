@@ -157,36 +157,27 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
                 errObj["endDate"] = "End date conflicts with an existing booking";
             }
 
-            // if (requestedStartDate >= bookedStartDate && requestedStartDate <= bookedEndDate && requestedEndDate >= bookedStartDate
-            // ) {
-            //     errObj["startDate"] = "Start date conflicts with an existing booking";
-            // }
-
-            // if (
-            //     (requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate) ||
-            //     (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate) ||
-            //     (requestedStartDate <= bookedStartDate && requestedEndDate >= bookedStartDate && requestedEndDate <= bookedEndDate)) {
-            //     errObj["endDate"] = "End date conflicts with an existing booking";
-
-            // }
-
-            if (errObj.startDate || errObj.endDate) {
+            if (Object.keys(errObj).length > 0) {
                 res.status(403).json({
                     message: 'Sorry, this spot is already booked for the specified dates',
                     errors: errObj
                 });
             }
+
         }
     })
 
-    booking.set({
-        startDate: req.body.startDate,
-        endDate: req.body.endDate
-    });
+    if (Object.keys(errObj).length === 0) {
+        booking.set({
+            startDate: req.body.startDate,
+            endDate: req.body.endDate
+        });
 
-    await booking.save();
+        await booking.save();
+    }
 
     return res.json(booking);
+
 });
 
 router.delete('/:bookingId', requireAuth, async (req, res) => {
@@ -195,7 +186,9 @@ router.delete('/:bookingId', requireAuth, async (req, res) => {
 
     if (!booking) return res.status(404).json({ message: "Booking couldn't be found" });
 
-    if (req.user.id !== booking.userId) return res.status(403).json({ message: 'Forbidden' });
+    const spot = await Spot.findByPk(booking.spotId);
+
+    if (req.user.id !== booking.userId && req.user.id !== spot.ownerId) return res.status(403).json({ message: 'Forbidden' });
 
     let bookedStartDate = new Date(booking.startDate);
     let today = new Date();

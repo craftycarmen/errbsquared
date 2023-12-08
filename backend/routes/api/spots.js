@@ -195,8 +195,8 @@ router.get('/', async (req, res) => {
 
     if (maxPrice < 0) errObj["maxPrice"] = "Maximum price must be greater than or equal to 0"
     if (minPrice < 0) errObj["minPrice"] = "Minimum price must be greater than or equal to 0"
-    if (minPrice > maxPrice) errObj["minPrice"] = "Minimum price cannot be greater than maximum price"
-    if (maxPrice < minPrice) errObj["maxPrice"] = "Maximum price cannot be less than minimum price"
+    if (minPrice > 0 && minPrice > maxPrice) errObj["minPrice"] = "Minimum price cannot be greater than maximum price"
+    if (maxPrice > 0 && maxPrice < minPrice) errObj["maxPrice"] = "Maximum price cannot be less than minimum price"
 
     if (Object.keys(errObj).length) {
         return res.status(400).json({
@@ -262,9 +262,12 @@ router.get('/current', requireAuth, async (req, res) => {
             delete spot.Reviews;
         });
 
-        return res.json({
-            Spots: spotsList
-        });
+        if (spotsList.length === 0) {
+            return res.json({ Spots: "No spots found" })
+        } else {
+            return res.json({ Spots: spotsList });
+        }
+
     }
 });
 
@@ -318,7 +321,13 @@ router.get('/:spotId', async (req, res) => {
 
         getSpotById.numReviews = numReviews;
         getSpotById.avgStarRating = avgStars;
-        getSpotById.SpotImages = spot.Images;
+
+        if (spot.Images.length === 0) {
+            getSpotById.SpotImages = "No spot images found"
+        } else {
+            getSpotById.SpotImages = spot.Images;
+        }
+
         getSpotById.Owner = spot.User;
 
         return res.json(getSpotById);
@@ -452,7 +461,11 @@ router.get('/:spotId/reviews', async (req, res) => {
         ]
     });
 
-    return res.json({ Reviews: reviews });
+    if (reviews.length === 0) {
+        return res.json({ Reviews: "No reviews found" })
+    } else {
+        return res.json({ Reviews: reviews });
+    }
 
 });
 
@@ -529,7 +542,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
                     updatedAt: booking.updatedAt
                 }
             )
-            return res.json({ Bookings: bookingsList })
         })
     } else {
         bookings.forEach(booking => {
@@ -541,8 +553,9 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
                 }
             )
         })
-        return res.json({ Bookings: bookingsList })
     }
+
+    return res.json({ Bookings: bookingsList })
 });
 
 router.post('/:spotId/bookings', requireAuth, async (req, res) => {

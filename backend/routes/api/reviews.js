@@ -46,7 +46,11 @@ router.get('/current', requireAuth, async (req, res) => {
 
         })
 
-        return res.json({ Reviews: reviews });
+        if (reviews.length === 0) {
+            return res.json({ Reviews: "No reviews found" })
+        } else {
+            return res.json({ Reviews: reviews });
+        }
     };
 });
 

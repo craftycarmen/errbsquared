@@ -17,7 +17,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 37.7645358,
-    lng: 122.4730327,
+    lng: 30.50055,
     name: 'Avenger House',
     description: 'Completely Marvel-themed',
     price: 50
@@ -41,7 +41,7 @@ const listOfSpots = [
     state: 'California',
     country: 'US',
     lat: 39.7645358,
-    lng: 124.4730327,
+    lng: 34.500880,
     name: 'Spidey House',
     description: 'Completely Spider-Man-themed',
     price: 75
