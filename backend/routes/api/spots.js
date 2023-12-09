@@ -42,7 +42,7 @@ const validateSpot = [
         .notEmpty()
         .withMessage('Price per day is required')
         .isFloat({ min: 0 })
-        .withMessage('Price per day must be more than $0'),
+        .withMessage('Price per day must be greater than 0'),
     handleValidationErrors
 ];
 
@@ -57,27 +57,91 @@ const validateReview = [
     handleValidationErrors
 ];
 
-router.get('/', async (req, res) => {
-    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
-
+const validateQuery = [
+    check('page')
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1')
+        .optional(),
+    check('size')
+        .isInt({ min: 1 })
+        .withMessage('Size must be greater than or equal to 1')
+        .optional(),
+    check('minLat')
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('Minimum latitude is invalid')
+        .bail()
+        .custom(async (min, { req }) => {
+            const max = req.query.maxLat;
+            if (Number.parseFloat(min) > Number.parseFloat(max)) {
+                throw new Error('Minimum latitude cannot be greater than maximum latitude')
+            }
+        })
+        .optional(),
+    check('maxLat')
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('Maximum latitude is invalid')
+        .bail()
+        .custom(async (max, { req }) => {
+            const min = req.query.minLat;
+            if (Number.parseFloat(max) < Number.parseFloat(min)) {
+                throw new Error('Maximum latitude cannot be less than minimum latitude')
+            }
+        })
+        .optional(),
+    check('minLng')
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('Minimum longitude is invalid')
+        .bail()
+        .custom(async (min, { req }) => {
+            const max = req.query.maxLng;
+            if (Number.parseFloat(min) > Number.parseFloat(max)) {
+                throw new Error('Minimum longitude cannot be greater than maximum longitude')
+            }
+        })
+        .optional(),
+    check('maxLng')
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('Maximum longitude is invalid')
+        .bail()
+        .custom(async (max, { req }) => {
+            const min = req.query.minLng;
+            if (Number.parseFloat(max) < Number.parseFloat(min)) {
+                throw new Error('Maximum longitude cannot be less than minimum longitude')
+            }
+        })
+        .optional(),
+    check('minPrice')
+        .isFloat({ min: 0 })
+        .withMessage('Minimum price must be greater than or equal to 0')
+        .bail()
+        .custom(async (min, { req }) => {
+            const max = req.query.maxPrice;
+            if (Number.parseFloat(min) > Number.parseFloat(max)) {
+                throw new Error('Minimum price cannot be greater than maximum price')
+            }
+        })
+        .optional(),
+    check('maxPrice')
+        .isFloat({ min: 0 })
+        .withMessage('Maximum price must be greater than or equal to 0')
+        .bail()
+        .custom(async (max, { req }) => {
+            const min = req.query.minPrice;
+            if (Number.parseFloat(max) < Number.parseFloat(min)) {
+                throw new Error('Maximum price cannot be less than minimum price')
+            }
+        })
+        .optional(),
+    handleValidationErrors
+]
+router.get('/', validateQuery, async (req, res) => {
+    let { page, size, maxLat, minLat, minLng, maxLng } = req.query
+    let minPrice = req.query.minPrice
+    let maxPrice = req.query.maxPrice
     const results = {}
-    const errObj = {};
-
-    page = +page
-    size = +size
-    maxLat = +maxLat
-    minLat = +minLat
-    maxLng = +maxLng
-    minLng = +minLng
-    maxPrice = +maxPrice
-    minPrice = +minPrice
 
     const pagination = {}
     if (page || size) {
-        if (page <= 0 || Number.isNaN(page)) errObj["page"] = "Page must be greater than or equal to 1"
-
-        if (size <= 0 || Number.isNaN(size)) errObj["size"] = "Size must be greater than or equal to 1"
-
         if (page >= 1 && size >= 1) {
             pagination.limit = size;
             pagination.offset = size * (page - 1)
@@ -187,28 +251,6 @@ router.get('/', async (req, res) => {
 
         delete spot.Reviews;
     });
-
-    if (maxLat > 90) errObj["maxLat"] = "Maximum latitude is invalid"
-    if (minLat < -90) errObj["minLat"] = "Minimum latitude is invalid"
-    if (maxLat < minLat) errObj["maxLat"] = "Maximum latitude cannot be less than minimum latitude"
-    if (minLat > maxLat) errObj["minLat"] = "Minimum latitude cannot be greater than maximum latitude"
-
-    if (maxLng > 180 || maxLng < minLng) errObj["maxLng"] = "Maximum longitude is invalid"
-    if (minLng < -180 || minLng > maxLng) errObj["minLng"] = "Minimum longitude is invalid"
-    if (maxLng < minLng) errObj["maxLng"] = "Maximum longitude cannot be less than minimum longitude"
-    if (minLng > maxLng) errObj["minLng"] = "Minimum longitude cannot be greater than maximum longitude"
-
-    if (maxPrice < 0) errObj["maxPrice"] = "Maximum price must be greater than or equal to 0"
-    if (minPrice < 0) errObj["minPrice"] = "Minimum price must be greater than or equal to 0"
-    if (minPrice > 0 && minPrice > maxPrice) errObj["minPrice"] = "Minimum price cannot be greater than maximum price"
-    if (maxPrice > 0 && maxPrice < minPrice) errObj["maxPrice"] = "Maximum price cannot be less than minimum price"
-
-    if (Object.keys(errObj).length) {
-        return res.status(400).json({
-            message: "Bad request",
-            errors: errObj
-        })
-    }
 
     if (spotsList.length === 0) return res.status(400).json({ message: "No spots found" });
 

@@ -7,27 +7,27 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-// const validateBooking = [
-//     check('startDate')
-//         .exists({ checkFalsy: true })
-//         .custom(async (value, { req }) => {
-//             const date = new Date(value);
-//             const today = new Date();
-//             if (date < today) {
-//                 throw new Error('startDate cannot be in the past')
-//             }
-//         }),
-//     check('endDate')
-//         .exists({ checkFalsy: true })
-//         .custom(async (value, { req }) => {
-//             const start = new Date(this.startDate)
-//             const end = new Date(value);
-//             if (end <= start) {
-//                 throw new Error('endDate cannot be on or before startDate')
-//             }
-//         }),
-//     handleValidationErrors
-// ];
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const date = new Date(value);
+            const today = new Date();
+            if (date < today) {
+                throw new Error('startDate cannot be in the past')
+            }
+        }),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const start = new Date(req.body.startDate)
+            const end = new Date(value);
+            if (end <= start) {
+                throw new Error('endDate cannot be on or before startDate')
+            }
+        }),
+    handleValidationErrors
+];
 
 router.get('/', async (req, res) => {
     return res.json({
@@ -97,7 +97,7 @@ router.get('/current', requireAuth, async (req, res) => {
     };
 });
 
-router.put('/:bookingId', requireAuth, async (req, res, next) => {
+router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {
     const bookingId = Number(req.params.bookingId);
     const booking = await Booking.findByPk(bookingId);
 
@@ -107,26 +107,9 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
     let requestedStartDate = new Date(req.body.startDate);
     let requestedEndDate = new Date(req.body.endDate);
-    let today = new Date();
 
     const errors = [];
     const err = new Error
-
-    if (requestedStartDate < today) {
-        err.message = "Bad request";
-        err.status = 400;
-        err.errors = { startDate: "startDate cannot be in the past" };
-        errors.push(err);
-        return next(err)
-    }
-
-    if (requestedEndDate <= requestedStartDate) {
-        err.message = "Bad request";
-        err.status = 400;
-        err.errors = { endDate: "endDate cannot be on or before startDate" };
-        errors.push(err);
-        return next(err)
-    }
 
     const existingBookings = await Booking.findAll({
         where: {
