@@ -572,7 +572,17 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
                 stars: stars
             })
 
-            return res.status(201).json(newReview);
+            const newReviewResults = {
+                id: newReview.id,
+                userId: newReview.userId,
+                spotId: newReview.spotId,
+                review: newReview.review,
+                stars: newReview.stars,
+                createdAt: newReview.createdAt,
+                updatedAt: newReview.updatedAt
+            }
+
+            return res.status(201).json(newReviewResults);
         } else {
             return res.status(500).json({ message: 'User already has a review for this spot' })
         }

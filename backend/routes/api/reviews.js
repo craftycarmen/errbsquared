@@ -34,7 +34,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 {
                     model: Spot,
                     attributes: {
-                        exclude: ['createdAt', 'updatedAt']
+                        exclude: ['description', 'createdAt', 'updatedAt']
                     }
                 },
                 {
