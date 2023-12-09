@@ -47,6 +47,10 @@ router.get('/current', requireAuth, async (req, res) => {
 
         let reviewsList = [];
 
+        const images = await Image.unscoped().findAll({
+            include: [Spot]
+        })
+
         reviews.forEach(review => {
             reviewsList.push(review.toJSON());
         });
@@ -58,6 +62,14 @@ router.get('/current', requireAuth, async (req, res) => {
 
             if (review.ReviewImages.length === 0)
                 review.ReviewImages = "No review images found"
+
+            images.forEach(image => {
+                if (image.imageableType === 'Spot' && image.imageableId === review.spotId) {
+                    review.Spot.previewImage = image.url
+                } else {
+                    review.Spot.previewImage = 'No images available'
+                }
+            })
         })
 
 

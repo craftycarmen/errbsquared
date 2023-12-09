@@ -176,7 +176,16 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         await booking.save();
     }
 
-    return res.json(booking);
+    let editedBooking = {
+        id: booking.id,
+        spotId: booking.spotId,
+        userId: booking.userId,
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+        createdAt: booking.createdAt,
+        updatedAt: booking.updatedAt
+    }
+    return res.json(editedBooking);
 
 });
 

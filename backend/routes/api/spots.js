@@ -666,14 +666,24 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     })
 
-    const newBooking = await Booking.create({
+    await Booking.create({
         userId: userId,
         spotId: spotId,
         startDate: req.body.startDate,
         endDate: req.body.endDate
     })
 
-    return res.json(newBooking)
+
+    let newBooking = {
+        id: existingBookings.id,
+        spotId: existingBookings.spotId,
+        userId: existingBookings.userId,
+        startDate: existingBookings.startDate,
+        endDate: existingBookings.endDate,
+        createdAt: existingBookings.createdAt,
+        updatedAt: existingBookings.updatedAt
+    }
+    return res.json(newBooking);
 
 });
 
