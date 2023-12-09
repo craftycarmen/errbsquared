@@ -67,7 +67,7 @@ app.use((err, _req, res, _next) => {
 
     const response = {
         message: err.message,
-        error: err.errors,
+        errors: err.errors,
     };
 
     if (!isProduction) response.stack = err.stack;
