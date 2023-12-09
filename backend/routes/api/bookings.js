@@ -120,7 +120,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
     }
 
     if (errObj.startDate || errObj.endDate) {
-        res.status(400).json({
+        return res.status(400).json({
             message: 'Bad request',
             errors: errObj
         });
@@ -160,7 +160,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             }
 
             if (Object.keys(errObj).length > 0) {
-                res.status(403).json({
+                return res.status(403).json({
                     message: 'Sorry, this spot is already booked for the specified dates',
                     errors: errObj
                 });
