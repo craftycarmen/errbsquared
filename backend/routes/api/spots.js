@@ -430,7 +430,6 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
-    // spot.set(req.body);
     spot.set({
         address: address,
         city: city,
@@ -486,10 +485,28 @@ router.get('/:spotId/reviews', async (req, res) => {
         ]
     });
 
-    if (reviews.length === 0) {
+    // if (spot.Images.length === 0) {
+    //     getSpotById.SpotImages = "No spot images found"
+    // } else {
+    //     getSpotById.SpotImages = spot.Images;
+    // }
+
+    const reviewsList = [];
+
+    reviews.forEach(review => {
+        reviewsList.push(review.toJSON());
+    });
+
+    reviewsList.forEach(review => {
+
+        if (review.ReviewImages.length === 0)
+            review.ReviewImages = "No review images found"
+    });
+
+    if (reviewsList.length === 0) {
         return res.json({ Reviews: "No reviews found" })
     } else {
-        return res.json({ Reviews: reviews });
+        return res.json({ Reviews: reviewsList });
     }
 
 });
@@ -666,7 +683,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         }
     })
 
-    await Booking.create({
+    const newBooking = await Booking.create({
         userId: userId,
         spotId: spotId,
         startDate: req.body.startDate,
@@ -674,16 +691,16 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     })
 
 
-    let newBooking = {
-        id: existingBookings.id,
-        spotId: existingBookings.spotId,
-        userId: existingBookings.userId,
-        startDate: existingBookings.startDate,
-        endDate: existingBookings.endDate,
-        createdAt: existingBookings.createdAt,
-        updatedAt: existingBookings.updatedAt
+    const newBookingResults = {
+        id: newBooking.id,
+        spotId: newBooking.spotId,
+        userId: newBooking.userId,
+        startDate: newBooking.startDate,
+        endDate: newBooking.endDate,
+        createdAt: newBooking.createdAt,
+        updatedAt: newBooking.updatedAt
     }
-    return res.json(newBooking);
+    return res.json(newBookingResults);
 
 });
 

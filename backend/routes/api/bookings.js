@@ -83,8 +83,10 @@ router.get('/current', requireAuth, async (req, res) => {
                 })
 
             images.forEach(image => {
-                if (image.imageableType === 'Spot' && image.imageableId === booking.spotId) {
-                    userBookings.Spot.previewImage = image.url
+                if (image.preview === true) {
+                    if (image.imageableType === 'Spot' && image.imageableId === booking.spotId) {
+                        userBookings.Spot.previewImage = image.url
+                    }
                 } else {
                     userBookings.Spot.previewImage = 'No images available'
                 }
