@@ -76,7 +76,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 review.ReviewImages = "No review images found"
         })
 
-
         if (reviews.length === 0) {
             return res.json({ Reviews: "No reviews found" })
         } else {
