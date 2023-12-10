@@ -49,7 +49,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             ]
         })
-
+        console.log(bookings);
         let bookingsList = [];
         let userBookings = {};
 
@@ -57,7 +57,12 @@ router.get('/current', requireAuth, async (req, res) => {
             include: [Spot]
         })
 
+        // bookings.forEach(booking => {
+        //     bookingsList.push(booking.toJSON());
+        // });
+
         bookings.forEach(booking => {
+            console.log(booking.Spot);
             bookingsList.push(
                 userBookings = {
                     id: booking.id,
@@ -86,15 +91,19 @@ router.get('/current', requireAuth, async (req, res) => {
                 if (image.preview === true) {
                     if (image.imageableType === 'Spot' && image.imageableId === booking.spotId) {
                         userBookings.Spot.previewImage = image.url
+                    } else {
+                        userBookings.Spot.previewImage = 'No preview image available'
                     }
-                } else {
-                    userBookings.Spot.previewImage = 'No images available'
                 }
-            })
+            });
         });
 
-        return res.json({ Bookings: bookingsList })
-    };
+        if (bookingsList.length === 0) {
+            return res.json({ Bookings: "No bookings found" })
+        } else {
+            return res.json({ Bookings: bookingsList });
+        }
+    }
 });
 
 router.put('/:bookingId', requireAuth, validateBooking, async (req, res, next) => {

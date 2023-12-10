@@ -134,6 +134,7 @@ const validateQuery = [
         .optional(),
     handleValidationErrors
 ]
+
 router.get('/', validateQuery, async (req, res) => {
     let { page, size, maxLat, minLat, minLng, maxLng } = req.query
     let minPrice = req.query.minPrice
@@ -206,10 +207,12 @@ router.get('/', validateQuery, async (req, res) => {
         }
     };
 
-    const spots = await Spot.findAll({
-        include: [{
-            model: Review
-        }],
+    const spots = await Spot.unscoped().findAll({
+        include: [
+            {
+                model: Review
+            }
+        ],
         where,
         ...pagination
     })
@@ -242,10 +245,11 @@ router.get('/', validateQuery, async (req, res) => {
 
         images.forEach(image => {
             if (image.preview === true) {
-                if (image.imageableType === 'Spot' && image.imageableId === spot.id)
+                if (image.imageableType === 'Spot' && image.imageableId === spot.id) {
                     spot.previewImage = image.url
-            } else {
-                spot.previewImage = 'No preview image available'
+                } else {
+                    spot.previewImage = 'No preview image available'
+                }
             }
         });
 
@@ -305,10 +309,11 @@ router.get('/current', requireAuth, async (req, res) => {
 
             images.forEach(image => {
                 if (image.preview === true) {
-                    if (image.imageableType === 'Spot' && image.imageableId === spot.id)
+                    if (image.imageableType === 'Spot' && image.imageableId === spot.id) {
                         spot.previewImage = image.url
-                } else {
-                    spot.previewImage = 'No preview image available'
+                    } else {
+                        spot.previewImage = 'No preview image available'
+                    }
                 }
             });
 
@@ -643,7 +648,11 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
         })
     }
 
-    return res.json({ Bookings: bookingsList })
+    if (bookingsList.length === 0) {
+        return res.json({ Bookings: "No bookings found" })
+    } else {
+        return res.json({ Bookings: bookingsList });
+    }
 });
 
 router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {

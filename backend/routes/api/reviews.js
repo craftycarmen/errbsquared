@@ -67,9 +67,9 @@ router.get('/current', requireAuth, async (req, res) => {
                 if (image.preview === true) {
                     if (image.imageableType === 'Spot' && image.imageableId === review.spotId) {
                         review.Spot.previewImage = image.url
+                    } else {
+                        review.Spot.previewImage = 'No images available'
                     }
-                } else {
-                    review.Spot.previewImage = 'No images available'
                 }
             })
         })
