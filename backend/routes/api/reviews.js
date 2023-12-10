@@ -35,7 +35,13 @@ router.get('/current', requireAuth, async (req, res) => {
                     model: Spot,
                     attributes: {
                         exclude: ['description', 'createdAt', 'updatedAt']
-                    }
+                    },
+                    include: [
+                        {
+                            model: Image,
+                            attributes: ['url', 'preview']
+                        }
+                    ]
                 },
                 {
                     model: Image,
@@ -47,10 +53,6 @@ router.get('/current', requireAuth, async (req, res) => {
 
         let reviewsList = [];
 
-        const images = await Image.unscoped().findAll({
-            include: [Spot]
-        })
-
         reviews.forEach(review => {
             reviewsList.push(review.toJSON());
         });
@@ -60,18 +62,18 @@ router.get('/current', requireAuth, async (req, res) => {
             review.Spot.lng = Number.parseFloat(review.Spot.lng);
             review.Spot.price = Number.parseFloat(review.Spot.price);
 
-            if (review.ReviewImages.length === 0)
-                review.ReviewImages = "No review images found"
+            review.Spot.previewImage = 'No preview images available'
 
-            images.forEach(image => {
-                if (image.preview === true) {
-                    if (image.imageableType === 'Spot' && image.imageableId === review.spotId) {
-                        review.Spot.previewImage = image.url
-                    } else {
-                        review.Spot.previewImage = 'No images available'
-                    }
+            review.Spot.Images.forEach(image => {
+                if (image.preview) {
+                    review.Spot.previewImage = image.url
                 }
             })
+
+            delete review.Spot.Images
+
+            if (review.ReviewImages.length === 0)
+                review.ReviewImages = "No review images found"
         })
 
 

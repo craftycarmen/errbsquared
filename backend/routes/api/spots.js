@@ -207,10 +207,13 @@ router.get('/', validateQuery, async (req, res) => {
         }
     };
 
-    const spots = await Spot.unscoped().findAll({
+    const spots = await Spot.findAll({
         include: [
             {
                 model: Review
+            },
+            {
+                model: Image
             }
         ],
         where,
@@ -222,10 +225,6 @@ router.get('/', validateQuery, async (req, res) => {
     spots.forEach(spot => {
         spotsList.push(spot.toJSON());
     });
-
-    const images = await Image.unscoped().findAll({
-        include: [Spot]
-    })
 
     spotsList.forEach(spot => {
 
@@ -243,16 +242,15 @@ router.get('/', validateQuery, async (req, res) => {
             }
         });
 
-        images.forEach(image => {
-            if (image.preview === true) {
-                if (image.imageableType === 'Spot' && image.imageableId === spot.id) {
-                    spot.previewImage = image.url
-                } else {
-                    spot.previewImage = 'No preview image available'
-                }
+        spot.previewImage = "No preview images available";
+
+        spot.Images.forEach(image => {
+            if (image.preview) {
+                spot.previewImage = image.url
             }
         });
 
+        delete spot.Images;
         delete spot.Reviews;
     });
 
@@ -272,9 +270,15 @@ router.get('/current', requireAuth, async (req, res) => {
     if (user) {
 
         const spots = await Spot.findAll({
-            include: [{
-                model: Review
-            }],
+            include: [
+                {
+                    model: Review
+                },
+                {
+                    model: Image,
+                    attributes: ['url', 'preview']
+                }
+            ],
             where: {
                 ownerId: user.id
             }
@@ -286,11 +290,6 @@ router.get('/current', requireAuth, async (req, res) => {
         spots.forEach(spot => {
             spotsList.push(spot.toJSON());
         });
-
-        const images = await Image.unscoped().findAll({
-            include: [Spot]
-        })
-
 
         spotsList.forEach(spot => {
 
@@ -307,16 +306,15 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             });
 
-            images.forEach(image => {
-                if (image.preview === true) {
-                    if (image.imageableType === 'Spot' && image.imageableId === spot.id) {
-                        spot.previewImage = image.url
-                    } else {
-                        spot.previewImage = 'No preview image available'
-                    }
+            spot.previewImage = "No preview images available";
+
+            spot.Images.forEach(image => {
+                if (image.preview) {
+                    spot.previewImage = image.url
                 }
             });
 
+            delete spot.Images;
             delete spot.Reviews;
         });
 

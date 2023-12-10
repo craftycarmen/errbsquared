@@ -45,21 +45,18 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             include: [
                 {
-                    model: Spot
+                    model: Spot,
+                    include: [
+                        {
+                            model: Image
+                        }
+                    ]
                 }
             ]
         })
-        console.log(bookings);
+
         let bookingsList = [];
         let userBookings = {};
-
-        const images = await Image.unscoped().findAll({
-            include: [Spot]
-        })
-
-        // bookings.forEach(booking => {
-        //     bookingsList.push(booking.toJSON());
-        // });
 
         bookings.forEach(booking => {
             console.log(booking.Spot);
@@ -79,6 +76,7 @@ router.get('/current', requireAuth, async (req, res) => {
                         name: booking.Spot.name,
                         description: booking.Spot.description,
                         price: Number.parseFloat(booking.Spot.price),
+                        previewImage: "No preview images available"
                     },
                     userId: booking.userId,
                     startDate: booking.startDate,
@@ -87,15 +85,13 @@ router.get('/current', requireAuth, async (req, res) => {
                     updatedAt: booking.updatedAt
                 })
 
-            images.forEach(image => {
-                if (image.preview === true) {
-                    if (image.imageableType === 'Spot' && image.imageableId === booking.spotId) {
-                        userBookings.Spot.previewImage = image.url
-                    } else {
-                        userBookings.Spot.previewImage = 'No preview image available'
-                    }
+            booking.Spot.Images.forEach(image => {
+                if (image.preview) {
+                    userBookings.Spot.previewImage = image.url
                 }
             });
+
+            delete booking.Spot.Images
         });
 
         if (bookingsList.length === 0) {
