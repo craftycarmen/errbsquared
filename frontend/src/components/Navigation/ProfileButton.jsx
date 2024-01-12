@@ -1,21 +1,44 @@
-import { useDispatch } from "react-redux";
-import * as sessionActions from "../../store/session";
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import * as sessionActions from '../../store/session';
 
-export default function ProfileButton({ user }) {
+function ProfileButton({ user }) {
     const dispatch = useDispatch();
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
+
+    const toggleMenu = (e) => {
+        e.stopPropagation();
+        setShowMenu(!showMenu);
+    };
+
+    useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+            if (ulRef.current && !ulRef.current.contains(e.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener('click', closeMenu);
+    }, [showMenu]);
 
     const logout = (e) => {
         e.preventDefault();
-
         dispatch(sessionActions.logout());
     };
 
+    const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+
     return (
         <>
-            <button>
-                <i className="fa-solid fa-user"></i>
+            <button onClick={toggleMenu}>
+                <i className="fa-solid fa-user" />
             </button>
-            <ul className="profile-dropdown">
+            <ul className={ulClassName} ref={ulRef}>
                 <li>{user.username}</li>
                 <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
@@ -26,3 +49,5 @@ export default function ProfileButton({ user }) {
         </>
     );
 }
+
+export default ProfileButton;
