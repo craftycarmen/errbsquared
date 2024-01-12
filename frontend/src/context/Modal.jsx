@@ -1,5 +1,5 @@
-import { createContext, useRef, useState, useContext } from "react";
-import { ReactDOM } from "react-dom";
+import { useRef, useState, useContext, createContext } from 'react';
+import ReactDOM from 'react-dom';
 import './Modal.css';
 
 const ModalContext = createContext();
@@ -47,7 +47,7 @@ export function Modal() {
             <div id="modal-content">{modalContent}</div>
         </div>,
         modalRef.current
-    )
+    );
 }
 
 export const useModal = () => useContext(ModalContext);
