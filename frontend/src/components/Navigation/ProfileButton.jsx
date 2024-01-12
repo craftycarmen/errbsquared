@@ -20,7 +20,7 @@ export default function ProfileButton({ user }) {
                 <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
                 <li>
-                    <button on onClick={logout}>Log Out</button>
+                    <button onClick={logout}>Log Out</button>
                 </li>
             </ul>
         </>
