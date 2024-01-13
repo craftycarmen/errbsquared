@@ -57,6 +57,28 @@ const validateReview = [
     handleValidationErrors
 ];
 
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const date = new Date(value);
+            const today = new Date();
+            if (date < today) {
+                throw new Error('startDate cannot be in the past')
+            }
+        }),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .custom(async (value, { req }) => {
+            const start = new Date(req.body.startDate)
+            const end = new Date(value);
+            if (end <= start) {
+                throw new Error('endDate cannot be on or before startDate')
+            }
+        }),
+    handleValidationErrors
+];
+
 const validateQuery = [
     check('page')
         .isInt({ min: 1 })
@@ -654,7 +676,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 });
 
-router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
     const spotId = Number(req.params.spotId);
     const userId = req.user.id;
     const spot = await Spot.findByPk(spotId);
@@ -667,26 +689,26 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     let requestedStartDate = new Date(req.body.startDate);
     let requestedEndDate = new Date(req.body.endDate);
-    let today = new Date();
+    // let today = new Date();
 
-    const errors = [];
-    const err = new Error
+    // const errors = [];
+    // const err = new Error
 
-    if (requestedStartDate < today) {
-        err.message = "Bad request";
-        err.status = 400;
-        err.errors = { startDate: "startDate cannot be in the past" };
-        errors.push(err);
-        return next(err)
-    }
+    // if (requestedStartDate < today) {
+    //     err.message = "Bad request";
+    //     err.status = 400;
+    //     err.errors = { startDate: "startDate cannot be in the past" };
+    //     errors.push(err);
+    //     return next(err)
+    // }
 
-    if (requestedEndDate <= requestedStartDate) {
-        err.message = "Bad request";
-        err.status = 400;
-        err.errors = { endDate: "endDate cannot be on or before startDate" };
-        errors.push(err);
-        return next(err)
-    }
+    // if (requestedEndDate <= requestedStartDate) {
+    //     err.message = "Bad request";
+    //     err.status = 400;
+    //     err.errors = { endDate: "endDate cannot be on or before startDate" };
+    //     errors.push(err);
+    //     return next(err)
+    // }
 
     const existingBookings = await Booking.findAll({
         where: {

@@ -59,7 +59,6 @@ router.get('/current', requireAuth, async (req, res) => {
         let userBookings = {};
 
         bookings.forEach(booking => {
-            console.log(booking.Spot);
             bookingsList.push(
                 userBookings = {
                     id: booking.id,
