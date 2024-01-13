@@ -20,7 +20,7 @@ const listOfImages = [
     imageableId: 1,
     imageableType: 'Review',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
-    preview: false
+    preview: true
   },
   {
     imageableId: 2,
@@ -44,7 +44,7 @@ const listOfImages = [
     imageableId: 1,
     imageableType: 'Spot',
     url: 'https://www.home-designing.com/wp-content/uploads/2014/07/marvel-themed-apartment.jpg',
-    preview: false
+    preview: true
   },
   {
     imageableId: 2,
@@ -56,7 +56,7 @@ const listOfImages = [
     imageableId: 2,
     imageableType: 'Spot',
     url: 'https://i.pinimg.com/564x/b8/83/d2/b883d2b98b3af44aa77aefeccad4ddc7.jpg',
-    preview: false
+    preview: true
   },
   {
     imageableId: 2,
@@ -70,6 +70,36 @@ const listOfImages = [
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',
     preview: true
   },
+  {
+    imageableId: 4,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/9/f/141215_800x.jpg',
+    preview: true
+  },
+  {
+    imageableId: 5,
+    imageableType: 'Spot',
+    url: 'https://images.squarespace-cdn.com/content/51b3dc8ee4b051b96ceb10de/1426896373147-YMYLGMY2709FI4QCXC4Q/image-asset.jpeg?content-type=image%2Fjpeg',
+    preview: true
+  },
+  {
+    imageableId: 6,
+    imageableType: 'Spot',
+    url: 'https://www.themeparkinsider.com/photos/images/dlp-marvel-ny1.jpg',
+    preview: true
+  },
+  {
+    imageableId: 7,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/9/d/141213_800x.jpg',
+    preview: true
+  },
+  {
+    imageableId: 8,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/0/141216_800x.jpg',
+    preview: true
+  }
 ]
 
 module.exports = {

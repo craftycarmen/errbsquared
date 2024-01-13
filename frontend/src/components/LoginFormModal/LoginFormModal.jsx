@@ -53,7 +53,9 @@ export default function LoginFormModal() {
                         required
                     />
                 </label>
-                {errors.credential && <p>{errors.credential}</p>}
+                <div className="error">
+                    {errors.credential && `* ${errors.credential}`}
+                </div>
                 <button type="submit">Log In</button>
             </form>
         </>

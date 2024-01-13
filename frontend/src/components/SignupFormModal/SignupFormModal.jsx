@@ -58,7 +58,9 @@ export default function SignupFormModal() {
                             required
                         />
                     </label>
-                    {errors.email && <p>{errors.email}</p>}
+                    <div className="error">
+                        {errors.email && `* ${errors.email}`}
+                    </div>
                 </div>
                 <div>
                     <label>
