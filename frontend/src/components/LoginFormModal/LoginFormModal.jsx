@@ -14,11 +14,18 @@ export default function LoginFormModal() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
-        return dispatch(sessionActions.login({ credential, password }))
+
+        return dispatch(
+            sessionActions.login({
+                credential,
+                password
+            })
+        )
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json();
-                if (data && data.errors) {
+
+                if (data?.errors) {
                     setErrors(data.errors);
                 }
             });
@@ -46,9 +53,7 @@ export default function LoginFormModal() {
                         required
                     />
                 </label>
-                {errors.credential && (
-                    <p>{errors.credential}</p>
-                )}
+                {errors.credential && <p>{errors.credential}</p>}
                 <button type="submit">Log In</button>
             </form>
         </>
