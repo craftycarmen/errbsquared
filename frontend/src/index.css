@@ -1,4 +1,7 @@
 /* TODO: Add sitewide styles */
+body {
+    font-family: 'Quicksand', sans-serif;
+}
 
 a {
     color: black;
