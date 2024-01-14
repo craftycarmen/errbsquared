@@ -1,1 +1,11 @@
 /* TODO: Add sitewide styles */
+
+a {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover {
+    cursor: pointer;
+}
