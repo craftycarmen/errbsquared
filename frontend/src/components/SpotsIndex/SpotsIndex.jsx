@@ -15,13 +15,13 @@ export default function SpotsIndex() {
 
     return (
         <section>
-            <h1>Spots</h1>
-            <div className='gallery'>
+            <div className='container'>
                 {
                     allSpots.map((spot) => (
                         <div key={spot.id} className='spotCard'>
                             <Link to={`spot/${spot.id}`}>
                                 <img
+                                    className='spotImage'
                                     title={spot.name}
                                     src={spot.previewImage}
                                 />
