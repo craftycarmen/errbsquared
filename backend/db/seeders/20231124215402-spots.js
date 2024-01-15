@@ -31,7 +31,7 @@ const listOfSpots = [
     lat: 38.7645358,
     lng: 123.4730327,
     name: 'Captain America House',
-    description: 'Completely Captain America-themed',
+    description: 'Completely Captain America-themed. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus at urna condimentum mattis pellentesque id nibh. Ac tortor vitae purus faucibus ornare. Mollis nunc sed id semper risus in hendrerit gravida. In eu mi bibendum neque egestas congue quisque egestas. Velit egestas dui id ornare arcu odio ut. Eget nulla facilisi etiam dignissim diam quis enim. Accumsan in nisl nisi scelerisque eu ultrices. Et pharetra pharetra massa massa ultricies mi quis. Aliquam id diam maecenas ultricies mi. Senectus et netus et malesuada fames ac. In aliquam sem fringilla ut morbi tincidunt augue. Sed augue lacus viverra vitae congue eu consequat ac felis.',
     price: 75
   },
   {

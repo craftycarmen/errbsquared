@@ -65,6 +65,18 @@ const listOfImages = [
     preview: true
   },
   {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://www.themeparkinsider.com/photos/images/dlp-marvel-ny1.jpg',
+    preview: true
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/9/d/141213_800x.jpg',
+    preview: true
+  },
+  {
     imageableId: 3,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',

@@ -20,7 +20,7 @@ export default function SpotsIndex() {
                 {
                     allSpots.map((spot) => (
                         <div key={spot.id} className='spotCard'>
-                            <Link to={`spot/${spot.id}`} data-tooltip-id='spot-tooltip' data-tooltip-content={spot.name}>
+                            <Link to={`spots/${spot.id}`} data-tooltip-id='spot-tooltip' data-tooltip-content={spot.name}>
                                 <img
                                     className='spotImage'
                                     src={spot.previewImage}
