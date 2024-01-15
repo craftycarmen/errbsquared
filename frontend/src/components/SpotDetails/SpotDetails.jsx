@@ -21,15 +21,15 @@ export default function SpotDetails() {
                 <div>{spot?.city}, {spot?.state}, {spot?.country}</div>
             </div>
             <div className='gallery galleryContainer'>
-                {spot?.SpotImages.map(image => (
+                {spot?.SpotImages?.map(image => (
                     <img
-                        key={image.id}
-                        src={image.url}
+                        key={image?.id}
+                        src={image?.url}
                     />
                 ))}
             </div>
             <div className='details'>
-                <h2>Hosted by {spot?.Owner.firstName} {spot?.Owner.lastName}</h2>
+                <h2>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h2>
                 <div>{spot?.description}</div>
             </div>
             <div className='box'>
