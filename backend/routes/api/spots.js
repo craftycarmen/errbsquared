@@ -260,7 +260,7 @@ router.get('/', validateQuery, async (req, res) => {
             if (review.stars) {
                 let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
                 avgStars = totalStars / spot.Reviews.length
-                spot.avgRating = avgStars;
+                spot.avgRating = avgStars.toFixed(1);
             }
         });
 
@@ -324,7 +324,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 if (review.stars) {
                     let totalStars = spot.Reviews.reduce((sum, review) => (sum + review.stars), 0)
                     avgStars = totalStars / spot.Reviews.length
-                    spot.avgRating = avgStars;
+                    spot.avgRating = avgStars.toFixed(2);
                 }
             });
 
@@ -377,7 +377,7 @@ router.get('/:spotId', async (req, res) => {
         let totalStars = reviews.reduce((sum, review) => (sum + review.stars), 0);
 
         if (totalStars) {
-            avgStars = totalStars / reviews.length;
+            avgStars = (totalStars / reviews.length).toFixed(1);
         } else {
             avgStars = "New"
         }

@@ -32,14 +32,32 @@ export default function SpotDetails() {
                 <div>{spot.description}</div>
             </div>
             <div className='box'>
+
                 <div>${spot.price} / night</div>
-                <p><i className="fa-solid fa-star" /> {spot.avgStarRating} · {spot?.numReviews} reviews</p>
+
+                <span><i className="fa-solid fa-star" /> {spot.avgStarRating}
+
+                    {spot.numReviews === 1 &&
+                        <>
+                            <span> · {spot.numReviews} review</span>
+                        </>
+                    }
+
+                    {spot.numReviews > 1 &&
+                        <>
+                            <span> · {spot.numReviews} reviews</span>
+                        </>
+                    }
+
+                </span>
+
                 <button id='reserve' onClick={() => alert('Feature coming soon')}>Reserve</button>
+
             </div>
             <div className='reviews'>
                 <hr />
                 <h3><i className="fa-solid fa-star" /> {spot.avgStarRating} · {spot.numReviews} reviews</h3>
             </div>
-        </section>
+        </section >
     )
 }
