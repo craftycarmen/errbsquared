@@ -14,7 +14,7 @@ export default function SpotDetails() {
     }, [dispatch, spotId]);
 
     return (spot &&
-        <section className='container'>
+        <section className='spotContainer'>
             <div className='header'>
                 <h1>{spot.name}</h1>
                 <div>{spot.city}, {spot.state}, {spot.country}</div>
@@ -34,7 +34,7 @@ export default function SpotDetails() {
             <div className='box'>
                 <div>${spot.price} / night</div>
                 <p><i className="fa-solid fa-star" /> {spot.avgStarRating} · {spot?.numReviews} reviews</p>
-                <button onClick={() => alert('Feature coming soon')}>Reserve</button>
+                <button id='reserve' onClick={() => alert('Feature coming soon')}>Reserve</button>
             </div>
             <div className='reviews'>
                 <hr />
