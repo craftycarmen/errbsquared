@@ -21,14 +21,15 @@ export default function SpotsIndex() {
                     allSpots.map((spot) => (
                         <div key={spot.id} className='spotCard'>
                             <Link to={`spot/${spot.id}`} data-tooltip-id='spot-tooltip' data-tooltip-content={spot.name}>
-
                                 <img
                                     className='spotImage'
                                     src={spot.previewImage}
                                 />
                                 <p>{spot.city}, {spot.state}</p>
                                 <p>${spot.price} / night</p>
+
                                 <p><i className="fa-solid fa-star" /> {spot.avgRating}</p>
+
                             </Link>
                         </div>
                     ))

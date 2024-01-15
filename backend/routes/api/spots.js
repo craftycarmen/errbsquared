@@ -253,7 +253,7 @@ router.get('/', validateQuery, async (req, res) => {
         spot.lat = Number.parseFloat(spot.lat);
         spot.lng = Number.parseFloat(spot.lng);
         spot.price = Number.parseFloat(spot.price);
-        spot.avgRating = 'No reviews found';
+        spot.avgRating = 'New';
 
         spot.Reviews.forEach(review => {
 
@@ -318,7 +318,7 @@ router.get('/current', requireAuth, async (req, res) => {
             spot.lat = Number.parseFloat(spot.lat);
             spot.lng = Number.parseFloat(spot.lng);
             spot.price = Number.parseFloat(spot.price);
-            spot.avgRating = 'No reviews found'
+            spot.avgRating = 'New'
 
             spot.Reviews.forEach(review => {
                 if (review.stars) {
@@ -379,7 +379,7 @@ router.get('/:spotId', async (req, res) => {
         if (totalStars) {
             avgStars = totalStars / reviews.length;
         } else {
-            avgStars = "No reviews found"
+            avgStars = "New"
         }
 
         getSpotById = {
