@@ -6,7 +6,11 @@ import { fetchSpotReviews } from '../../store/reviews';
 export default function SpotReviews() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const reviews = Object.values(useSelector(state => state.reviews))
+    const reviews = Object.values(useSelector(state => state.reviews)).sort((a, b) => {
+        if (a.createdAt > b.createdAt) return -1;
+        if (a.createdAt < b.createdAt) return 1;
+        return 0;
+    })
 
     useEffect(() => {
         dispatch(fetchSpotReviews(spotId));
@@ -17,10 +21,10 @@ export default function SpotReviews() {
         return newDate.toLocaleString('default', { month: 'long', year: 'numeric' })
     }
 
+    console.log(reviews);
+
     return (reviews &&
         <>
-            <hr />
-            <div>SpotReviews</div>
             {reviews.map((review) => (
                 <div key={review.id}>
                     <div style={{ fontWeight: 'bold' }}>{review.User?.firstName}</div>

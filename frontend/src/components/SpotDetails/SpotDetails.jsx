@@ -57,6 +57,22 @@ export default function SpotDetails() {
 
             </div>
             <div className='reviews'>
+                <hr />
+                <h2><i className="fa-solid fa-star" /> {spot.avgStarRating}
+
+                    {spot.numReviews === 1 &&
+                        <>
+                            <span> · {spot.numReviews} review</span>
+                        </>
+                    }
+
+                    {spot.numReviews > 1 &&
+                        <>
+                            <span> · {spot.numReviews} reviews</span>
+                        </>
+                    }
+
+                </h2>
                 <SpotReviews />
             </div>
         </section >
