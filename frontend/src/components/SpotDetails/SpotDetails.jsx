@@ -35,7 +35,7 @@ export default function SpotDetails() {
 
                 <div>${spot.price} / night</div>
 
-                <span><i className="fa-solid fa-star" /> {spot.avgStarRating}
+                <div><i className="fa-solid fa-star" /> {spot.avgStarRating}
 
                     {spot.numReviews === 1 &&
                         <>
@@ -49,7 +49,7 @@ export default function SpotDetails() {
                         </>
                     }
 
-                </span>
+                </div>
 
                 <button id='reserve' onClick={() => alert('Feature coming soon')}>Reserve</button>
 
