@@ -19,7 +19,7 @@ const listOfReviews = [
   {
     userId: 2,
     spotId: 2,
-    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus at urna condimentum mattis pellentesque id nibh. Ac tortor vitae purus faucibus ornare. Mollis nunc sed id semper risus in hendrerit gravida. In eu mi bibendum neque egestas congue quisque egestas. Velit egestas dui id ornare arcu odio ut. Eget nulla facilisi etiam dignissim diam quis enim. Accumsan in nisl nisi scelerisque eu ultrices. Et pharetra pharetra massa massa ultricies mi quis. Aliquam id diam maecenas ultricies mi. Senectus et netus et malesuada fames ac. In aliquam sem fringilla ut morbi tincidunt augue. Sed augue lacus viverra vitae congue eu consequat ac felis.',
+    review: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tellus at urna condimentum mattis pellentesque id nibh.',
     stars: 5
   },
   {
