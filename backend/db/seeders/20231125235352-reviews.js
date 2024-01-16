@@ -40,6 +40,18 @@ const listOfReviews = [
     review: 'It was aite',
     stars: 3
   },
+  {
+    userId: 4,
+    spotId: 3,
+    review: 'OMG Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. RIGHT.',
+    stars: 5
+  },
+  {
+    userId: 5,
+    spotId: 2,
+    review: 'YES!! tetur adipiscing elit, sed do eiusmod tempor incididun LOVE IT',
+    stars: 5
+  },
 ]
 
 module.exports = {

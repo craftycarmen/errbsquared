@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
 import { useEffect } from 'react';
 import './SpotDetails.css';
+import SpotReviews from '../SpotReviews';
 
 export default function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const spot = useSelector(state => state.spots ? state.spots[spotId] : null);
+    const spot = useSelector(state =>
+        state.spots ? state.spots[spotId] : null);
 
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
@@ -55,8 +57,7 @@ export default function SpotDetails() {
 
             </div>
             <div className='reviews'>
-                <hr />
-                <h3><i className="fa-solid fa-star" /> {spot.avgStarRating} · {spot.numReviews} reviews</h3>
+                <SpotReviews />
             </div>
         </section >
     )
