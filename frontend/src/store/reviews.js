@@ -1,9 +1,14 @@
 export const LOAD_REVIEWS = '/reviews/LOAD_REVIEWS';
+export const CLEAR_REVIEWS = '/reviews/CLEAR_REVIEWS';
 
 export const loadReviews = (reviews, spotId) => ({
     type: LOAD_REVIEWS,
     reviews,
     spotId
+});
+
+export const clearReviews = () => ({
+    type: CLEAR_REVIEWS
 })
 
 export const fetchSpotReviews = spotId => async dispatch => {
@@ -29,6 +34,9 @@ const reviewsReducer = (state = initialState, action) => {
                 });
             }
             return allReviews;
+        }
+        case CLEAR_REVIEWS: {
+            return {};
         }
         default:
             return state;

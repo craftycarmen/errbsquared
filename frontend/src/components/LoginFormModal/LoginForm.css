@@ -4,13 +4,13 @@
     align-items: center;
     justify-items: center;
     flex-basis: auto;
-    padding: 0px 20px 20px 20px;
+    padding: 10px 25px 15px 25px;
     width: fit-content;
 }
 
 .login button {
     margin-top: 5px;
-    width: 308px;
+    width: 315px;
     height: 35px;
 }
 

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotReviews } from '../../store/reviews';
+import { clearReviews, fetchSpotReviews } from '../../store/reviews';
 
 export default function SpotReviews() {
     const { spotId } = useParams();
@@ -14,6 +14,10 @@ export default function SpotReviews() {
 
     useEffect(() => {
         dispatch(fetchSpotReviews(spotId));
+
+        return () => {
+            dispatch(clearReviews());
+        }
     }, [dispatch, spotId])
 
     const reviewDate = (date) => {

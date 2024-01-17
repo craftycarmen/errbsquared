@@ -4,8 +4,6 @@ import { getAllSpots, spotsArr } from '../../store/spots';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Tooltip } from 'react-tooltip';
-
 export default function SpotsIndex() {
     const dispatch = useDispatch();
     const allSpots = useSelector(spotsArr);
@@ -24,7 +22,8 @@ export default function SpotsIndex() {
                 {
                     allSpots.map((spot) => (
                         <div key={spot.id} className='spotCard'>
-                            <Link to={`spots/${spot.id}`} data-tooltip-id='spot-tooltip' data-tooltip-content={spot.name}>
+                            <Link to={`spots/${spot.id}`}>
+                                <span className='toolTip'>{spot.name}</span>
                                 <img
                                     className='spotImage'
                                     src={spot.previewImage}
@@ -40,7 +39,6 @@ export default function SpotsIndex() {
                         </div>
                     ))
                 }
-                <Tooltip id="spot-tooltip" />
             </div>
         </section >
     )
