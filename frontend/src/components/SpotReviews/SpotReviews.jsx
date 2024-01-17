@@ -10,7 +10,7 @@ export default function SpotReviews() {
         if (a.createdAt > b.createdAt) return -1;
         if (a.createdAt < b.createdAt) return 1;
         return 0;
-    })
+    });
 
     useEffect(() => {
         dispatch(fetchSpotReviews(spotId));
@@ -20,8 +20,6 @@ export default function SpotReviews() {
         const newDate = new Date(date)
         return newDate.toLocaleString('default', { month: 'long', year: 'numeric' })
     }
-
-    console.log(reviews);
 
     return (reviews &&
         <>

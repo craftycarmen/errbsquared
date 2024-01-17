@@ -10,6 +10,7 @@ export default function SpotDetails() {
     const dispatch = useDispatch();
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
+    const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
@@ -73,6 +74,10 @@ export default function SpotDetails() {
                     }
 
                 </h2>
+                {(sessionUser?.id !== spot.ownerId) && spot.numReviews === 0 &&
+                    <>
+                        <span>Be the first to post a review!</span>
+                    </>}
                 <SpotReviews />
             </div>
         </section >
