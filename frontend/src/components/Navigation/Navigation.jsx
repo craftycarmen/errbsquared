@@ -11,8 +11,12 @@ function Navigation({ isLoaded }) {
             <NavLink to="/"><h1>wanderly.</h1></NavLink >
 
             {isLoaded && (
-
-                <div><ProfileButton user={sessionUser} /></div>
+                <section className='profile'>
+                    {sessionUser &&
+                        <span className='createSpot'>Create a New Spot</span>
+                    }
+                    <ProfileButton user={sessionUser} />
+                </section>
 
             )
             }

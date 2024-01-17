@@ -1,15 +1,25 @@
 .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
     margin: 10px;
 }
 
 .nav h1 {
     font-family: 'Yeseva One', serif;
     font-size: 40px;
-    ;
     color: #1c5759;
+    display: grid;
+    justify-items: start;
+}
+
+.createSpot {
+    margin-right: 15px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 
 .menuIcon {
@@ -18,6 +28,7 @@
     border: #d3bcc9 solid 2px;
     border-radius: 20px;
     padding: 15px 15px 12px 15px;
+    width: 50px;
 }
 
 .profile-dropdown {
@@ -33,8 +44,4 @@
 
 .hidden {
     display: none;
-}
-
-.modal {
-    border-radius: 50px;
 }
