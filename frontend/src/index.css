@@ -11,6 +11,10 @@ a {
     cursor: pointer;
 }
 
+button {
+    font-family: 'Quicksand', sans-serif;
+}
+
 button:hover {
     cursor: pointer;
 }

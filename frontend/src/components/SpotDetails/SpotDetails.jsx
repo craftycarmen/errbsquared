@@ -36,22 +36,26 @@ export default function SpotDetails() {
             </div>
             <div className='box'>
 
-                <div>${spot.price} / night</div>
+                <div className='boxInfo'>
+                    <div>
+                        <span style={{ fontWeight: "bold", fontSize: "24px" }}>${spot.price}</span> night
+                    </div>
 
-                <div><i className="fa-solid fa-star" /> {spot.avgStarRating}
+                    <div>
+                        <i className="fa-solid fa-star" /> {spot.avgStarRating}
 
-                    {spot.numReviews === 1 &&
-                        <>
-                            <span> · {spot.numReviews} review</span>
-                        </>
-                    }
+                        {spot.numReviews === 1 &&
+                            <>
+                                <span>&nbsp; · &nbsp;{spot.numReviews} review</span>
+                            </>
+                        }
 
-                    {spot.numReviews > 1 &&
-                        <>
-                            <span> · {spot.numReviews} reviews</span>
-                        </>
-                    }
-
+                        {spot.numReviews > 1 &&
+                            <>
+                                <span>&nbsp; · &nbsp;{spot.numReviews} reviews</span>
+                            </>
+                        }
+                    </div>
                 </div>
 
                 <button id='reserve' onClick={() => alert('Feature coming soon')}>Reserve</button>
@@ -63,13 +67,13 @@ export default function SpotDetails() {
 
                     {spot.numReviews === 1 &&
                         <>
-                            <span> · {spot.numReviews} review</span>
+                            <span>&nbsp; · &nbsp;{spot.numReviews} review</span>
                         </>
                     }
 
                     {spot.numReviews > 1 &&
                         <>
-                            <span> · {spot.numReviews} reviews</span>
+                            <span>&nbsp; · &nbsp;{spot.numReviews} reviews</span>
                         </>
                     }
 

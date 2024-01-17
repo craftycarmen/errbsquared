@@ -25,10 +25,12 @@ export default function SpotsIndex() {
                                     className='spotImage'
                                     src={spot.previewImage}
                                 />
-                                <p>{spot.city}, {spot.state}</p>
-                                <p>${spot.price} / night</p>
+                                <div className='spotInfo'>
+                                    <span>{spot.city}, {spot.state}</span>
+                                    <span><i className="fa-solid fa-star" /> {spot.avgRating}</span>
+                                </div>
 
-                                <p><i className="fa-solid fa-star" /> {spot.avgRating}</p>
+                                <span style={{ fontWeight: 'bold' }}>${spot.price}</span> night
 
                             </Link>
                         </div>
