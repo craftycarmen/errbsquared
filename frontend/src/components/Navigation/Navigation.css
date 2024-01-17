@@ -33,13 +33,24 @@
 
 .profile-dropdown {
     position: absolute;
+}
+
+.signUpLogIn {
     border: #d3bcc9 solid 2px;
     border-radius: 5px;
     padding: 15px;
-    margin-top: 8px;
-    margin-left: -67px;
     background-color: white;
     width: 100px;
+    margin-top: 145px;
+}
+
+.loggedIn {
+    border: #d3bcc9 solid 2px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: white;
+    width: 100px;
+    margin-top: 230px;
 }
 
 .hidden {
