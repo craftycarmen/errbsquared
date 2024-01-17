@@ -30,7 +30,7 @@ export default function SpotsIndex() {
                                     <span><i className="fa-solid fa-star" /> {spot.avgRating}</span>
                                 </div>
 
-                                <span style={{ fontWeight: 'bold' }}>${spot.price}</span> night
+                                <span style={{ fontWeight: '800' }}>${spot.price}</span> night
 
                             </Link>
                         </div>

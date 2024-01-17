@@ -11,7 +11,7 @@ export default function SpotDetails() {
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
     const sessionUser = useSelector((state) => state.session.user);
-
+    console.log(sessionUser);
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
     }, [dispatch, spotId]);
@@ -38,7 +38,7 @@ export default function SpotDetails() {
 
                 <div className='boxInfo'>
                     <div>
-                        <span style={{ fontWeight: "bold", fontSize: "24px" }}>${spot.price}</span> night
+                        <span style={{ fontWeight: "600", fontSize: "24px" }}>${spot.price}</span> night
                     </div>
 
                     <div>
@@ -77,7 +77,14 @@ export default function SpotDetails() {
                     }
 
                 </h2>
-                {(sessionUser?.id !== spot.ownerId) && spot.numReviews === 0 &&
+
+                {sessionUser === null && spot.numReviews === 0 &&
+                    <>
+                    </>
+
+                }
+
+                {(sessionUser && spot.numReviews === 0 && sessionUser.id !== spot.ownerId) &&
                     <>
                         <span>Be the first to post a review!</span>
                     </>}

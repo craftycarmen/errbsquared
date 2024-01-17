@@ -1,9 +1,10 @@
 /* TODO: Add sitewide styles */
 body {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Nunito', sans-serif;
     margin-left: calc(100% - 98%);
     margin-right: calc(100% - 98%);
     margin-bottom: 30px;
+
 }
 
 a {
@@ -13,7 +14,7 @@ a {
 }
 
 button {
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: white;
     background-color: #d3bcc9;
     font-size: medium;
@@ -27,7 +28,7 @@ button:hover {
 
 input {
     width: 300px;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Nunito', sans-serif;
     font-size: medium;
     margin-bottom: 5px;
     border-radius: 5px;

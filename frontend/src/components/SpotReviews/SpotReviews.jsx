@@ -25,7 +25,7 @@ export default function SpotReviews() {
         <>
             {reviews.map((review) => (
                 <div key={review.id}>
-                    <div style={{ fontWeight: 'bold' }}>{review.User?.firstName}</div>
+                    <div style={{ fontWeight: '600' }}>{review.User?.firstName}</div>
                     <div style={{ color: 'gray' }}>{review.createdAt &&
                         reviewDate(review.createdAt)
                     }
