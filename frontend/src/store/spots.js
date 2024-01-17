@@ -8,9 +8,10 @@ export const loadSpots = (spots) => ({
     spots
 });
 
-export const loadSpotDetails = (spot) => ({
+export const loadSpotDetails = (spot, spotId) => ({
     type: LOAD_SPOT_DETAILS,
-    spot
+    spot,
+    spotId
 });
 
 export const getAllSpots = () => async dispatch => {
@@ -27,7 +28,7 @@ export const fetchSpotDetails = spotId => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadSpotDetails(data));
+        dispatch(loadSpotDetails(data, spotId));
     }
 }
 

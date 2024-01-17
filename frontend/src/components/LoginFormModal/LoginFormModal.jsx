@@ -90,7 +90,7 @@ export default function LoginFormModal() {
                         type="submit">Log In</button>
                 </div>
                 <div>
-                    <button onClick={demoUser}>Demo User</button>
+                    <button onClick={demoUser}>Log In as Demo User</button>
                 </div>
             </form>
 

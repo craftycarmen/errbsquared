@@ -1,8 +1,9 @@
 export const LOAD_REVIEWS = '/reviews/LOAD_REVIEWS';
 
-export const loadReviews = (reviews) => ({
+export const loadReviews = (reviews, spotId) => ({
     type: LOAD_REVIEWS,
-    reviews
+    reviews,
+    spotId
 })
 
 export const fetchSpotReviews = spotId => async dispatch => {
@@ -10,7 +11,7 @@ export const fetchSpotReviews = spotId => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadReviews(data));
+        dispatch(loadReviews(data, spotId));
     }
 }
 
