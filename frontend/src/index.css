@@ -1,8 +1,8 @@
 /* TODO: Add sitewide styles */
 body {
     font-family: 'Quicksand', sans-serif;
-    /* max-width: 1000px;
-    margin: auto; */
+    margin-left: calc(100% - 98%);
+    margin-right: calc(100% - 98%);
 }
 
 a {
@@ -13,6 +13,11 @@ a {
 
 button {
     font-family: 'Quicksand', sans-serif;
+    color: white;
+    background-color: #d3bcc9;
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
 button:hover {

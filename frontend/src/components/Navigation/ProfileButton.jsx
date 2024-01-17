@@ -42,7 +42,7 @@ function ProfileButton({ user }) {
     return (
         <>
 
-            <div style={{ color: "#FFD43B", cursor: "pointer" }} onClick={toggleMenu}>
+            <div className='menuIcon' onClick={toggleMenu}>
                 <i className="fa-solid fa-bars fa-lg" /> <i className="fa-solid fa-user fa-lg" />
             </div>
 

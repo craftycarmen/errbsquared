@@ -8,7 +8,7 @@ function Navigation({ isLoaded }) {
 
     return (
         <div className='nav'>
-            <NavLink to="/" style={{ fontWeight: "bold" }}>WanderlyHomes</NavLink >
+            <NavLink to="/"><h1>wanderly.</h1></NavLink >
 
             {isLoaded && (
 
