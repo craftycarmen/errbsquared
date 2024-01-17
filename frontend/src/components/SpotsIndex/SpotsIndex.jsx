@@ -14,6 +14,10 @@ export default function SpotsIndex() {
         dispatch(getAllSpots())
     }, [dispatch])
 
+    const spotPrice = (price) => {
+        return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    }
+
     return (
         <section>
             <div className='container'>
@@ -27,10 +31,10 @@ export default function SpotsIndex() {
                                 />
                                 <div className='spotInfo'>
                                     <span>{spot.city}, {spot.state}</span>
-                                    <span><i className="fa-solid fa-star" /> {spot.avgRating}</span>
+                                    <span>&#9733; {spot.avgRating}</span>
                                 </div>
 
-                                <span style={{ fontWeight: '800' }}>${spot.price}</span> night
+                                <span style={{ fontWeight: '800' }}>${spot.price && spotPrice(spot.price)}</span> night
 
                             </Link>
                         </div>

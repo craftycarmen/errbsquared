@@ -25,7 +25,6 @@
 
 .galleryContainer {
     display: grid;
-    /* grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); */
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
         "feature feature img2 img3"
@@ -38,7 +37,7 @@
     grid-row: 3 / 5;
     justify-self: start;
     width: 100%;
-    margin-top: -25px;
+    margin-top: -18px;
 }
 
 .box {

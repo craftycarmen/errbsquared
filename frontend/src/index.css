@@ -1,6 +1,8 @@
 /* TODO: Add sitewide styles */
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    line-height: 24px;
     margin-left: calc(100% - 98%);
     margin-right: calc(100% - 98%);
     margin-bottom: 30px;
@@ -14,7 +16,7 @@ a {
 }
 
 button {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     color: white;
     background-color: #d3bcc9;
     font-size: medium;
@@ -28,7 +30,7 @@ button:hover {
 
 input {
     width: 300px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: medium;
     margin-bottom: 5px;
     border-radius: 5px;

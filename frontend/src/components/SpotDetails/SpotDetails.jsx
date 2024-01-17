@@ -11,10 +11,14 @@ export default function SpotDetails() {
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
     const sessionUser = useSelector((state) => state.session.user);
-    console.log(sessionUser);
+
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
     }, [dispatch, spotId]);
+
+    const spotPrice = (price) => {
+        return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    }
 
     return (spot &&
         <section className='spotContainer'>
@@ -38,11 +42,11 @@ export default function SpotDetails() {
 
                 <div className='boxInfo'>
                     <div>
-                        <span style={{ fontWeight: "600", fontSize: "24px" }}>${spot.price}</span> night
+                        <span style={{ fontWeight: "600", fontSize: "24px" }}>${spot.price && spotPrice(spot.price)}</span> night
                     </div>
 
                     <div>
-                        <i className="fa-solid fa-star" /> {spot.avgStarRating}&nbsp;
+                        &#9733; {spot.avgStarRating}&nbsp;
                         {spot.numReviews === 1 &&
                             <>
                                 · {spot.numReviews} review
@@ -62,7 +66,7 @@ export default function SpotDetails() {
             </div>
             <div className='reviews'>
                 <hr />
-                <h2><i className="fa-solid fa-star" /> {spot.avgStarRating}
+                <h2>&#9733; {spot.avgStarRating}
 
                     {spot.numReviews === 1 &&
                         <>
