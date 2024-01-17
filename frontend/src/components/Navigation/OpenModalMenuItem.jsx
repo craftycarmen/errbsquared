@@ -12,6 +12,6 @@ export default function OpenModalMenuItem({
     };
 
     return (
-        <li onClick={onClick} style={{ cursor: "pointer" }}>{itemText}</li>
+        <div onClick={onClick} style={{ cursor: "pointer" }}>{itemText}</div>
     );
 }
