@@ -3,6 +3,7 @@ body {
     font-family: 'Quicksand', sans-serif;
     margin-left: calc(100% - 98%);
     margin-right: calc(100% - 98%);
+    margin-bottom: 30px;
 }
 
 a {
@@ -22,4 +23,13 @@ button {
 
 button:hover {
     cursor: pointer;
+}
+
+input {
+    width: 300px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: medium;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    padding: 5px;
 }

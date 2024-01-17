@@ -8,14 +8,6 @@
     width: fit-content;
 }
 
-.login input {
-    width: 300px;
-    font-family: 'Quicksand', sans-serif;
-    font-size: medium;
-    margin-bottom: 5px;
-
-}
-
 .login button {
     margin-top: 5px;
     width: 308px;
@@ -24,6 +16,8 @@
 
 .login button:disabled {
     background-color: gainsboro;
+    font-weight: 400;
+    color: #b6b6b6;
     cursor: not-allowed;
 }
 
