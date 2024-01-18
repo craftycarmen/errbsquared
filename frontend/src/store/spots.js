@@ -1,7 +1,9 @@
 import { createSelector } from 'reselect';
+import { csrfFetch } from './csrf';
 
 export const LOAD_SPOTS = '/spots/LOAD_SPOTS';
 export const LOAD_SPOT_DETAILS = '/spots/LOAD_SPOT_DETAILS';
+export const CREATE_SPOT = '/spots/CREATE_SPOT';
 
 export const loadSpots = (spots) => ({
     type: LOAD_SPOTS,
@@ -29,6 +31,20 @@ export const fetchSpotDetails = spotId => async dispatch => {
     if (res.ok) {
         const data = await res.json();
         dispatch(loadSpotDetails(data, spotId));
+    }
+};
+
+export const createSpot = (spot) => async dispatch => {
+    const res = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spot)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+        dispatch(loadSpotDetails(data))
     }
 }
 
