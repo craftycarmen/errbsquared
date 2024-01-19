@@ -15,10 +15,10 @@ export default function CreateSpot() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [url, setUrl] = useState('');
-    // const [img2, setImg2] = useState('');
-    // const [img3, setImg3] = useState('');
-    // const [img4, setImg4] = useState('');
-    // const [img5, setImg5] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
+    const [img5, setImg5] = useState('');
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -31,10 +31,10 @@ export default function CreateSpot() {
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
     const updateUrl = (e) => setUrl(e.target.value);
-    // const updateImg2 = (e) => setImg2(e.target.value);
-    // const updateImg3 = (e) => setImg3(e.target.value);
-    // const updateImg4 = (e) => setImg4(e.target.value);
-    // const updateImg5 = (e) => setImg5(e.target.value);
+    const updateImg2 = (e) => setImg2(e.target.value);
+    const updateImg3 = (e) => setImg3(e.target.value);
+    const updateImg4 = (e) => setImg4(e.target.value);
+    const updateImg5 = (e) => setImg5(e.target.value);
 
     const reset = () => {
         setCountry('');
@@ -47,10 +47,10 @@ export default function CreateSpot() {
         setName('');
         setPrice('');
         setUrl('');
-        // setImg2('');
-        // setImg3('');
-        // setImg4('');
-        // setImg5('');
+        setImg2('');
+        setImg3('');
+        setImg4('');
+        setImg5('');
     }
 
     const handleSubmit = async (e) => {
@@ -70,14 +70,27 @@ export default function CreateSpot() {
         };
 
         const imageInfo = {
-            url
+            url,
+            img2,
+            img3,
+            img4,
+            img5
         }
 
         return dispatch(createSpot(spotInfo))
             .then((spot) => {
-                return dispatch(createSpotImage(spot.id, imageInfo))
+                const imageArr = Object.values(imageInfo)
+                let spotImg;
+                imageArr.map(img => {
+                    spotImg = {
+                        id: spot.id,
+                        url: img,
+                        preview: true
+                    }
+                    return dispatch(createSpotImage(spot.id, spotImg))
+                })
             })
-            .then(reset())
+            // .then(reset())
             .catch(async (res) => {
                 const data = await res.json()
                 if (data && data.errors) {
@@ -187,7 +200,7 @@ export default function CreateSpot() {
                     value={url}
                     onChange={updateUrl}
                 />
-                {/* <input
+                <input
                     type='text'
                     placeholder='Image URL'
                     value={img2}
@@ -214,7 +227,7 @@ export default function CreateSpot() {
                     value={img5}
                     onChange={updateImg5}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div> */}
+                <div className='error'>{errors.country && `${errors.country}`}</div>
                 <hr />
                 <button type='submit'>Create Spot</button>
             </form>
