@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createSpot } from '../../store/spots';
+import { createSpot, createSpotImage } from '../../store/spots';
 import './CreateSpot.css';
 
 export default function CreateSpot() {
@@ -14,11 +14,11 @@ export default function CreateSpot() {
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [previewImg, setPreviewImg] = useState('');
-    const [img2, setImg2] = useState('');
-    const [img3, setImg3] = useState('');
-    const [img4, setImg4] = useState('');
-    const [img5, setImg5] = useState('');
+    const [url, setUrl] = useState('');
+    // const [img2, setImg2] = useState('');
+    // const [img3, setImg3] = useState('');
+    // const [img4, setImg4] = useState('');
+    // const [img5, setImg5] = useState('');
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -30,11 +30,11 @@ export default function CreateSpot() {
     const updateDescription = (e) => setDescription(e.target.value);
     const updateName = (e) => setName(e.target.value);
     const updatePrice = (e) => setPrice(e.target.value);
-    const updatePreviewImg = (e) => setPreviewImg(e.target.value);
-    const updateImg2 = (e) => setImg2(e.target.value);
-    const updateImg3 = (e) => setImg3(e.target.value);
-    const updateImg4 = (e) => setImg4(e.target.value);
-    const updateImg5 = (e) => setImg5(e.target.value);
+    const updateUrl = (e) => setUrl(e.target.value);
+    // const updateImg2 = (e) => setImg2(e.target.value);
+    // const updateImg3 = (e) => setImg3(e.target.value);
+    // const updateImg4 = (e) => setImg4(e.target.value);
+    // const updateImg5 = (e) => setImg5(e.target.value);
 
     const reset = () => {
         setCountry('');
@@ -46,18 +46,18 @@ export default function CreateSpot() {
         setDescription('');
         setName('');
         setPrice('');
-        setPreviewImg('');
-        setImg2('');
-        setImg3('');
-        setImg4('');
-        setImg5('');
+        setUrl('');
+        // setImg2('');
+        // setImg3('');
+        // setImg4('');
+        // setImg5('');
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
 
-        const payload = {
+        const spotInfo = {
             country,
             address,
             city,
@@ -66,15 +66,17 @@ export default function CreateSpot() {
             lng,
             description,
             name,
-            price,
-            previewImg,
-            img2,
-            img3,
-            img4,
-            img5
+            price
         };
 
-        return dispatch(createSpot(payload))
+        const imageInfo = {
+            url
+        }
+
+        return dispatch(createSpot(spotInfo))
+            .then((spot) => {
+                return dispatch(createSpotImage(spot.id, imageInfo))
+            })
             .then(reset())
             .catch(async (res) => {
                 const data = await res.json()
@@ -106,37 +108,40 @@ export default function CreateSpot() {
                     onChange={updateAddress}
                 />
                 <div className='error'>{errors.address && `${errors.address}`}</div>
-                <input
-                    type='text'
-                    placeholder='City*'
-                    required
-                    value={city}
-                    onChange={updateCity}
-                />
-                <div className='error'>{errors.city && `${errors.city}`}</div>
-                <input
-                    type='text'
-                    placeholder='State*'
-                    required
-                    value={state}
-                    onChange={updateState}
-                />
-                <div className='error'>{errors.state && `${errors.state}`}</div>
-                <input
-                    type='text'
-                    placeholder='Latitude*'
-                    required
-                    value={lat}
-                    onChange={updateLat}
-                />
-                <div className='error'>{errors.lat && `${errors.lat}`}</div>
-                <input
-                    type='text'
-                    placeholder='Longitude*'
-                    required
-                    value={lng}
-                    onChange={updateLng}
-                />
+                <div className='cityStateLatLng'>
+                    <input
+                        type='text'
+                        placeholder='City*'
+                        required
+                        value={city}
+                        onChange={updateCity}
+                    />
+                    <div className='error'>{errors.city && `${errors.city}`}</div>
+                    <span>, </span>
+                    <input
+                        type='text'
+                        placeholder='State*'
+                        required
+                        value={state}
+                        onChange={updateState}
+                    />
+                    <div className='error'>{errors.state && `${errors.state}`}</div>
+                    <input
+                        type='text'
+                        placeholder='Latitude*'
+                        required
+                        value={lat}
+                        onChange={updateLat}
+                    />
+                    <div className='error'>{errors.lat && `${errors.lat}`}</div>
+                    <input
+                        type='text'
+                        placeholder='Longitude*'
+                        required
+                        value={lng}
+                        onChange={updateLng}
+                    />
+                </div>
                 <div className='error'>{errors.lng && `${errors.lng}`}</div>
                 <hr />
                 <h2>Describe your place to guests</h2>
@@ -179,10 +184,10 @@ export default function CreateSpot() {
                     type='text'
                     placeholder='Preview Image URL*'
                     required
-                    value={previewImg}
-                    onChange={updatePreviewImg}
+                    value={url}
+                    onChange={updateUrl}
                 />
-                <input
+                {/* <input
                     type='text'
                     placeholder='Image URL'
                     value={img2}
@@ -209,7 +214,7 @@ export default function CreateSpot() {
                     value={img5}
                     onChange={updateImg5}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
+                <div className='error'>{errors.country && `${errors.country}`}</div> */}
                 <hr />
                 <button type='submit'>Create Spot</button>
             </form>

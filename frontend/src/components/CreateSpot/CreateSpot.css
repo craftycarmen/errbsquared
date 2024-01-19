@@ -1,5 +1,9 @@
 .createSpotForm {
-    display: flex;
-    max-width: 600px;
+    display: grid;
+    max-width: 500px;
     margin: auto;
+}
+
+.createSpotForm input {
+    width: 80%;
 }
