@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createSpot, createSpotImage } from '../../store/spots';
 import './CreateSpot.css';
@@ -69,19 +69,20 @@ export default function CreateSpot() {
             price
         };
 
-        const imageInfo = {
+        const imageInfo = ({
             url,
             img2,
             img3,
             img4,
             img5
-        }
+        })
+
+        const imageArr = Object.values(imageInfo).filter(img => img !== '');
 
         return dispatch(createSpot(spotInfo))
             .then((spot) => {
-                const imageArr = Object.values(imageInfo)
                 let spotImg;
-                imageArr.map(img => {
+                imageArr.forEach(img => {
                     spotImg = {
                         id: spot.id,
                         url: img,
@@ -116,53 +117,65 @@ export default function CreateSpot() {
                 <input
                     type='text'
                     placeholder='Street Address*'
-                    required
+                    // required
                     value={address}
                     onChange={updateAddress}
                 />
                 <div className='error'>{errors.address && `${errors.address}`}</div>
-                <div className='cityStateLatLng'>
-                    <input
-                        type='text'
-                        placeholder='City*'
-                        required
-                        value={city}
-                        onChange={updateCity}
-                    />
+                <div className='cityState'>
+                    <div id='city'>
+                        <input
+                            type='text'
+                            placeholder='City*'
+                            // required
+                            value={city}
+                            onChange={updateCity}
+                        />
+                        &nbsp;,&nbsp;
+                    </div>
                     <div className='error'>{errors.city && `${errors.city}`}</div>
-                    <span>, </span>
-                    <input
-                        type='text'
-                        placeholder='State*'
-                        required
-                        value={state}
-                        onChange={updateState}
-                    />
+                    <div id='state'>
+                        <input
+                            type='text'
+                            placeholder='State*'
+                            // required
+                            value={state}
+                            onChange={updateState}
+                        />
+                    </div>
                     <div className='error'>{errors.state && `${errors.state}`}</div>
-                    <input
-                        type='text'
-                        placeholder='Latitude*'
-                        required
-                        value={lat}
-                        onChange={updateLat}
-                    />
-                    <div className='error'>{errors.lat && `${errors.lat}`}</div>
-                    <input
-                        type='text'
-                        placeholder='Longitude*'
-                        required
-                        value={lng}
-                        onChange={updateLng}
-                    />
                 </div>
-                <div className='error'>{errors.lng && `${errors.lng}`}</div>
+                <div className='latLng'>
+                    <div id='lat'>
+                        <input
+                            type='text'
+                            placeholder='Latitude*'
+                            // required
+                            value={lat}
+                            onChange={updateLat}
+                        />
+                        &nbsp;,&nbsp;
+                    </div>
+                    <div className='error'>{errors.lat && `${errors.lat}`}</div>
+                    <div id='lng'>
+                        <input
+
+                            type='text'
+                            placeholder='Longitude*'
+                            // required
+                            value={lng}
+                            onChange={updateLng}
+                        />
+                    </div>
+                    <div className='error'>{errors.lng && `${errors.lng}`}</div>
+                </div>
                 <hr />
                 <h2>Describe your place to guests</h2>
                 <div>Mention the best features of your space, any special amentities, like fast WiFi or parking, and what you love about the neighborhood.</div>
-                <input
+                <textarea
                     type='text'
                     placeholder='Description (minimum 30 characters)*'
-                    required
+                    // required
                     value={description}
                     onChange={updateDescription}
                 />
@@ -173,7 +186,7 @@ export default function CreateSpot() {
                 <input
                     type='text'
                     placeholder='Name of your spot*'
-                    required
+                    // required
                     value={name}
                     onChange={updateName}
                 />
@@ -181,25 +194,27 @@ export default function CreateSpot() {
                 <hr />
                 <h2>Set a base price for your spot</h2>
                 <div>Competitive pricing can help your listing stand out and rank higher in search results.</div>
-                <div>$&nbsp;
+                <div className='price'>$&nbsp;
                     <input
                         type='number'
                         placeholder='Price per night (USD)*'
-                        required
+                        // required
                         value={price}
                         onChange={updatePrice}
                     />
-                    <div className='error'>{errors.price && `${errors.price}`}</div>
                 </div>
+                <div className='error'>{errors.price && `${errors.price}`}</div>
+                <hr />
                 <h2>Liven up your spot with photos</h2>
                 <div>Submit a link to at least one photo to publish your spot.</div>
                 <input
                     type='text'
                     placeholder='Preview Image URL*'
-                    required
+                    // required
                     value={url}
                     onChange={updateUrl}
                 />
+                <div className='error'>{errors.url && `${errors.url}`}</div>
                 <input
                     type='text'
                     placeholder='Image URL'
@@ -231,6 +246,6 @@ export default function CreateSpot() {
                 <hr />
                 <button type='submit'>Create Spot</button>
             </form>
-        </section>
+        </section >
     )
 }

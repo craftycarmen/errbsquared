@@ -36,3 +36,14 @@ input {
     border-radius: 5px;
     padding: 5px;
 }
+
+textarea {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: medium;
+    width: 475px;
+    height: 75px;
+    border: solid black 2px;
+    border-radius: 5px;
+    resize: none;
+    padding: 5px;
+}

@@ -5,5 +5,63 @@
 }
 
 .createSpotForm input {
-    width: 80%;
+    width: 95%;
+    margin-top: 15px;
+}
+
+.cityState {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    width: 500px;
+}
+
+#city {
+    display: inline-flex;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 98%;
+    align-items: baseline;
+}
+
+#state {
+    display: inline-flex;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    width: 94.5%;
+    justify-self: start;
+}
+
+.latLng {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 500px;
+    margin-top: -5px;
+}
+
+#lat {
+    display: inline-flex;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    width: 243.05px;
+    align-items: baseline;
+}
+
+#lng {
+    display: inline-flex;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    /* margin-left: 10px; */
+    width: 239px;
+    justify-self: start;
+}
+
+.price {
+    display: inline-flex;
+    width: 489px;
+    align-items: baseline;
+}
+
+hr {
+    margin-top: 15px;
+    margin-bottom: 10px;
 }

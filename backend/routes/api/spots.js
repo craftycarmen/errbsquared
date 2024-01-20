@@ -22,27 +22,54 @@ const validateSpot = [
         .withMessage('Country is required'),
     check('lat')
         .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Latitude is required')
+        .bail()
         .isFloat({ min: -90, max: 90 })
         .withMessage('Latitude is not valid'),
     check('lng')
         .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Longitude is required')
+        .bail()
         .isFloat({ min: -180, max: 180 })
         .withMessage('Longitude is not valid'),
     check('name')
         .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage('Name is required')
+        .bail()
         .isLength({ max: 50 })
         .withMessage('Name must be less than 50 characters'),
     check('description')
         .exists({ checkFalsy: true })
-        .withMessage('Description is required'),
+        .notEmpty()
+        .withMessage('Description is required')
+        .bail()
+        .isLength({ min: 30 })
+        .withMessage('Description needs a minimum of 30 characters'),
     check('price')
         .exists({ checkFalsy: true })
         .notEmpty()
-        .withMessage('Price per day is required')
+        .withMessage('Price per night is required')
+        .bail()
         .isFloat({ min: 0 })
-        .withMessage('Price per day must be greater than 0'),
+        .withMessage('Price per night must be greater than $0'),
+    handleValidationErrors
+];
+
+const validateImage = [
+    check('url')
+        .exists({ checkFalsy: true })
+        .optional()
+        .custom(async (value, { req }) => {
+            const format = value.split('.').pop()
+            if (value) {
+                if (format !== 'jpg' && format !== 'png' && format !== 'jpeg') {
+                    throw new Error('Image URL must end in .png, .jpg, or .jpeg')
+                }
+            }
+        }),
     handleValidationErrors
 ];
 
@@ -455,35 +482,42 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 
     } catch (err) {
         return res.json(err.message);
+        // err.message = "Bad Request"
+        // err.status = 400
+        // next(err)
     }
 });
 
-router.post('/:spotId/images', requireAuth, async (req, res) => {
-    const spotId = Number(req.params.spotId);
-    const spot = await Spot.findByPk(spotId);
+router.post('/:spotId/images', requireAuth, validateImage, async (req, res) => {
+    try {
+        const spotId = Number(req.params.spotId);
+        const spot = await Spot.findByPk(spotId);
 
-    if (!spot) return res.status(404).json({ message: "Spot couldn't be found" });
+        if (!spot) return res.status(404).json({ message: "Spot couldn't be found" });
 
-    if (req.user.id !== spot.ownerId) {
-        return res.status(403).json({ message: 'Forbidden' });
-    };
+        if (req.user.id !== spot.ownerId) {
+            return res.status(403).json({ message: 'Forbidden' });
+        };
 
-    const { url, preview } = req.body;
+        const { url, preview } = req.body;
 
-    const newImage = await Image.create({
-        imageableId: spotId,
-        imageableType: 'Spot',
-        url: url,
-        preview: preview
-    });
+        const newImage = await Image.create({
+            imageableId: spotId,
+            imageableType: 'Spot',
+            url: url,
+            preview: preview
+        });
 
-    const image = {};
+        const image = {};
 
-    image.id = newImage.id;
-    image.url = newImage.url;
-    image.preview = newImage.preview;
+        image.id = newImage.id;
+        image.url = newImage.url;
+        image.preview = newImage.preview;
 
-    return res.json(image);
+        return res.json(image);
+    } catch (err) {
+        return res.json(err.message);
+    }
 });
 
 router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
