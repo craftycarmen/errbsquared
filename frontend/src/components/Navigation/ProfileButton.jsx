@@ -46,9 +46,9 @@ function ProfileButton({ user }) {
                 <i className="fa-solid fa-bars fa-lg" /> <i className="fa-solid fa-user fa-lg" />
             </div>
 
-            <div className={ulClassName} ref={ulRef}>
+            <div>
                 {user ? (
-                    <div className='loggedIn'>
+                    <div className={ulClassName} ref={ulRef}>
                         <div>Hello, {user.firstName}!</div>
                         <div>{user.email}</div>
                         <hr />
@@ -59,7 +59,7 @@ function ProfileButton({ user }) {
                         </div>
                     </div>
                 ) : (
-                    <div className='signUpLogIn'>
+                    <div className={ulClassName} ref={ulRef}>
                         <OpenModalMenuItem
                             itemText="Sign Up"
                             onItemClick={closeMenu}

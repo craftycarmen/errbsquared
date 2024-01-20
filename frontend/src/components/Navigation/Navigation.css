@@ -14,6 +14,14 @@
 
 .createSpot {
     margin-right: 15px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.createSpot:hover {
+    background-color: #d3bcc9;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .profile {
@@ -27,32 +35,46 @@
     cursor: pointer;
     border: #d3bcc9 solid 2px;
     border-radius: 20px;
-    padding: 15px 15px 12px 15px;
+    padding: 15px 8px 12px 15px;
     width: 50px;
 }
 
 .profile-dropdown {
     position: absolute;
+    border: #d3bcc9 solid 2px;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: white;
+    width: auto;
+    margin-right: 34px;
+    margin-top: 35px;
+    right: 0;
+    left: inherit;
 }
 
-.signUpLogIn {
+/* .signUpLogIn {
     border: #d3bcc9 solid 2px;
     border-radius: 5px;
     padding: 15px;
     background-color: white;
     width: 100px;
     margin-top: 145px;
-}
+} */
 
-.loggedIn {
+/* .loggedIn {
     border: #d3bcc9 solid 2px;
     border-radius: 5px;
     padding: 15px;
     background-color: white;
     width: 100px;
     margin-top: 230px;
-}
+} */
 
 .hidden {
     display: none;
+}
+
+.profile-dropdown hr {
+    width: auto;
+    margin-top: 10px;
 }

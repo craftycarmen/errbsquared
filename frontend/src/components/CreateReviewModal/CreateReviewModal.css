@@ -34,7 +34,7 @@
     width: 100%;
 }
 
-h1 {
+.reviewModal h1 {
     display: flex;
     justify-content: center;
 }

@@ -94,6 +94,7 @@ export default function SpotDetails() {
                         <span>Be the first to post a review!</span>
                     </>}
                 <CreateReviewButton />
+                <p></p>
                 <SpotReviews />
             </div>
         </section >
