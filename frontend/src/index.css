@@ -23,6 +23,8 @@ button {
     font-weight: bold;
     border-radius: 5px;
     padding: 10px;
+    border: 2px black solid;
+    box-shadow: 2px 2px 0px black;
 }
 
 button:hover {
@@ -47,4 +49,13 @@ textarea {
     border-radius: 5px;
     resize: none;
     padding: 5px;
+}
+
+h1 {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-bottom: 10px;
 }

@@ -6,7 +6,17 @@
 
 .createSpotForm input {
     width: 95%;
+    margin-top: 10px;
+}
+
+.createSpotForm textarea {
+    width: 95%;
     margin-top: 15px;
+}
+
+#createSpotButton {
+    display: flex;
+    justify-content: center;
 }
 
 .cityState {

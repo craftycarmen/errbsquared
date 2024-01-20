@@ -244,7 +244,9 @@ export default function CreateSpot() {
                 />
                 <div className='error'>{errors.country && `${errors.country}`}</div>
                 <hr />
-                <button type='submit'>Create Spot</button>
+                <div id='createSpotButton'>
+                    <button type='submit'>Create Spot</button>
+                </div>
             </form>
         </section >
     )

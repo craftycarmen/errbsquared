@@ -9,6 +9,7 @@
 }
 
 .reviewModal button:not(#submit) {
+    box-shadow: none;
     background-color: white;
 }
 
@@ -32,6 +33,13 @@
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+#submit:disabled {
+    background-color: gainsboro;
+    font-weight: 400;
+    color: #b6b6b6;
+    cursor: not-allowed;
 }
 
 .reviewModal h1 {

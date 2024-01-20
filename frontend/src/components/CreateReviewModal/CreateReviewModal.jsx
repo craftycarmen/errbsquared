@@ -1,7 +1,7 @@
 import './CreateReviewModal.css';
 import { useModal } from '../../context/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createSpotReview } from '../../store/spots';
 import { useParams } from 'react-router-dom';
 
@@ -17,6 +17,15 @@ export default function CreateReviewModal() {
     // const updateReview = ;
     const updateStars = (e) => setStars(e.target.value);
 
+    useEffect(() => {
+        const errs = {};
+
+        if (review.length < 10) errs.review = 'Not enough characters';
+        if (stars === 0) errs.stars = 'Not enough stars';
+
+        setErrors(errs)
+    }, [review, stars])
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({});
@@ -26,7 +35,7 @@ export default function CreateReviewModal() {
             stars
         }
 
-        return dispatch(createSpotReview(id, reviewData))
+        return dispatch(createSpotReview(reviewData))
 
             .then(closeModal)
             .catch(async (res) => {
@@ -68,7 +77,10 @@ export default function CreateReviewModal() {
                         )
                     })}
                 </div>
-                <button id='submit' type='submit'>Submit Your Review</button>
+                <button
+                    id='submit'
+                    disabled={Object.values(errors).length}
+                    type='submit'>Submit Your Review</button>
             </form>
 
         </section>
