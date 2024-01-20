@@ -76,7 +76,7 @@ export const createSpotImage = (spotId, spotImage) => async dispatch => {
 };
 
 export const createSpotReview = (spotId, spotReview) => async dispatch => {
-    const res = await csrfFetch(`/api/spots/${spotId}/review`, {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(spotReview)

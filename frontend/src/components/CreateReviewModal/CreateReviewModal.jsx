@@ -4,17 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { createSpotReview } from '../../store/spots';
 import { useParams } from 'react-router-dom';
+import { addReview } from '../../store/reviews';
 
 export default function CreateReviewModal() {
-    // const { spotId } = useParams()
     const { closeModal } = useModal();
     const dispatch = useDispatch();
+    // const [spotId, setSpotId] = useState(spot.id)
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [hover, setHover] = useState(0)
     const [errors, setErrors] = useState('');
-    // let spot = useSelector(state => state.spots);
-    // const updateReview = ;
     const updateStars = (e) => setStars(e.target.value);
 
     useEffect(() => {
@@ -26,7 +25,7 @@ export default function CreateReviewModal() {
         setErrors(errs)
     }, [review, stars])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
 
@@ -35,11 +34,12 @@ export default function CreateReviewModal() {
             stars
         }
 
-        return dispatch(createSpotReview(reviewData))
+        return dispatch(addReview(spotId, reviewData))
 
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json()
+                console.log(data);
                 if (data && data.errors) {
                     setErrors(data.errors)
                 }

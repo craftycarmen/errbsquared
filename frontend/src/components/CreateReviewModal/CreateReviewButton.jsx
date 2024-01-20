@@ -7,26 +7,26 @@ export default function CreateReviewButton() {
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
-    useEffect(() => {
-        if (!showMenu) return;
+    // useEffect(() => {
+    //     if (!showMenu) return;
 
-        const closeMenu = (e) => {
-            if (!ulRef.current.contains(e.target)) {
-                setShowMenu(false);
-            }
-        };
+    //     const closeMenu = (e) => {
+    //         if (!ulRef.current.contains(e.target)) {
+    //             setShowMenu(false);
+    //         }
+    //     };
 
-        document.addEventListener('click', closeMenu);
+    //     document.addEventListener('click', closeMenu);
 
-        return () => document.removeEventListener('click', closeMenu);
-    }, [showMenu]);
+    //     return () => document.removeEventListener('click', closeMenu);
+    // }, [showMenu]);
 
-    const closeMenu = () => setShowMenu(false);
+    // const closeMenu = () => setShowMenu(false);
 
     return (
         <OpenModalButton
             buttonText="Post Your Review"
-            onItemClick={closeMenu}
+            // onItemClick={closeMenu}
             modalComponent={<CreateReviewModal />}
         />
     );
