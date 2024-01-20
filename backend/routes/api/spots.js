@@ -76,6 +76,7 @@ const validateImage = [
 const validateReview = [
     check('review')
         .exists({ checkFalsy: true })
+        .notEmpty()
         .withMessage('Review text is required'),
     check('stars')
         .exists({ checkFalsy: true })

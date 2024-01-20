@@ -2,8 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
 import { useEffect } from 'react';
-import './SpotDetails.css';
 import SpotReviews from '../SpotReviews';
+import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
+import './SpotDetails.css';
 
 export default function SpotDetails() {
     const { spotId } = useParams();
@@ -92,6 +93,7 @@ export default function SpotDetails() {
                     <>
                         <span>Be the first to post a review!</span>
                     </>}
+                <CreateReviewButton />
                 <SpotReviews />
             </div>
         </section >

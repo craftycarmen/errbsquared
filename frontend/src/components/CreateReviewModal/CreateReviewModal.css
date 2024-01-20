@@ -1,0 +1,40 @@
+.reviewModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    flex-basis: auto;
+    padding: 10px 25px 15px 25px;
+    width: fit-content;
+}
+
+.reviewModal button:not(#submit) {
+    background-color: white;
+}
+
+.on {
+    color: #d57794;
+    border: none;
+}
+
+.off {
+    color: gainsboro;
+    border: none;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+#submit {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
