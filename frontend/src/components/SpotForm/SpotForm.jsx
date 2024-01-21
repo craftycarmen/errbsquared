@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { updateSpot, createSpot, createSpotImage } from "../../store/spots";
+import { updateSpot, createSpot, createSpotImage, editSpotImage } from "../../store/spots";
 import { useDispatch } from 'react-redux';
 
-export default function SpotForm({ spot, formType }) {
+export default function SpotForm({ spot, img, formType }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [country, setCountry] = useState(spot?.country);
@@ -15,11 +15,11 @@ export default function SpotForm({ spot, formType }) {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const [url, setUrl] = useState(spot?.url);
-    const [img2, setImg2] = useState(spot?.img2);
-    const [img3, setImg3] = useState(spot?.img3);
-    const [img4, setImg4] = useState(spot?.img4);
-    const [img5, setImg5] = useState(spot?.img5);
+    const [url, setUrl] = useState(spot?.SpotImages?.url);
+    const [img2, setImg2] = useState(spot.SpotImages?.img2);
+    const [img3, setImg3] = useState(spot.SpotImages?.img3);
+    const [img4, setImg4] = useState(spot.SpotImages?.img4);
+    const [img5, setImg5] = useState(spot.SpotImages?.img5);
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -55,17 +55,23 @@ export default function SpotForm({ spot, formType }) {
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
         if (price < 0) errs.price = 'Price per night must be greater than $0';
 
-        const urlFormat = url.split('.').pop();
-        const img2Format = img2.split('.').pop();
-        const img3Format = img3.split('.').pop();
-        const img4Format = img4.split('.').pop();
-        const img5Format = img5.split('.').pop();
+        console.log(spot.SpotImages.map(img => img.url));
+        // const urlFormat = url.split('.').pop();
+        // const img2Format = img2.split('.').pop();
+        // const img3Format = img3.split('.').pop();
+        // const img4Format = img4.split('.').pop();
+        // const img5Format = img5.split('.').pop();
 
-        if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
+        // if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+        // if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
+        // if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
+        // if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
+        // if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
+
+        // if (url) {
+        //     const urlFormat = url.split('.').pop();
+        //     if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+        // }
 
         setErrors(errs)
     }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
@@ -75,6 +81,9 @@ export default function SpotForm({ spot, formType }) {
         setErrors({});
 
         spot = { ...spot, country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5 }
+
+        img = { ...img, url, img2, img3, img4, img5 }
+        console.log(spot);
 
         const spotInfo = {
             country,
@@ -97,8 +106,29 @@ export default function SpotForm({ spot, formType }) {
         })
 
         if (formType === 'Update Your Spot') {
-            const editedSpot = await dispatch(updateSpot(spot))
-            spot = editedSpot;
+            dispatch(updateSpot(spot))
+                .then((spot) => {
+                    let spotImage;
+                    images.forEach((image, index) => {
+                        if (index === 0) {
+                            spotImage = {
+                                id: spot.id,
+                                url: image,
+                                preview: true
+                            }
+                        } else {
+                            spotImage = {
+                                id: spot.id,
+                                url: image,
+                                preview: false
+                            }
+                        }
+                        dispatch(editSpotImage(spotImage))
+                            .then(navigate(`/spots/${spot.id}`))
+                    })
+
+                })
+            // spot = editedSpot;
         } else if (formType === 'Create a New Spot') {
             const images = Object.values(imageInfo).filter(img => img !== '');
             // dispatch(createSpot(spot))
@@ -124,7 +154,6 @@ export default function SpotForm({ spot, formType }) {
                     })
 
                 })
-                .then()
             spot = newSpot;
         }
 

@@ -26,7 +26,7 @@ export default function ManageSpots() {
                 {spots.map(spot => (
                     <div key={spot.id} className='spotCard'>
                         <div>
-                            <Link to={`spots/${spot.id}`}>
+                            <Link to={`${spot.id}`}>
                                 <span className='toolTip'>{spot.name}</span>
                                 <img
                                     className='spotImage'
