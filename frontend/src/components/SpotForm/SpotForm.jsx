@@ -55,7 +55,6 @@ export default function SpotForm({ spot, img, formType }) {
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
         if (price < 0) errs.price = 'Price per night must be greater than $0';
 
-        console.log(spot.SpotImages.map(img => img.url));
         // const urlFormat = url.split('.').pop();
         // const img2Format = img2.split('.').pop();
         // const img3Format = img3.split('.').pop();

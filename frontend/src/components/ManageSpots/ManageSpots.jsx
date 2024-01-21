@@ -26,7 +26,7 @@ export default function ManageSpots() {
                 {spots.map(spot => (
                     <div key={spot.id} className='spotCard'>
                         <div>
-                            <Link to={`${spot.id}`}>
+                            <Link to={`/spots/${spot.id}`}>
                                 <span className='toolTip'>{spot.name}</span>
                                 <img
                                     className='spotImage'
@@ -40,7 +40,7 @@ export default function ManageSpots() {
                                 <span style={{ fontWeight: '800' }}>${spot.price && spotPrice(spot.price)}</span> night
                             </Link>
                             <p className='buttonBlock'>
-                                <button style={{ marginRight: "10px" }}>Update</button>
+                                <Link to={`/spots/${spot.id}/edit`}><button style={{ marginRight: "10px" }}>Update</button></Link>
                                 <button>Delete</button>
                             </p>
                         </div>
