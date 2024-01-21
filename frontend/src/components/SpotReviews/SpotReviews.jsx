@@ -34,7 +34,7 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
         <section>
             {userReviewed.length === 0 && spot.ownerId !== userId &&
                 <>
-                    <CreateReviewButton spotId={spotId} />
+                    <CreateReviewButton spotId={spotId} sessionUser={sessionUser} />
                 </>
             }
 

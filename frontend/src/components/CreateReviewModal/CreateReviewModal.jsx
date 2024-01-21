@@ -4,14 +4,14 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { addReview } from '../../store/reviews';
 
-export default function CreateReviewModal({ spotId }) {
+export default function CreateReviewModal({ spotId, sessionUser }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [hover, setHover] = useState(0)
     const [errors, setErrors] = useState('');
-    const updateStars = (e) => setStars(e.target.value);
+    // const updateStars = (e) => setStars(e.target.value);
 
     useEffect(() => {
         const errs = {};
@@ -31,8 +31,9 @@ export default function CreateReviewModal({ spotId }) {
             stars
         }
 
-        return dispatch(addReview(spotId, reviewData))
+        console.log(reviewData);
 
+        return dispatch(addReview(spotId, reviewData))
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json()
@@ -41,7 +42,7 @@ export default function CreateReviewModal({ spotId }) {
                 }
             })
     }
-    console.log(errors);
+
     return (
         <section className='reviewModal'>
             <form onSubmit={handleSubmit}>

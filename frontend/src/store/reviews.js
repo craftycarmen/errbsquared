@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 export const LOAD_REVIEWS = '/reviews/LOAD_REVIEWS';
-export const LOAD_SPOT_REVIEW = '/reviews/LOAD_SPOT_REVIEW';
+export const CREATE_SPOT_REVIEW = '/reviews/CREATE_SPOT_REVIEW';
 export const CLEAR_REVIEWS = '/reviews/CLEAR_REVIEWS';
 
 export const loadReviews = (reviews, spotId) => ({
@@ -10,10 +10,9 @@ export const loadReviews = (reviews, spotId) => ({
     spotId
 });
 
-export const loadSingleReview = (review, spotId) => ({
-    type: LOAD_SPOT_REVIEW,
+export const createSpotReview = (review) => ({
+    type: CREATE_SPOT_REVIEW,
     review,
-    spotId
 })
 
 export const clearReviews = () => ({
@@ -38,8 +37,8 @@ export const addReview = (spotId, review) => async dispatch => {
     });
     if (res.ok) {
         const data = await res.json();
-        console.log("res", res);
-        dispatch(loadSingleReview(data, spotId))
+        console.log(data);
+        dispatch(createSpotReview(data))
     }
 }
 
@@ -58,8 +57,8 @@ const reviewsReducer = (state = initialState, action) => {
             }
             return allReviews;
         }
-        case LOAD_SPOT_REVIEW:
-            return { ...state, [action.spotId]: action.review };
+        case CREATE_SPOT_REVIEW:
+            return { ...state, [action.review.id]: action.review };
         case CLEAR_REVIEWS: {
             return {};
         }
