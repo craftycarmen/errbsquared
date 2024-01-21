@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
-import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
 import './SpotDetails.css';
 
 export default function SpotDetails() {
@@ -12,7 +11,6 @@ export default function SpotDetails() {
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
     const sessionUser = useSelector((state) => state.session.user);
-
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
     }, [dispatch, spotId]);
@@ -93,9 +91,8 @@ export default function SpotDetails() {
                     <>
                         <span>Be the first to post a review!</span>
                     </>}
-                <CreateReviewButton />
-                <p></p>
-                <SpotReviews />
+
+                <SpotReviews spotId={spotId} sessionUser={sessionUser} />
             </div>
         </section >
     )

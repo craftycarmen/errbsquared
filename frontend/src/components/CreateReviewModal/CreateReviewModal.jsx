@@ -1,15 +1,12 @@
 import './CreateReviewModal.css';
 import { useModal } from '../../context/Modal';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { createSpotReview } from '../../store/spots';
-import { useParams } from 'react-router-dom';
 import { addReview } from '../../store/reviews';
 
-export default function CreateReviewModal() {
+export default function CreateReviewModal({ spotId }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
-    // const [spotId, setSpotId] = useState(spot.id)
     const [review, setReview] = useState('');
     const [stars, setStars] = useState(0);
     const [hover, setHover] = useState(0)
@@ -39,16 +36,19 @@ export default function CreateReviewModal() {
             .then(closeModal)
             .catch(async (res) => {
                 const data = await res.json()
-                console.log(data);
                 if (data && data.errors) {
                     setErrors(data.errors)
                 }
             })
     }
+    console.log(errors);
     return (
         <section className='reviewModal'>
             <form onSubmit={handleSubmit}>
                 <h1>How was your stay?</h1>
+                <p className="error">
+                    {errors.reviewed && `${errors.reviewed}`}
+                </p>
                 <textarea
                     type='text'
                     placeholder='Leave your review here...'
