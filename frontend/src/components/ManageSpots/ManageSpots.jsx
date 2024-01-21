@@ -11,7 +11,7 @@ export default function ManageSpots() {
     const spots = Object.values(useSelector(state => state.spots)).filter(spot => spot.ownerId === userId)
 
     useEffect(() => {
-        dispatch(fetchOwnerSpots())
+        dispatch(fetchOwnerSpots(spots))
     }, [dispatch])
 
     const spotPrice = (price) => {
@@ -23,7 +23,7 @@ export default function ManageSpots() {
             <h1>Manage Your Spots</h1>
             <Link to='/spots/new'><button style={{ marginBottom: "10px" }}>Create a New Spot</button></Link>
             <div className='container'>
-                {spots.map(spot => (
+                {spots?.map(spot => (
                     <div key={spot.id} className='spotCard'>
                         <div>
                             <Link to={`/spots/${spot.id}`}>

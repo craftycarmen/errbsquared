@@ -149,12 +149,12 @@ const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
             const allSpots = {};
+            if (action.spots.Spots !== "No spots found") {
+                action.spots.Spots.forEach((spot) => {
 
-            action.spots.Spots.forEach((spot) => {
-
-                allSpots[spot.id] = spot;
-            });
-
+                    allSpots[spot.id] = spot;
+                });
+            }
             return allSpots;
         }
         case LOAD_SPOT_DETAILS:
