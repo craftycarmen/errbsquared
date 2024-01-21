@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createSpot, createSpotImage } from '../../store/spots';
 import './CreateSpot.css';
 
 export default function CreateSpot() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [country, setCountry] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
@@ -19,6 +21,7 @@ export default function CreateSpot() {
     const [img3, setImg3] = useState('');
     const [img4, setImg4] = useState('');
     const [img5, setImg5] = useState('');
+    const [validateErrors, setValidateErrors] = useState({});
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -35,6 +38,39 @@ export default function CreateSpot() {
     const updateImg3 = (e) => setImg3(e.target.value);
     const updateImg4 = (e) => setImg4(e.target.value);
     const updateImg5 = (e) => setImg5(e.target.value);
+
+    useEffect(() => {
+        const errs = {};
+
+        if (!country) errs.country = 'Country is required';
+        if (!address) errs.address = 'Address is required';
+        if (!city) errs.city = 'City is required';
+        if (!state) errs.state = 'State is required';
+        if (!lat) errs.lat = 'Latitude is required';
+        if (!lng) errs.lng = 'Longitude is required';
+        if (!description) errs.description = 'Description is required';
+        if (!name) errs.name = 'Name is required';
+        if (!price) errs.price = 'Price is required';
+        if (!url) errs.url = 'Preview image is required';
+        if (lat && (lat > 90 || lat < -90)) errs.lat = 'Latitude is not valid';
+        if (lng && (lng > 180 || lng < -180)) errs.lng = 'Longitude is not valid';
+        if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
+        if (price < 0) errs.price = 'Price per night must be greater than $0';
+
+        const urlFormat = url.split('.').pop();
+        const img2Format = img2.split('.').pop();
+        const img3Format = img3.split('.').pop();
+        const img4Format = img4.split('.').pop();
+        const img5Format = img5.split('.').pop();
+
+        if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
+
+        setErrors(errs)
+    }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
 
     const reset = () => {
         setCountry('');
@@ -53,7 +89,7 @@ export default function CreateSpot() {
         setImg5('');
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
 
@@ -77,19 +113,29 @@ export default function CreateSpot() {
             img5
         })
 
-        const imageArr = Object.values(imageInfo).filter(img => img !== '');
+        const images = Object.values(imageInfo).filter(img => img !== '');
 
-        return dispatch(createSpot(spotInfo))
+        dispatch(createSpot(spotInfo))
             .then((spot) => {
-                let spotImg;
-                imageArr.forEach(img => {
-                    spotImg = {
-                        id: spot.id,
-                        url: img,
-                        preview: true
+                let spotImage;
+                images.forEach((image, index) => {
+                    if (index === 0) {
+                        spotImage = {
+                            id: spot.id,
+                            url: image,
+                            preview: true
+                        }
+                    } else {
+                        spotImage = {
+                            id: spot.id,
+                            url: image,
+                            preview: false
+                        }
                     }
-                    return dispatch(createSpotImage(spot.id, spotImg))
+                    dispatch(createSpotImage(spot.id, spotImage))
+                        .then(navigate(`/spots/${spot.id}`))
                 })
+
             })
             // .then(reset())
             .catch(async (res) => {
@@ -99,6 +145,7 @@ export default function CreateSpot() {
                 }
             })
     }
+    console.log("X", !!Object.values(errors).length);
 
     return (
         <section className='createSpotForm'>
@@ -221,30 +268,30 @@ export default function CreateSpot() {
                     value={img2}
                     onChange={updateImg2}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
+                <div className='error'>{errors.img2 && `${errors.img2}`}</div>
                 <input
                     type='text'
                     placeholder='Image URL'
                     value={img3}
                     onChange={updateImg3}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
+                <div className='error'>{errors.img3 && `${errors.img3}`}</div>
                 <input
                     type='text'
                     placeholder='Image URL'
                     value={img4}
                     onChange={updateImg4}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
+                <div className='error'>{errors.img4 && `${errors.img4}`}</div>
                 <input
                     type='text'
                     placeholder='Image URL'
                     value={img5}
                     onChange={updateImg5}
                 />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
+                <div className='error'>{errors.img5 && `${errors.img5}`}</div>
                 <hr />
-                <button type='submit'>Create Spot</button>
+                <button style={{ color: "000" }} disabled={Object.values(errors).length} type='submit'>Create Spot</button>
             </form>
         </section >
     )
