@@ -291,7 +291,12 @@ export default function CreateSpot() {
                 />
                 <div className='error'>{errors.img5 && `${errors.img5}`}</div>
                 <hr />
-                <button type='submit'>Create Spot</button>
+                <div id='submit'>
+                    <button
+                        type='submit'
+                        disabled={!!Object.values(errors).length}>Create Spot</button>
+                </div>
+
             </form>
         </section >
     )

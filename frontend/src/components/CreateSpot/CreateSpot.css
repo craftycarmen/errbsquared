@@ -75,3 +75,7 @@ hr {
     margin-top: 15px;
     margin-bottom: 10px;
 }
+
+#submit {
+    justify-content: center;
+}

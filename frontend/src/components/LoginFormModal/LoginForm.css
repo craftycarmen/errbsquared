@@ -14,13 +14,6 @@
     height: 35px;
 }
 
-.login button:disabled {
-    background-color: gainsboro;
-    font-weight: 400;
-    color: #b6b6b6;
-    cursor: not-allowed;
-}
-
 .error {
     margin-top: -5px;
     color: red;

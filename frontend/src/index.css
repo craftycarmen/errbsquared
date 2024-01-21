@@ -31,6 +31,14 @@ button:hover {
     cursor: pointer;
 }
 
+button:disabled {
+    background-color: gainsboro;
+    font-weight: 400;
+    color: #b6b6b6;
+    cursor: not-allowed;
+}
+
+
 input {
     width: 300px;
     font-family: 'Josefin Sans', sans-serif;
