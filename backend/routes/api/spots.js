@@ -608,7 +608,7 @@ router.get('/:spotId/reviews', async (req, res) => {
 
 });
 
-router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) => {
+router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res, next) => {
     try {
         const spotId = Number(req.params.spotId);
         const userId = req.user.id;
@@ -645,7 +645,11 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
 
             return res.status(201).json(newReviewResults);
         } else {
-            return res.status(500).json({ message: 'User already has a review for this spot' })
+            const err = new Error('User already reviewed');
+            err.status = 500;
+            err.errors = { reviewed: 'Review already exists for this spot' };
+            return next(err)
+            // return res.status(500).json({ message: 'User already has a review for this spot' })
         }
     } catch (err) {
         return res.json(err.message);
