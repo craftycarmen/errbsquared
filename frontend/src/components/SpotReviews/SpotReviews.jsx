@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearReviews, fetchSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
 
-export default function SpotReviews({ spotId, sessionUser }) {
+export default function SpotReviews({ spotId, sessionUser, spot }) {
     const dispatch = useDispatch();
     const reviews = Object.values(useSelector(state => state.reviews)).sort((a, b) => {
         if (a.createdAt > b.createdAt) return -1;
@@ -11,7 +11,7 @@ export default function SpotReviews({ spotId, sessionUser }) {
         return 0;
     });
 
-    const userId = sessionUser.id;
+    const userId = sessionUser?.id;
 
     const userReviewed = reviews.filter(review => {
         if (review.userId === userId) return true;
@@ -32,7 +32,7 @@ export default function SpotReviews({ spotId, sessionUser }) {
 
     return (reviews &&
         <section>
-            {userReviewed.length === 0 &&
+            {userReviewed.length === 0 && spot.ownerId !== userId &&
                 <>
                     <CreateReviewButton spotId={spotId} />
                 </>

@@ -92,7 +92,7 @@ export default function SpotDetails() {
                         <span>Be the first to post a review!</span>
                     </>}
 
-                <SpotReviews spotId={spotId} sessionUser={sessionUser} />
+                <SpotReviews spotId={spotId} sessionUser={sessionUser} spot={spot} />
             </div>
         </section >
     )
