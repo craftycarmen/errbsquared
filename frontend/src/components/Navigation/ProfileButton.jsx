@@ -56,7 +56,7 @@ function ProfileButton({ user }) {
                         <div><Link to='/spots/current'>Manage Spots</Link></div>
                         <hr />
                         <div>
-                            <button onClick={logout}>Log Out</button>
+                            <button onClick={logout}><Link to='/'>Log Out</Link></button>
                         </div>
                     </div>
                 ) : (
