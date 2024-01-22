@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { fetchSpotDetails } from "./spots";
 
 export const LOAD_REVIEWS = '/reviews/LOAD_REVIEWS';
 export const CREATE_SPOT_REVIEW = '/reviews/CREATE_SPOT_REVIEW';
@@ -39,9 +40,9 @@ export const addReview = (spotId, review) => async (dispatch, getState) => {
     });
     if (res.ok) {
         const data = await res.json();
-        console.log(data);
-        dispatch(createSpotReview(data))
-        dispatch(fetchSpotReviews(spotId))
+        dispatch(createSpotReview(data));
+        dispatch(fetchSpotDetails(spotId));
+        dispatch(fetchSpotReviews(spotId));
     }
 }
 

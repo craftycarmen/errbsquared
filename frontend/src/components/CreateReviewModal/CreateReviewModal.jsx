@@ -11,13 +11,12 @@ export default function CreateReviewModal({ spotId }) {
     const [stars, setStars] = useState(0);
     const [hover, setHover] = useState(0)
     const [errors, setErrors] = useState('');
-    // const updateStars = (e) => setStars(e.target.value);
 
     useEffect(() => {
         const errs = {};
 
-        if (review.length < 10) errs.review = 'Not enough characters';
-        if (stars === 0) errs.stars = 'Not enough stars';
+        if (review.length < 10) errs.review = 'Review must be 10 characters at minimum';
+        if (stars === 0) errs.stars = 'Star rating must be between 1 and 5';
 
         setErrors(errs)
     }, [review, stars])
@@ -30,8 +29,6 @@ export default function CreateReviewModal({ spotId }) {
             review,
             stars
         }
-
-        console.log(reviewData);
 
         return dispatch(addReview(spotId, reviewData))
             .then(closeModal)
