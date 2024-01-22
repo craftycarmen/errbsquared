@@ -14,7 +14,19 @@ const validateSignup = [
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
-        .withMessage('Invalid email'),
+        .withMessage('Invalid email')
+        .bail()
+        .custom(async (value, { req }) => {
+            const user = await User.unscoped().findOne({
+                where: {
+                    email: value
+                }
+            });
+
+            if (user) {
+                throw new Error('Email already exists')
+            }
+        }),
     check('username')
         .exists({ checkFalsy: true })
         .notEmpty()
@@ -24,7 +36,19 @@ const validateSignup = [
         .withMessage('Username must be 4 characters or more')
         .not()
         .isEmail()
-        .withMessage('Username cannot be an email'),
+        .withMessage('Username cannot be an email')
+        .bail()
+        .custom(async (value, { req }) => {
+            const user = await User.findOne({
+                where: {
+                    username: value
+                }
+            })
+
+            if (user) {
+                throw new Error('Username already exists')
+            }
+        }),
     check('firstName')
         .exists({ checkFalsy: true })
         .notEmpty()
@@ -65,10 +89,15 @@ router.post('/', validateSignup, async (req, res) => {
         let errObj = {}
         errObj[path] = err.message;
 
-        return res.status(500).json({
-            message: 'User already exists',
-            errors: errObj
-        });
+        // return res.status(500).json({
+        //     message: 'User already exists',
+        //     errors: errObj
+        // });
+
+        new Error('Invalid username');
+        err.status = 500;
+        err.errors = { username: 'Username already exists' };
+        return next(err);
     }
 
 });

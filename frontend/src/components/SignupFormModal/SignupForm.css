@@ -1,11 +1,20 @@
 .signup {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-items: center;
+    flex-basis: auto;
+    padding: 10px 25px 25px 25px;
+    width: fit-content;
+}
+
+.signup button {
+    margin-top: 5px;
+    width: 315px;
+    height: 35px;
 }
 
 .error {
+    margin-top: -5px;
     color: red;
 }
