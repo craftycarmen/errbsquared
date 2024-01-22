@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { updateSpot, createSpot, createSpotImage, editSpotImage } from "../../store/spots";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function SpotForm({ spot, img, formType }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const sessionUser = useSelector((state) => state.session.user);
+
     const [country, setCountry] = useState(spot?.country);
     const [address, setAddress] = useState(spot?.address);
     const [city, setCity] = useState(spot?.city);
@@ -163,7 +165,7 @@ export default function SpotForm({ spot, img, formType }) {
         }
     }
 
-    return (
+    return (sessionUser &&
         <section className='createSpotForm'>
             <form onSubmit={handleSubmit}>
                 <h1>{formType}</h1>
