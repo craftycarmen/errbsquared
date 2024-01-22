@@ -23,6 +23,7 @@ export default function SignupFormModal() {
         if (!lastName) errs.lastName = '';
         if (!password || password.length < 6) errs.password = '';
         if (!confirmPassword) errs.confirmPassword = '';
+        if (password !== confirmPassword) errs.confirmPassword = 'Passwords do not match';
 
         setErrors(errs);
     }, [email, username, firstName, lastName, password, confirmPassword])
@@ -66,7 +67,6 @@ export default function SignupFormModal() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email*"
-                        style={{ marginBottom: "10px" }}
                     // required
                     />
                     <div className="error">{errors.email && `${errors.email}`}</div>

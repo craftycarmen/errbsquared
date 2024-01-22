@@ -8,13 +8,17 @@
     width: fit-content;
 }
 
+.signup input {
+    margin-top: 10px;
+}
+
 .signup button {
-    margin-top: 5px;
+    margin-top: 10px;
     width: 315px;
     height: 35px;
 }
 
-.error {
+/* .error {
     margin-top: -5px;
     color: red;
-}
+} */
