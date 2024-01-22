@@ -21,8 +21,9 @@ export default function SignupFormModal() {
         if (!username || username.length < 4) errs.username = '';
         if (!firstName) errs.firstName = '';
         if (!lastName) errs.lastName = '';
-        if (!password || password.length < 6) errs.password = '';
+        if (!password) errs.password = '';
         if (!confirmPassword) errs.confirmPassword = '';
+        if (password && password.length < 6) errs.password = 'Password must be 6 characters or more'
         if (password !== confirmPassword) errs.confirmPassword = 'Passwords do not match';
 
         setErrors(errs);
@@ -77,7 +78,7 @@ export default function SignupFormModal() {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         // required
-                        placeholder="Username*"
+                        placeholder="Username (minimum 4 characters)*"
                     />
                     <div className="error">{errors.username && `${errors.username}`}</div>
                 </div>
@@ -107,7 +108,7 @@ export default function SignupFormModal() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         // required
-                        placeholder="Password*"
+                        placeholder="Password (minimum 6 characters)*"
                     />
                     <div className="error">{errors.password && `${errors.password}`}</div>
                 </div>
