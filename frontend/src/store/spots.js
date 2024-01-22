@@ -3,6 +3,7 @@ import { csrfFetch } from './csrf';
 
 export const LOAD_SPOTS = '/spots/LOAD_SPOTS';
 export const LOAD_SPOT_DETAILS = '/spots/LOAD_SPOT_DETAILS';
+export const LOAD_OWNER_SPOTS = '/spots/LOAD_OWNER_SPOTS';
 export const UPDATE_SPOT = '/spots/UPDATE_SPOT';
 export const LOAD_SPOT_IMAGES = '/spots/LOAD_SPOT_IMAGES';
 export const UPDATE_SPOT_IMAGES = '/spots/UPDATE_SPOT_IMAGES';
@@ -17,6 +18,12 @@ export const loadSpotDetails = (spot) => ({
     type: LOAD_SPOT_DETAILS,
     spot
 });
+
+export const loadOwnerSpots = (spots, ownerId) => ({
+    type: LOAD_OWNER_SPOTS,
+    spots,
+    ownerId
+})
 
 export const editSpot = (spot) => ({
     type: UPDATE_SPOT,
@@ -59,12 +66,12 @@ export const fetchSpotDetails = spotId => async dispatch => {
     }
 };
 
-export const fetchOwnerSpots = () => async dispatch => {
+export const fetchOwnerSpots = (userId) => async dispatch => {
     const res = await csrfFetch('/api/spots/current');
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadSpots(data))
+        dispatch(loadOwnerSpots(data, userId))
     }
 }
 
@@ -160,6 +167,17 @@ const spotsReducer = (state = initialState, action) => {
         case LOAD_SPOT_DETAILS:
             return { ...state, [action.spot.id]: action.spot };
 
+        case LOAD_OWNER_SPOTS: {
+            const allSpots = {};
+            if (action.spots.Spots !== "No spots found") {
+                action.spots.Spots.forEach((spot, ownerId) => {
+                    console.log(spot.ownerId);
+                    allSpots[spot.ownerId] = ownerId;
+                    allSpots[spot.id] = spot;
+                });
+            }
+            return allSpots;
+        }
         case UPDATE_SPOT:
             return { ...state, [action.spot.id]: action.spot }
 
