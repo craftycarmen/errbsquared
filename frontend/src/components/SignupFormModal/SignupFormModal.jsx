@@ -24,7 +24,7 @@ export default function SignupFormModal() {
         if (!password) errs.password = '';
         if (!confirmPassword) errs.confirmPassword = '';
         if (password && password.length < 6) errs.password = 'Password must be 6 characters or more'
-        if (password !== confirmPassword) errs.confirmPassword = 'Passwords do not match';
+        if (confirmPassword && password !== confirmPassword) errs.confirmPassword = 'Password and confirm password must match';
 
         setErrors(errs);
     }, [email, username, firstName, lastName, password, confirmPassword])
