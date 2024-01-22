@@ -32,15 +32,15 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
 
     return (reviews &&
         <section>
-            {userReviewed.length === 0 && spot.ownerId !== userId &&
+            {sessionUser && userReviewed.length === 0 && spot.ownerId !== userId &&
                 <>
-                    <CreateReviewButton spotId={spotId} sessionUser={sessionUser} />
+                    <CreateReviewButton spotId={spotId} />
                 </>
             }
 
             {reviews.map((review) => (
                 <div key={review.id} className='reviews'>
-                    <p style={{ fontWeight: '600' }}>{review.User?.firstName}</p>
+                    <div style={{ fontWeight: '600' }}>{sessionUser?.id === review.User?.id ? sessionUser.firstName : (review.User?.firstName)}</div>
                     <p style={{ color: 'gray' }}>{review.createdAt &&
                         reviewDate(review.createdAt)
                     }

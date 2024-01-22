@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { addReview } from '../../store/reviews';
 
-export default function CreateReviewModal({ spotId, sessionUser }) {
+export default function CreateReviewModal({ spotId }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [review, setReview] = useState('');

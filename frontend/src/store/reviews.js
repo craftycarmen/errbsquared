@@ -29,16 +29,19 @@ export const fetchSpotReviews = spotId => async dispatch => {
     }
 }
 
-export const addReview = (spotId, review) => async dispatch => {
+export const addReview = (spotId, review) => async (dispatch, getState) => {
+    const sessionUser = getState().session.user;
+
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(review)
+        body: JSON.stringify({ ...review, userId: sessionUser.id })
     });
     if (res.ok) {
         const data = await res.json();
         console.log(data);
         dispatch(createSpotReview(data))
+        dispatch(fetchSpotReviews(spotId))
     }
 }
 
