@@ -25,15 +25,16 @@ export const loadOwnerSpots = (spots, ownerId) => ({
     ownerId
 })
 
-export const editSpot = (spot) => ({
+export const editSpot = (spotId, spot) => ({
     type: UPDATE_SPOT,
+    spotId,
     spot
 })
 
-export const editSpotImages = (spotImage, spotId) => ({
+export const editSpotImages = (spotId, spotImage) => ({
     type: UPDATE_SPOT_IMAGES,
-    spotImage,
-    spotId
+    spotId,
+    spotImage
 });
 
 export const loadSpotImages = (spotImage, spotId) => ({
@@ -93,15 +94,16 @@ export const updateSpot = (spotId, spot) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot)
+        body: JSON.stringify({ ...spot })
     });
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(editSpot(data));
+        dispatch(editSpot(spotId, data));
         return data;
     }
-}
+};
+
 export const editSpotImage = (spotId, spotImage) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'PUT',
@@ -111,7 +113,7 @@ export const editSpotImage = (spotId, spotImage) => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(editSpotImage(data))
+        dispatch(editSpotImage(spotId, data))
         return data
     }
 };

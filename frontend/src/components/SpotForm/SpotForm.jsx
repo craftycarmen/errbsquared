@@ -7,6 +7,7 @@ export default function SpotForm({ spot, img, formType }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
+    const spotId = spot.id;
 
     const [country, setCountry] = useState(spot?.country);
     const [address, setAddress] = useState(spot?.address);
@@ -17,11 +18,11 @@ export default function SpotForm({ spot, img, formType }) {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const [url, setUrl] = useState(spot?.SpotImages?.url);
-    const [img2, setImg2] = useState(spot.SpotImages?.img2);
-    const [img3, setImg3] = useState(spot.SpotImages?.img3);
-    const [img4, setImg4] = useState(spot.SpotImages?.img4);
-    const [img5, setImg5] = useState(spot.SpotImages?.img5);
+    const [url, setUrl] = useState(spot?.SpotImages[0]?.url);
+    const [img2, setImg2] = useState(spot?.SpotImages[1]?.url);
+    const [img3, setImg3] = useState(spot?.SpotImages[2]?.url);
+    const [img4, setImg4] = useState(spot?.SpotImages[3]?.url);
+    const [img5, setImg5] = useState(spot?.SpotImages[4]?.url);
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -51,7 +52,7 @@ export default function SpotForm({ spot, img, formType }) {
         if (!description) errs.description = 'Description is required';
         if (!name) errs.name = 'Name is required';
         if (!price) errs.price = 'Price is required';
-        if (!url) errs.url = 'Preview image is required';
+        // if (!url) errs.url = 'Preview image is required';
         if (lat && (lat > 90 || lat < -90)) errs.lat = 'Latitude is not valid';
         if (lng && (lng > 180 || lng < -180)) errs.lng = 'Longitude is not valid';
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
@@ -83,20 +84,21 @@ export default function SpotForm({ spot, img, formType }) {
 
         spot = { ...spot, country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5 }
 
-        img = { ...img, url, img2, img3, img4, img5 }
-        console.log(spot);
+        // spot = { ...spot, country, address, city, state, lat, lng, description, name, price }
 
-        const spotInfo = {
-            country,
-            address,
-            city,
-            state,
-            lat,
-            lng,
-            description,
-            name,
-            price
-        };
+        img = { ...img, url, img2, img3, img4, img5 }
+
+        // const spotInfo = {
+        //     country,
+        //     address,
+        //     city,
+        //     state,
+        //     lat,
+        //     lng,
+        //     description,
+        //     name,
+        //     price
+        // };
 
         const imageInfo = ({
             url,
@@ -107,7 +109,8 @@ export default function SpotForm({ spot, img, formType }) {
         })
 
         if (formType === 'Update Your Spot') {
-            dispatch(updateSpot(spot))
+            dispatch(updateSpot(spotId, spot))
+
                 .then((spot) => {
                     let spotImage;
                     images.forEach((image, index) => {
@@ -124,17 +127,16 @@ export default function SpotForm({ spot, img, formType }) {
                                 preview: false
                             }
                         }
-                        dispatch(editSpotImage(spotImage))
-                            .then(navigate(`/spots/${spot.id}`))
+                        dispatch(editSpotImage(spotId, spotImage))
                     })
 
                 })
-            // spot = editedSpot;
+                .then(navigate(`/spots/${spot.id}`))
         } else if (formType === 'Create a New Spot') {
-            const images = Object.values(imageInfo).filter(img => img !== '');
             // dispatch(createSpot(spot))
             dispatch(createSpot(spotInfo))
                 .then((spot) => {
+                    const images = Object.values(imageInfo).filter(img => img !== '');
                     let spotImage;
                     images.forEach((image, index) => {
                         if (index === 0) {
@@ -158,11 +160,11 @@ export default function SpotForm({ spot, img, formType }) {
             spot = newSpot;
         }
 
-        if (spot.errors) {
-            setErrors(spot.errors)
-        } else {
-            navigate(`/spots/${spot.id}`)
-        }
+        // if (spot.errors) {
+        //     setErrors(spot.errors)
+        // } else {
+        //     navigate(`/spots/${spot.id}`)
+        // }
     }
 
     return (sessionUser &&
