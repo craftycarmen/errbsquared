@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearReviews, fetchSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
+import DeleteReviewModalButton from '../DeleteReviewModal/DeleteReviewModalButton';
 
 export default function SpotReviews({ spotId, sessionUser, spot }) {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
     const userReviewed = reviews.filter(review => {
         if (review.userId === userId) return true;
     })
-
+    console.log(userReviewed);
     useEffect(() => {
         dispatch(fetchSpotReviews(spotId));
 
@@ -47,9 +48,9 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
                     </p>
                     <div style={{ marginTop: "-15px" }}>{review.review}</div>
                     {review.userId === userId &&
-                        <>
-                            <button style={{ marginTop: "10px", marginBottom: "25px" }}>Delete</button>
-                        </>
+                        <div style={{ marginTop: "10px", marginBottom: "15px" }}>
+                            <DeleteReviewModalButton reviewId={review.id} />
+                        </div>
                     }
                     <br />
                 </div>
