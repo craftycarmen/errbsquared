@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import './LoginForm.css';
 
 export default function LoginFormModal() {
     const dispatch = useDispatch();
@@ -57,32 +56,34 @@ export default function LoginFormModal() {
     };
 
     return (
-        <section className="login">
+        <section className="modal">
             <h1>Log In</h1>
             <p className="error">
                 {errors.credential && `${errors.credential}`}
             </p>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        <input
-                            placeholder="Username or Email"
-                            type="text"
-                            value={credential}
-                            onChange={(e) => setCredential(e.target.value)}
-                            required
-                        />
+                <div className="inputContainer">
+                    <input
+                        type="text"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                        placeholder=""
+                        id="credential"
+                    />
+                    <label htmlFor="credential" className="floating-label">Username or Email
                     </label>
                 </div>
-                <label>
+                <div className="inputContainer">
                     <input
-                        placeholder="Password"
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
+                        placeholder=""
+                        id="password"
                     />
-                </label>
+                    <label htmlFor="password" className="floating-label">Password
+                    </label>
+                </div>
                 <div>
                     <button
                         disabled={Object.values(charCount).length}

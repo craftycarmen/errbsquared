@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import './SignupForm.css'
+// import './SignupForm.css'
 
 export default function SignupFormModal() {
     const dispatch = useDispatch();
@@ -59,67 +59,73 @@ export default function SignupFormModal() {
     };
 
     return (
-        <div className="signup">
+        <section className="modal">
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="inputContainer">
                     <input
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email*"
-                    // required
+                        placeholder=""
+                        id="email"
                     />
+                    <label htmlFor="email" className="floating-label">Email</label>
                     <div className="error">{errors.email && `${errors.email}`}</div>
                 </div>
-                <div>
+                <div className="inputContainer">
                     <input
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        // required
-                        placeholder="Username (minimum 4 characters)*"
+                        placeholder=""
+                        id="username"
                     />
-                    <div className="error">{errors.username && `${errors.username}`}</div>
+                    <label htmlFor="username" className="floating-label">Username</label>
                 </div>
-                <div>
+                <div className="error">{errors.username && `${errors.username}`}</div>
+                <div className="inputContainer">
                     <input
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        // required
-                        placeholder="First Name*"
+                        placeholder=""
+                        id="firstname"
                     />
+                    <label htmlFor="firstname" className="floating-label">First Name</label>
                     <div className="error">{errors.firstName && `${errors.firstName}`}</div>
                 </div>
-                <div>
+                <div className="inputContainer">
                     <input
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        // required
-                        placeholder="Last Name*"
+                        placeholder=""
+                        id="lastname"
                     />
+                    <label htmlFor="lastname" className="floating-label">Last Name</label>
                     <div className="error">{errors.lastName && `${errors.lastName}`}</div>
                 </div>
-                <div>
+                <div className="inputContainer">
                     <input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        // required
-                        placeholder="Password (minimum 6 characters)*"
+                        placeholder=""
+                        id="password"
                     />
+                    <label htmlFor="password" className="floating-label">Password</label>
                     <div className="error">{errors.password && `${errors.password}`}</div>
                 </div>
-                <div>
+                <div className="inputContainer">
                     <input
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        // required
-                        placeholder="Confirm Password*"
+                        placeholder=""
+                        id="confirmpassword"
                     />
+                    <label htmlFor="confirmpassword" className="floating-label">Confirm Password</label>
                     <div className="error">{errors.confirmPassword && `${errors.confirmPassword}`}</div>
                 </div>
                 <div>
@@ -128,6 +134,6 @@ export default function SignupFormModal() {
                         type="submit">Sign Up</button>
                 </div>
             </form>
-        </div>
+        </section>
     )
 }

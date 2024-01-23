@@ -39,15 +39,6 @@ button:disabled {
 }
 
 
-input {
-    width: 300px;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: medium;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    padding: 5px;
-}
-
 textarea {
     font-family: 'Josefin Sans', sans-serif;
     font-size: medium;
@@ -74,8 +65,12 @@ h2 {
     align-items: center;
     justify-items: center;
     flex-basis: auto;
-    padding: 10px 25px 30px 25px;
+    padding: 10px 25px 5% 25px;
     width: fit-content;
+}
+
+.modal h1 {
+    margin-bottom: 0px;
 }
 
 .modal button {
@@ -91,4 +86,49 @@ h2 {
 .error {
     margin-top: -5px;
     color: red;
+}
+
+input {
+    width: 300px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px 10px 5px 10px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: black;
+    line-height: 1.25;
+}
+
+
+.inputContainer {
+    position: relative;
+}
+
+.inputContainer input:focus~label,
+.inputContainer input:not([placeholder=''])~label,
+.inputContainer input:not(:placeholder-shown)~label {
+    top: -12px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #757575;
+    cursor: default;
+}
+
+.floating-label {
+    position: absolute;
+    color: #757575;
+    left: 10px;
+    top: 10px;
+    transition: 300ms ease all;
+    cursor: text;
+    font-weight: 400;
+}
+
+input:focus {
+    outline: none;
 }
