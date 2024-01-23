@@ -18,11 +18,11 @@ export default function SpotForm({ spot, img, formType }) {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const [url, setUrl] = useState((spot && spot.SpotImages && spot.SpotImages[0]) && spot.SpotImages[0].url);
-    const [img2, setImg2] = useState((spot && spot.SpotImages && spot.SpotImages[1]) && spot.SpotImages[1].url);
-    const [img3, setImg3] = useState((spot && spot.SpotImages && spot.SpotImages[2]) && spot.SpotImages[2].url);
-    const [img4, setImg4] = useState((spot && spot.SpotImages && spot.SpotImages[3]) && spot.SpotImages[3].url);
-    const [img5, setImg5] = useState((spot && spot.SpotImages && spot.SpotImages[4]) && spot.SpotImages[4].url);
+    const [url, setUrl] = useState('');
+    const [img2, setImg2] = useState('');
+    const [img3, setImg3] = useState('');
+    const [img4, setImg4] = useState('');
+    const [img5, setImg5] = useState('');
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
@@ -39,6 +39,9 @@ export default function SpotForm({ spot, img, formType }) {
     const updateImg3 = (e) => setImg3(e.target.value);
     const updateImg4 = (e) => setImg4(e.target.value);
     const updateImg5 = (e) => setImg5(e.target.value);
+
+    const createForm = formType === 'Create a New Spot';
+    const updateForm = formType === 'Update Your Spot';
 
     useEffect(() => {
         const errs = {};
@@ -58,22 +61,22 @@ export default function SpotForm({ spot, img, formType }) {
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
         if (price < 0) errs.price = 'Price per night must be greater than $0';
 
-        // const urlFormat = url.split('.').pop();
-        // const img2Format = img2.split('.').pop();
-        // const img3Format = img3.split('.').pop();
-        // const img4Format = img4.split('.').pop();
-        // const img5Format = img5.split('.').pop();
+        const urlFormat = url.split('.').pop();
+        const img2Format = img2.split('.').pop();
+        const img3Format = img3.split('.').pop();
+        const img4Format = img4.split('.').pop();
+        const img5Format = img5.split('.').pop();
 
-        // if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-        // if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
-        // if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
-        // if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
-        // if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
+        if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
 
-        // if (url) {
-        //     const urlFormat = url.split('.').pop();
-        //     if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-        // }
+        if (url) {
+            const urlFormat = url.split('.').pop();
+            if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
 
         setErrors(errs)
     }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
@@ -108,7 +111,7 @@ export default function SpotForm({ spot, img, formType }) {
             img5
         })
 
-        if (formType === 'Update Your Spot') {
+        if (updateForm) {
             dispatch(updateSpot(spotId, spot))
 
                 .then((spot) => {
@@ -132,7 +135,7 @@ export default function SpotForm({ spot, img, formType }) {
 
                 })
                 .then(navigate(`/spots/${spot.id}`))
-        } else if (formType === 'Create a New Spot') {
+        } else if (createForm) {
             // dispatch(createSpot(spot))
             dispatch(createSpot(spotInfo))
                 .then((spot) => {
@@ -272,45 +275,50 @@ export default function SpotForm({ spot, img, formType }) {
                 </div>
                 <div className='error'>{errors.price && `${errors.price}`}</div>
                 <hr />
-                <h2>Liven up your spot with photos</h2>
-                <div>Submit a link to at least one photo to publish your spot.</div>
-                <input
-                    type='text'
-                    placeholder='Preview Image URL*'
-                    // required
-                    value={url}
-                    onChange={updateUrl}
-                />
-                <div className='error'>{errors.url && `${errors.url}`}</div>
-                <input
-                    type='text'
-                    placeholder='Image URL'
-                    value={img2}
-                    onChange={updateImg2}
-                />
-                <div className='error'>{errors.img2 && `${errors.img2}`}</div>
-                <input
-                    type='text'
-                    placeholder='Image URL'
-                    value={img3}
-                    onChange={updateImg3}
-                />
-                <div className='error'>{errors.img3 && `${errors.img3}`}</div>
-                <input
-                    type='text'
-                    placeholder='Image URL'
-                    value={img4}
-                    onChange={updateImg4}
-                />
-                <div className='error'>{errors.img4 && `${errors.img4}`}</div>
-                <input
-                    type='text'
-                    placeholder='Image URL'
-                    value={img5}
-                    onChange={updateImg5}
-                />
-                <div className='error'>{errors.img5 && `${errors.img5}`}</div>
-                <hr />
+                {createForm &&
+                    <div>
+
+
+                        <h2>Liven up your spot with photos</h2>
+                        <div>Submit a link to at least one photo to publish your spot.</div>
+                        <input
+                            type='text'
+                            placeholder='Preview Image URL*'
+                            // required
+                            value={url}
+                            onChange={updateUrl}
+                        />
+                        <div className='error'>{errors.url && `${errors.url}`}</div>
+                        <input
+                            type='text'
+                            placeholder='Image URL'
+                            value={img2}
+                            onChange={updateImg2}
+                        />
+                        <div className='error'>{errors.img2 && `${errors.img2}`}</div>
+                        <input
+                            type='text'
+                            placeholder='Image URL'
+                            value={img3}
+                            onChange={updateImg3}
+                        />
+                        <div className='error'>{errors.img3 && `${errors.img3}`}</div>
+                        <input
+                            type='text'
+                            placeholder='Image URL'
+                            value={img4}
+                            onChange={updateImg4}
+                        />
+                        <div className='error'>{errors.img4 && `${errors.img4}`}</div>
+                        <input
+                            type='text'
+                            placeholder='Image URL'
+                            value={img5}
+                            onChange={updateImg5}
+                        />
+                        <div className='error'>{errors.img5 && `${errors.img5}`}</div>
+                        <hr />
+                    </div>}
                 <div id='submit'>
                     <button
                         type='submit'
