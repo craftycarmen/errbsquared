@@ -67,12 +67,12 @@ export const fetchSpotDetails = spotId => async dispatch => {
     }
 };
 
-export const fetchOwnerSpots = (userId) => async dispatch => {
+export const fetchOwnerSpots = () => async dispatch => {
     const res = await csrfFetch('/api/spots/current');
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadOwnerSpots(data, userId))
+        dispatch(loadSpots(data))
     }
 }
 
@@ -169,17 +169,6 @@ const spotsReducer = (state = initialState, action) => {
         case LOAD_SPOT_DETAILS:
             return { ...state, [action.spot.id]: action.spot };
 
-        case LOAD_OWNER_SPOTS: {
-            const allSpots = {};
-            if (action.spots.Spots !== "No spots found") {
-                action.spots.Spots.forEach((spot, ownerId) => {
-                    console.log(spot.ownerId);
-                    allSpots[spot.ownerId] = ownerId;
-                    allSpots[spot.id] = spot;
-                });
-            }
-            return allSpots;
-        }
         case UPDATE_SPOT:
             return { ...state, [action.spot.id]: action.spot }
 
