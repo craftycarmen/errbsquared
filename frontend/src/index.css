@@ -6,7 +6,6 @@ body {
     margin-left: calc(100% - 98%);
     margin-right: calc(100% - 98%);
     margin-bottom: 30px;
-
 }
 
 a {
@@ -27,6 +26,15 @@ button {
     box-shadow: 2px 2px 0px black;
 }
 
+.modal button:last-child {
+    margin-bottom: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+}
+
 button:hover {
     cursor: pointer;
 }
@@ -36,18 +44,6 @@ button:disabled {
     font-weight: 400;
     color: #b6b6b6;
     cursor: not-allowed;
-}
-
-
-textarea {
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: medium;
-    width: 475px;
-    height: 75px;
-    border: solid black 2px;
-    border-radius: 5px;
-    resize: none;
-    padding: 5px;
 }
 
 h1 {
@@ -70,7 +66,9 @@ h2 {
 }
 
 .modal h1 {
-    margin-bottom: 0px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .modal button {
@@ -85,6 +83,8 @@ h2 {
 
 .error {
     margin-top: -5px;
+    margin-left: 10px;
+    font-size: 12px;
     color: red;
 }
 
@@ -100,10 +100,26 @@ input {
     display: block;
     border: none;
     border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
     color: black;
     line-height: 1.25;
 }
 
+textarea {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    width: 475px;
+    height: 75px;
+    resize: none;
+    border-radius: 5px;
+    padding: 10px 10px 5px 10px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    color: black;
+    line-height: 1.25;
+}
 
 .inputContainer {
     position: relative;
@@ -111,7 +127,10 @@ input {
 
 .inputContainer input:focus~label,
 .inputContainer input:not([placeholder=''])~label,
-.inputContainer input:not(:placeholder-shown)~label {
+.inputContainer input:not(:placeholder-shown)~label,
+.inputContainer textarea:focus~label,
+.inputContainer textarea:not([placeholder=''])~label,
+.inputContainer textarea:not(:placeholder-shown)~label {
     top: -12px;
     font-size: 12px;
     font-weight: 400;
@@ -129,6 +148,7 @@ input {
     font-weight: 400;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
     outline: none;
 }

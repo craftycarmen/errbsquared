@@ -1,4 +1,4 @@
-.reviewModal {
+/* .reviewModal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,15 +11,17 @@
 .reviewModal button:not(#submit) {
     box-shadow: none;
     background-color: white;
-}
+} */
 
-.on {
+.stars .on {
     color: #d57794;
+    width: 50px;
     border: none;
 }
 
-.off {
+.stars .off {
     color: gainsboro;
+    width: 50px;
     border: none;
 }
 
@@ -29,13 +31,13 @@
     padding: 5px;
 }
 
-#submit {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+.stars button {
+    box-shadow: none;
+    width: 20px;
+    background-color: white;
 }
 
-.reviewModal h1 {
-    display: flex;
-    justify-content: center;
+textarea {
+    margin-top: 30px;
+    margin-bottom: 5px;
 }

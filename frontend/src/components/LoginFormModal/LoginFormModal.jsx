@@ -89,9 +89,7 @@ export default function LoginFormModal() {
                         disabled={Object.values(charCount).length}
                         type="submit">Log In</button>
                 </div>
-                <p>
-                    <button onClick={demoUser}>Log In as Demo User</button>
-                </p>
+                <button onClick={demoUser}>Log In as Demo User</button>
             </form>
 
         </section >

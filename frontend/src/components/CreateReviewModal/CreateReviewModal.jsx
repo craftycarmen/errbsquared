@@ -1,8 +1,8 @@
-import './CreateReviewModal.css';
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { addReview } from '../../store/reviews';
+import './CreateReviewModal.css';
 
 export default function CreateReviewModal({ spotId }) {
     const { closeModal } = useModal();
@@ -41,18 +41,22 @@ export default function CreateReviewModal({ spotId }) {
     }
 
     return (
-        <section className='reviewModal'>
+        <section className='modal'>
             <form onSubmit={handleSubmit}>
                 <h1>How was your stay?</h1>
                 <p className="error">
                     {errors.reviewed && `${errors.reviewed}`}
                 </p>
-                <textarea
-                    type='text'
-                    placeholder='Leave your review here...'
-                    value={review}
-                    onChange={(e) => setReview(e.target.value)}
-                />
+                <div className="inputContainer">
+                    <textarea
+                        type='text'
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        placeholder=""
+                        id="review"
+                    />
+                    <label htmlFor="review" className="floating-label">Leave your review here...</label>
+                </div>
                 <div className='error'>{errors.review && `${errors.review}`}</div>
                 <div className='stars'>
                     {[...Array(5)].map((star, index) => {
@@ -75,10 +79,11 @@ export default function CreateReviewModal({ spotId }) {
                         )
                     })}
                 </div>
-                <button
-                    id='submit'
-                    disabled={Object.values(errors).length}
-                    type='submit'>Submit Your Review</button>
+                <div className="buttonContainer">
+                    <button
+                        disabled={Object.values(errors).length}
+                        type='submit'>Submit Your Review</button>
+                </div>
             </form>
 
         </section>
