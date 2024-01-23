@@ -18,11 +18,11 @@ export default function SpotForm({ spot, img, formType }) {
     const [description, setDescription] = useState(spot?.description);
     const [name, setName] = useState(spot?.name);
     const [price, setPrice] = useState(spot?.price);
-    const [url, setUrl] = useState(spot?.SpotImages[0]?.url);
-    const [img2, setImg2] = useState(spot?.SpotImages[1]?.url);
-    const [img3, setImg3] = useState(spot?.SpotImages[2]?.url);
-    const [img4, setImg4] = useState(spot?.SpotImages[3]?.url);
-    const [img5, setImg5] = useState(spot?.SpotImages[4]?.url);
+    const [url, setUrl] = useState((spot && spot.SpotImages && spot.SpotImages[0]) && spot.SpotImages[0].url);
+    const [img2, setImg2] = useState((spot && spot.SpotImages && spot.SpotImages[1]) && spot.SpotImages[1].url);
+    const [img3, setImg3] = useState((spot && spot.SpotImages && spot.SpotImages[2]) && spot.SpotImages[2].url);
+    const [img4, setImg4] = useState((spot && spot.SpotImages && spot.SpotImages[3]) && spot.SpotImages[3].url);
+    const [img5, setImg5] = useState((spot && spot.SpotImages && spot.SpotImages[4]) && spot.SpotImages[4].url);
     const [errors, setErrors] = useState({});
 
     const updateCountry = (e) => setCountry(e.target.value);
