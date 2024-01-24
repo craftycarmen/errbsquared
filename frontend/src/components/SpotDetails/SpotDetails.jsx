@@ -89,7 +89,7 @@ export default function SpotDetails() {
 
                 {(sessionUser && spot.numReviews === 0 && sessionUser.id !== spot.ownerId) &&
                     <>
-                        <span>Be the first to post a review!</span>
+                        <p>Be the first to post a review!</p>
                     </>}
 
                 <SpotReviews spotId={spotId} sessionUser={sessionUser} spot={spot} />

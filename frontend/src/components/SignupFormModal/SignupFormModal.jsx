@@ -128,7 +128,7 @@ export default function SignupFormModal() {
                     <div className="error">{errors.confirmPassword && `${errors.confirmPassword}`}</div>
                 </div>
                 <div>
-                    <button
+                    <button style={{ marginTop: "15px" }}
                         disabled={Object.values(errors).length}
                         type="submit">Sign Up</button>
                 </div>
