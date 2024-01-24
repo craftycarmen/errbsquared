@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSpotDetails } from "../../store/spots";
 import SpotForm from "../SpotForm";
 
+
 export default function UpdateSpotForm() {
     const { spotId } = useParams();
     const spot = useSelector(state => state.spots ? state.spots[spotId] : null);

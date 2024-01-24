@@ -1,5 +1,4 @@
 import SpotForm from "../SpotForm";
-import './CreateSpot.css';
 
 export default function CreateSpot() {
     const spot = {

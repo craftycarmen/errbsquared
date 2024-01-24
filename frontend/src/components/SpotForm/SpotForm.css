@@ -1,15 +1,15 @@
-.createSpotForm {
+.spotForm {
     display: grid;
     max-width: 500px;
     margin: auto;
 }
 
-.createSpotForm input {
+.spotForm input {
     width: 95%;
     margin-top: 10px;
 }
 
-.createSpotForm textarea {
+.spotForm textarea {
     width: 95%;
     margin-top: 15px;
 }
@@ -106,13 +106,13 @@
     margin-top: 10px;
 }
 
-.createSpotForm hr {
+.spotForm hr {
     margin-top: 15px;
     margin-bottom: 10px;
     width: 494px;
 }
 
-.createSpotForm hr:last-child {
+.spotForm hr:last-child {
     margin-top: 30px;
     margin-bottom: 20px;
 }
@@ -129,7 +129,7 @@
         margin-right: 15px;
     }
 
-    .createSpotForm input,
+    .spotForm input,
     input#streetaddress,
     input#img2 {
         width: 88%;
@@ -155,11 +155,11 @@
         width: 96%;
     }
 
-    .createSpotForm textarea {
+    .spotForm textarea {
         width: 88%;
     }
 
-    .createSpotForm hr {
+    .spotForm hr {
         width: 90%;
     }
 }

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { updateSpot, createSpot, createSpotImage } from "../../store/spots";
 import { useDispatch, useSelector } from 'react-redux';
+import './SpotForm.css';
 
 export default function SpotForm({ spot, img, formType }) {
     const navigate = useNavigate();
@@ -157,7 +158,7 @@ export default function SpotForm({ spot, img, formType }) {
     }
 
     return (sessionUser &&
-        <section className='createSpotForm'>
+        <section className='spotForm'>
             <form onSubmit={handleSubmit}>
                 <h1>{formType}</h1>
                 <h2>Where&apos;s your place located?</h2>
