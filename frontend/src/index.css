@@ -63,11 +63,6 @@ h2 {
     flex-basis: auto;
     padding: 10px 25px 5% 25px;
     width: fit-content;
-    border-radius: 50px !important;
-}
-
-.modalContainer {
-    border-radius: 10px !important;
 }
 
 .modal h1 {
