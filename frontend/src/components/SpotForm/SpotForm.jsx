@@ -57,12 +57,13 @@ export default function SpotForm({ spot, img, formType }) {
         if (!description) errs.description = 'Description is required';
         if (!name) errs.name = 'Name is required';
         if (!price) errs.price = 'Price is required';
+        if (isNaN(lat) || lat > 90 || lat < -90) errs.lat = 'Latitude is not valid';
+        if (isNaN(lng) || lng > 180 || lng < -180) errs.lng = 'Longitude is not valid';
+        if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
+        if (price <= 0) errs.price = 'Price per night must be greater than $0';
+
         if (createForm) {
             if (!url) errs.url = 'Preview image is required';
-            if (isNaN(lat) || lat > 90 || lat < -90) errs.lat = 'Latitude is not valid';
-            if (isNaN(lng) || lng > 180 || lng < -180) errs.lng = 'Longitude is not valid';
-            if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
-            if (price < 0) errs.price = 'Price per night must be greater than $0';
 
             const urlFormat = url.split('.').pop();
             const img2Format = img2.split('.').pop();
@@ -75,11 +76,6 @@ export default function SpotForm({ spot, img, formType }) {
             if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
             if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
             if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
-
-            if (url) {
-                const urlFormat = url.split('.').pop();
-                if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-            }
         }
         setErrors(errs)
     }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
@@ -162,7 +158,7 @@ export default function SpotForm({ spot, img, formType }) {
             <form onSubmit={handleSubmit}>
                 <h1>{formType}</h1>
                 <h2>Where&apos;s your place located?</h2>
-                <div>Guests will only get your exact address once they book a reservation.</div>
+                <p>Guests will only get your exact address once they book a reservation.</p>
                 <div className="inputContainer">
                     <input
                         type='text'
@@ -237,7 +233,7 @@ export default function SpotForm({ spot, img, formType }) {
                 </div>
                 <hr />
                 <h2>Describe your place to guests</h2>
-                <div>Mention the best features of your space, any special amenities, like fast WiFi or parking, and what you love about the neighborhood.</div>
+                <p>Mention the best features of your space, any special amenities, like fast WiFi or parking, and what you love about the neighborhood.</p>
                 <div className="inputContainer">
                     <textarea
                         type='text'
@@ -249,9 +245,10 @@ export default function SpotForm({ spot, img, formType }) {
                     <label htmlFor="description" className="floating-label">Description*</label>
                     <div className='error'>{errors.description && `${errors.description}`}</div>
                 </div>
-                <hr />
+                {errors.description ? <hr className="errorHr" /> : <hr className="extraMarginHr" />}
+
                 <h2>Create a title for your spot</h2>
-                <div>Catch guests&apos; attention with a spot title that highlights what makes your place special.</div>
+                <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
                 <div className="inputContainer">
                     <input
                         type='text'
@@ -262,10 +259,10 @@ export default function SpotForm({ spot, img, formType }) {
                     />
                     <label htmlFor="name" className="floating-label">Name of Your Spot*</label>
                     <div className='error'>{errors.name && `${errors.name}`}</div>
+                    {errors.name ? <hr className="errorHr" /> : <hr className="extraMarginHr" />}
                 </div>
-                <hr />
                 <h2>Set a base price for your spot</h2>
-                <div>Competitive pricing can help your listing stand out and rank higher in search results.</div>
+                <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div className='price inputContainer'>$&nbsp;
                     <input
                         type='number'
@@ -277,11 +274,11 @@ export default function SpotForm({ spot, img, formType }) {
                     <label htmlFor="price" className="floating-label">Price Per Night (USD)*</label>
                 </div>
                 <div className='priceError error'>{errors.price && `${errors.price}`}</div>
-                <hr />
+                {errors.price ? <hr className="errorHr" /> : <hr className="extraMarginHrPrice" />}
                 {createForm &&
-                    <div>
+                    <>
                         <h2>Liven up your spot with photos</h2>
-                        <div>Submit a link to at least one photo to publish your spot.</div>
+                        <p>Submit a link to at least one photo to publish your spot.</p>
                         <div className="previewImageContainer inputContainer">
                             <input
                                 type='text'
@@ -337,10 +334,12 @@ export default function SpotForm({ spot, img, formType }) {
                             <label htmlFor="img5" className="floating-label">Image URL</label>
                             <div className='imageError error'>{errors.img5 && `${errors.img5}`}</div>
                         </div>
-                        <hr />
-                    </div>}
+                        {errors.img5 ? <hr className="errorHr" /> : <hr className="extraMarginHrImg5" />}
+                    </>
+                }
                 <div id='submit'>
                     <button
+                        style={{ marginTop: "5px" }}
                         type='submit'
                         disabled={!!Object.values(errors).length}>{formType}</button>
                 </div>

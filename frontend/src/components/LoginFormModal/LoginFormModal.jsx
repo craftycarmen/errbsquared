@@ -46,13 +46,13 @@ export default function LoginFormModal() {
             })
         )
             .then(closeModal)
-            .catch(async (res) => {
-                const data = await res.json();
+        // .catch(async (res) => {
+        //     const data = await res.json();
 
-                if (data?.errors) {
-                    setErrors(data.errors);
-                }
-            });
+        //     if (data?.errors) {
+        //         setErrors(data.errors);
+        //     }
+        // });
     };
 
     return (
