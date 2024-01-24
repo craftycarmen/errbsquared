@@ -8,12 +8,12 @@ function Navigation({ isLoaded }) {
 
     return (
         <div className='nav'>
-            <NavLink to="/"><h1>wanderly.</h1></NavLink >
+            <NavLink to="/"><img src='../../wanderly.png' /></NavLink>
 
             {isLoaded && (
                 <section className='profile'>
                     {sessionUser &&
-                        <span className='createSpot'><Link to='/spots/new'>Create a New Spot</Link></span>
+                        <Link to='/spots/new'><span className='createSpot'>Create a New Spot</span></Link>
                     }
                     <ProfileButton user={sessionUser} />
                 </section>

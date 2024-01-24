@@ -5,6 +5,7 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { Link } from 'react-router-dom';
+import './Navigation.css';
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -42,9 +43,10 @@ function ProfileButton({ user }) {
 
     return (
         <>
-
-            <div className='menuIcon' onClick={toggleMenu}>
-                <i className="fa-solid fa-bars fa-lg" /> <i className="fa-solid fa-user fa-lg" />
+            <div className='menu'>
+                <div className='menuIcon' onClick={toggleMenu}>
+                    <i className="fa-solid fa-bars fa-lg" /> <i className="fa-solid fa-user fa-lg" />
+                </div>
             </div>
 
             <div>

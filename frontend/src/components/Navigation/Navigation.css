@@ -1,7 +1,7 @@
 .nav {
     display: grid;
-    grid-template-columns: 3fr 1fr;
-    margin: 10px;
+    grid-template-columns: 50% 50%;
+    margin: 20px;
 }
 
 .nav h1 {
@@ -12,20 +12,36 @@
     justify-items: start;
 }
 
+.nav img {
+    width: 200px;
+}
+
 .createSpot {
-    margin-right: 15px;
     padding: 5px;
     font-weight: bold;
+    display: grid;
+    align-items: center;
+    justify-content: end;
 }
 
 .createSpot:hover {
     background-color: #d3bcc9;
     border-radius: 5px;
     padding: 5px;
+    width: auto-fit;
 }
 
 .profile {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 25%;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+}
+
+.menu {
+    display: grid;
     align-items: center;
     justify-content: end;
 }
@@ -77,4 +93,36 @@
 .profile-dropdown hr {
     width: auto;
     margin-top: 10px;
+}
+
+@media screen and (min-width:1200px) {
+    .profile {
+        grid-template-columns: auto 15%;
+    }
+}
+
+@media screen and (min-width:1600px) {
+    .profile {
+        grid-template-columns: auto 10%;
+    }
+}
+
+@media screen and (max-width:500px) {
+    .nav {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        justify-items: center;
+        margin-bottom: 0px;
+    }
+
+    .profile {
+        justify-items: center;
+        grid-template-columns: 2fr 1fr;
+        column-gap: 10px;
+        margin-bottom: 0px;
+    }
+
+    .menu {
+        justify-self: start;
+    }
 }
