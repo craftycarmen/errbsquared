@@ -55,7 +55,7 @@ export default function SpotForm({ spot, img, formType }) {
         if (!description) errs.description = 'Description is required';
         if (!name) errs.name = 'Name is required';
         if (!price) errs.price = 'Price is required';
-        // if (!url) errs.url = 'Preview image is required';
+        if (!url) errs.url = 'Preview image is required';
         if (lat && (lat > 90 || lat < -90)) errs.lat = 'Latitude is not valid';
         if (lng && (lng > 180 || lng < -180)) errs.lng = 'Longitude is not valid';
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
@@ -87,21 +87,7 @@ export default function SpotForm({ spot, img, formType }) {
 
         spot = { ...spot, country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5 }
 
-        // spot = { ...spot, country, address, city, state, lat, lng, description, name, price }
-
         img = { ...img, url, img2, img3, img4, img5 }
-
-        // const spotInfo = {
-        //     country,
-        //     address,
-        //     city,
-        //     state,
-        //     lat,
-        //     lng,
-        //     description,
-        //     name,
-        //     price
-        // };
 
         const imageInfo = ({
             url,
@@ -136,8 +122,7 @@ export default function SpotForm({ spot, img, formType }) {
                 })
                 .then(navigate(`/spots/${spot.id}`))
         } else if (createForm) {
-            // dispatch(createSpot(spot))
-            dispatch(createSpot(spotInfo))
+            dispatch(createSpot(spot))
                 .then((spot) => {
                     const images = Object.values(imageInfo).filter(img => img !== '');
                     let spotImage;
@@ -176,147 +161,180 @@ export default function SpotForm({ spot, img, formType }) {
                 <h1>{formType}</h1>
                 <h2>Where&apos;s your place located?</h2>
                 <div>Guests will only get your exact address once they book a reservation.</div>
-                <input
-                    type='text'
-                    placeholder='Country*'
-
-                    value={country}
-                    onChange={updateCountry}
-                />
-                <div className='error'>{errors.country && `${errors.country}`}</div>
-                <input
-                    type='text'
-                    placeholder='Street Address*'
-                    // required
-                    value={address}
-                    onChange={updateAddress}
-                />
+                <div className="inputContainer">
+                    <input
+                        type='text'
+                        value={country}
+                        onChange={updateCountry}
+                        placeholder=""
+                        id="country"
+                    />
+                    <label htmlFor="country" className="countryLabel floating-label">Country*</label>
+                </div>
+                <div className='countryError error'>{errors.country && `${errors.country}`}</div>
+                <div className="inputContainer">
+                    <input
+                        type='text'
+                        value={address}
+                        onChange={updateAddress}
+                        placeholder=""
+                        id="streetaddress"
+                    />
+                    <label htmlFor="streetaddress" className="floating-label">Street Address*</label>
+                </div>
                 <div className='error'>{errors.address && `${errors.address}`}</div>
                 <div className='cityState'>
-                    <div id='city'>
+                    <div id='city' className='inputContainer'>
                         <input
                             type='text'
-                            placeholder='City*'
-                            // required
                             value={city}
                             onChange={updateCity}
+                            placeholder=""
+                            id="city"
                         />
+                        <label htmlFor="city" className="floating-label">City*</label>
                         &nbsp;,&nbsp;
                     </div>
                     <div className='error'>{errors.city && `${errors.city}`}</div>
-                    <div id='state'>
+                    <div id='state' className='inputContainer'>
                         <input
                             type='text'
-                            placeholder='State*'
-                            // required
                             value={state}
                             onChange={updateState}
+                            placeholder=""
+                            id="state"
                         />
+                        <label htmlFor="state" className="floating-label">State*</label>
                     </div>
                     <div className='error'>{errors.state && `${errors.state}`}</div>
                 </div>
                 <div className='latLng'>
-                    <div id='lat'>
+                    <div id='lat' className='inputContainer'>
                         <input
                             type='text'
-                            placeholder='Latitude*'
-                            // required
                             value={lat}
                             onChange={updateLat}
+                            placeholder=""
+                            id="lat"
                         />
+                        <label htmlFor="lat" className="floating-label">Latitude*</label>
                         &nbsp;,&nbsp;
                     </div>
                     <div className='error'>{errors.lat && `${errors.lat}`}</div>
-                    <div id='lng'>
+                    <div id='lng' className='inputContainer'>
                         <input
-
                             type='text'
-                            placeholder='Longitude*'
-                            // required
                             value={lng}
                             onChange={updateLng}
+                            placeholder=""
+                            id="lng"
                         />
+                        <label htmlFor="lng" className="floating-label">Longitude*</label>
                     </div>
                     <div className='error'>{errors.lng && `${errors.lng}`}</div>
                 </div>
                 <hr />
                 <h2>Describe your place to guests</h2>
-                <div>Mention the best features of your space, any special amentities, like fast WiFi or parking, and what you love about the neighborhood.</div>
-                <textarea
-                    type='text'
-                    placeholder='Description (minimum 30 characters)*'
-                    // required
-                    value={description}
-                    onChange={updateDescription}
-                />
-                <div className='error'>{errors.description && `${errors.description}`}</div>
+                <div>Mention the best features of your space, any special amenities, like fast WiFi or parking, and what you love about the neighborhood.</div>
+                <div className="inputContainer">
+                    <textarea
+                        type='text'
+                        value={description}
+                        onChange={updateDescription}
+                        placeholder=""
+                        id="description"
+                    />
+                    <label htmlFor="description" className="floating-label">Description*</label>
+                    <div className='error'>{errors.description && `${errors.description}`}</div>
+                </div>
                 <hr />
                 <h2>Create a title for your spot</h2>
                 <div>Catch guests&apos; attention with a spot title that highlights what makes your place special.</div>
-                <input
-                    type='text'
-                    placeholder='Name of your spot*'
-                    // required
-                    value={name}
-                    onChange={updateName}
-                />
-                <div className='error'>{errors.name && `${errors.name}`}</div>
+                <div className="inputContainer">
+                    <input
+                        type='text'
+                        value={name}
+                        onChange={updateName}
+                        placeholder=""
+                        id="name"
+                    />
+                    <label htmlFor="name" className="floating-label">Name of Your Spot*</label>
+                    <div className='error'>{errors.name && `${errors.name}`}</div>
+                </div>
                 <hr />
                 <h2>Set a base price for your spot</h2>
                 <div>Competitive pricing can help your listing stand out and rank higher in search results.</div>
-                <div className='price'>$&nbsp;
+                <div className='price inputContainer'>$&nbsp;
                     <input
                         type='number'
-                        placeholder='Price per night (USD)*'
-                        // required
                         value={price}
                         onChange={updatePrice}
+                        placeholder=""
+                        id="price"
                     />
+                    <label htmlFor="price" className="floating-label">Price Per Night (USD)*</label>
                 </div>
-                <div className='error'>{errors.price && `${errors.price}`}</div>
+                <div className='priceError error'>{errors.price && `${errors.price}`}</div>
                 <hr />
                 {createForm &&
                     <div>
-
-
                         <h2>Liven up your spot with photos</h2>
                         <div>Submit a link to at least one photo to publish your spot.</div>
-                        <input
-                            type='text'
-                            placeholder='Preview Image URL*'
-                            // required
-                            value={url}
-                            onChange={updateUrl}
-                        />
-                        <div className='error'>{errors.url && `${errors.url}`}</div>
-                        <input
-                            type='text'
-                            placeholder='Image URL'
-                            value={img2}
-                            onChange={updateImg2}
-                        />
-                        <div className='error'>{errors.img2 && `${errors.img2}`}</div>
-                        <input
-                            type='text'
-                            placeholder='Image URL'
-                            value={img3}
-                            onChange={updateImg3}
-                        />
-                        <div className='error'>{errors.img3 && `${errors.img3}`}</div>
-                        <input
-                            type='text'
-                            placeholder='Image URL'
-                            value={img4}
-                            onChange={updateImg4}
-                        />
-                        <div className='error'>{errors.img4 && `${errors.img4}`}</div>
-                        <input
-                            type='text'
-                            placeholder='Image URL'
-                            value={img5}
-                            onChange={updateImg5}
-                        />
-                        <div className='error'>{errors.img5 && `${errors.img5}`}</div>
+                        <div className="inputContainer">
+                            <input
+                                type='text'
+                                value={url}
+                                onChange={updateUrl}
+                                placeholder=""
+                                id="url"
+                            />
+                            <label htmlFor="url" className="floating-label">Preview Image URL*</label>
+                            <div className='error'>{errors.url && `${errors.url}`}</div>
+                        </div>
+                        <div className="inputContainer">
+                            <input
+                                type='text'
+                                value={img2}
+                                onChange={updateImg2}
+                                placeholder=""
+                                id="img2"
+                            />
+                            <label htmlFor="img2" className="floating-label">Image URL</label>
+                            <div className='error'>{errors.img2 && `${errors.img2}`}</div>
+                        </div>
+                        <div className="inputContainer">
+                            <input
+                                type='text'
+                                value={img3}
+                                onChange={updateImg3}
+                                placeholder=""
+                                id="img3"
+                            />
+                            <label htmlFor="img3" className="floating-label">Image URL</label>
+                            <div className='error'>{errors.img3 && `${errors.img3}`}</div>
+                        </div>
+                        <div className="inputContainer">
+                            <input
+                                type='text'
+                                value={img4}
+                                onChange={updateImg4}
+                                placeholder=""
+                                id="img4"
+                            />
+                            <label htmlFor="img4" className="floating-label">Image URL</label>
+                            <div className='error'>{errors.img4 && `${errors.img4}`}</div>
+                        </div>
+                        <div className="inputContainer">
+                            <input
+                                type='text'
+                                value={img5}
+                                onChange={updateImg5}
+                                placeholder=""
+                                id="img5"
+                            />
+                            <label htmlFor="img5" className="floating-label">Image URL</label>
+                            <div className='error'>{errors.img5 && `${errors.img5}`}</div>
+                        </div>
                         <hr />
                     </div>}
                 <div id='submit'>

@@ -14,15 +14,19 @@
     margin-top: 15px;
 }
 
-#createSpotButton {
-    display: flex;
-    justify-content: center;
-}
-
 .cityState {
     display: grid;
     grid-template-columns: 60% 40%;
     width: 500px;
+}
+
+#streetaddress {
+    width: 95%;
+    margin-top: 20px;
+}
+
+.countryError {
+    margin-bottom: -10px !important;
 }
 
 #city {
@@ -71,11 +75,27 @@
     align-items: baseline;
 }
 
+.price .floating-label {
+    margin-left: 13px;
+    margin-top: 8px;
+}
+
+.priceError {
+    margin-left: 24px !important;
+}
+
+.cityState .floating-label,
+.latLng .floating-label {
+    margin-top: 10px;
+}
+
 hr {
     margin-top: 15px;
     margin-bottom: 10px;
+    width: 494px;
 }
 
 #submit {
+    display: flex;
     justify-content: center;
 }
