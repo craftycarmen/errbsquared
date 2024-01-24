@@ -18,6 +18,7 @@ export default function LoginFormModal() {
         setCharCount(char)
     }, [credential, password])
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors({});
@@ -38,7 +39,9 @@ export default function LoginFormModal() {
             });
     };
 
-    const demoUser = () => {
+    const demoUser = (e) => {
+        e.preventDefault();
+
         return dispatch(
             sessionActions.login({
                 credential: "Demo-lition",
@@ -46,13 +49,6 @@ export default function LoginFormModal() {
             })
         )
             .then(closeModal)
-        // .catch(async (res) => {
-        //     const data = await res.json();
-
-        //     if (data?.errors) {
-        //         setErrors(data.errors);
-        //     }
-        // });
     };
 
     return (
@@ -89,9 +85,8 @@ export default function LoginFormModal() {
                         disabled={Object.values(charCount).length}
                         type="submit">Log In</button>
                 </div>
-                <button onClick={demoUser}>Log In as Demo User</button>
             </form>
-
+            <button onClick={demoUser}>Log In as Demo User</button>
         </section >
     );
 }

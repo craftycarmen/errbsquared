@@ -7,7 +7,7 @@
 .nav h1 {
     font-family: 'Yeseva One', serif;
     font-size: 40px;
-    color: #1c5759;
+    color: #4a6274;
     display: grid;
     justify-items: start;
 }
@@ -20,6 +20,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    color: #e2725a;
 }
 
 .createSpot {
@@ -30,8 +31,17 @@
     padding: 5px;
 }
 
+.createSpot a,
+.link a {
+    color: #e2725a !important;
+}
+
+.logout a {
+    color: white;
+}
+
 .createSpot:hover {
-    background-color: #d3bcc9;
+    background-color: #f9ddd2;
     border-radius: 5px;
 }
 
@@ -55,9 +65,9 @@
 }
 
 .menuIcon {
-    color: #d3bcc9;
+    color: #79aeb2;
     cursor: pointer;
-    border: #d3bcc9 solid 2px;
+    border: #79aeb2 solid 2px;
     border-radius: 20px;
     padding: 15px 8px 12px 15px;
     width: 50px;
@@ -72,7 +82,7 @@
 
 .profile-dropdown {
     position: absolute;
-    border: #d3bcc9 solid 2px;
+    border: #79aeb2 solid 2px;
     border-radius: 5px;
     padding: 15px;
     background-color: white;
@@ -105,7 +115,7 @@
 }
 
 .link:hover {
-    background-color: #d3bcc9;
+    background-color: #f9ddd2;
     border-radius: 5px;
     padding: 5px;
     width: max-content;

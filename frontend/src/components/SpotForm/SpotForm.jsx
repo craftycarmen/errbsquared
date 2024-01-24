@@ -339,7 +339,7 @@ export default function SpotForm({ spot, img, formType }) {
                 }
                 <div id='submit'>
                     <button
-                        style={{ marginTop: "5px" }}
+                        style={{ marginTop: "15px" }}
                         type='submit'
                         disabled={!!Object.values(errors).length}>{formType}</button>
                 </div>

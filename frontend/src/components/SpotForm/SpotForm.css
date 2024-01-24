@@ -103,24 +103,23 @@
 }
 
 .spotForm hr {
-    margin-top: 10px !important;
+    margin-top: 20px !important;
     margin-bottom: 10px !important;
     width: 494px;
 }
 
 .spotForm hr.extraMarginHr {
-    margin-top: 25px !important;
+    margin-top: 40px !important;
     margin-bottom: 10px !important;
 }
 
 .spotForm hr.extraMarginHrPrice {
-    margin-top: 15px !important;
+    margin-top: 35px !important;
     margin-bottom: 10px !important;
 }
 
 .spotForm hr.extraMarginHrImg5 {
-    margin-top: 25px !important;
-    margin-bottom: 10px !important;
+    margin-top: 40px !important;
 }
 
 #submit {

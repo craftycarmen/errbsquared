@@ -14,7 +14,7 @@
 } */
 
 .stars .on {
-    color: #d57794;
+    color: #4a6274;
     width: 50px;
     border: none;
 }
@@ -34,7 +34,7 @@
 .stars button {
     box-shadow: none;
     width: 20px;
-    background-color: white;
+    background-color: #79aeb2;
 }
 
 textarea {

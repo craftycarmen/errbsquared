@@ -59,6 +59,7 @@ export default function SignupFormModal() {
 
     return (
         <section className="modal">
+
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <div className="inputContainer">

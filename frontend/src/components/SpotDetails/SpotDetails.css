@@ -46,7 +46,8 @@
     grid-column: 2 / 3;
     grid-row: 3 / 4;
     justify-self: end;
-    border: black 2px solid;
+    border: #4a6274 2px solid;
+    box-shadow: 2px 2px 0px #f9ddd2;
     border-radius: 8px;
     border-spacing: 5px;
     width: calc(100% - 35px);

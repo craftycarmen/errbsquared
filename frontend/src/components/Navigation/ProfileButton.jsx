@@ -60,7 +60,7 @@ function ProfileButton({ user }) {
                         <div className='link'><Link to='/spots/current'>Manage Spots</Link></div>
                         <hr />
                         <div>
-                            <button onClick={logout}><NavLink to="/">Log Out</NavLink></button>
+                            <button className='logout' onClick={logout}><NavLink to="/">Log Out</NavLink></button>
                         </div>
                     </div>
                 ) : (
@@ -74,7 +74,6 @@ function ProfileButton({ user }) {
                         </div>
                         <div className='link'>
                             <OpenModalMenuItem
-                                className='link'
                                 itemText="Log In"
                                 onItemClick={closeMenu}
                                 modalComponent={<LoginFormModal />}

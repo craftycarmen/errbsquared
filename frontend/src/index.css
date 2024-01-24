@@ -9,21 +9,21 @@ body {
 }
 
 a {
-    color: black;
     text-decoration: none;
     cursor: pointer;
+    color: black;
 }
 
 button {
     font-family: 'Josefin Sans', sans-serif;
-    color: white;
-    background-color: #d57794;
+    color: white !important;
+    background-color: #d294af;
     font-size: medium;
     font-weight: bold;
     border-radius: 5px;
     padding: 10px;
-    border: 2px black solid;
-    box-shadow: 2px 2px 0px black;
+    border: 2px #4a6274 solid;
+    box-shadow: 2px 2px 0px #f9ddd2;
 }
 
 .modal button:last-child {
@@ -47,12 +47,17 @@ button:disabled {
 }
 
 h1 {
-    font-size: 30px;
+    font-family: 'Yeseva One', serif;
+    font-size: 32px;
+    color: #4a6274;
     margin-bottom: 20px;
 }
 
 h2 {
-    margin-bottom: 10px;
+    margin-top: 35px;
+    margin-bottom: 20px;
+    color: #4a6274;
+    font-size: 22px;
 }
 
 .modal {
@@ -63,18 +68,27 @@ h2 {
     flex-basis: auto;
     padding: 10px 25px 5% 25px;
     width: fit-content;
+    background-color: #79aeb2;
 }
 
 .modal h1 {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    color: #FDD8D6;
 }
 
 .modal button {
     margin-top: 5px;
     width: 315px;
     height: 35px;
+}
+
+.modal input,
+.modal textarea {
+    background-color: #79aeb2;
+    border-bottom: 1px solid #4a6274;
+    border-left: 1px solid #4a6274;
 }
 
 #noButton {
@@ -99,8 +113,8 @@ input {
     padding: 10px 10px 5px 10px;
     display: block;
     border: none;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #79aeb2;
+    border-left: 1px solid #79aeb2;
     color: black;
     line-height: 1.25;
 }
@@ -117,8 +131,8 @@ textarea {
     padding: 10px 10px 5px 10px;
     display: block;
     border: none;
-    border-bottom: 1px solid #ccc;
-    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #79aeb2;
+    border-left: 1px solid #79aeb2;
     color: black;
     line-height: 1.25;
 }
@@ -136,13 +150,13 @@ textarea {
     top: -12px;
     font-size: 12px;
     font-weight: 400;
-    color: #757575;
+    color: #152a25;
     cursor: default;
 }
 
 .floating-label {
     position: absolute;
-    color: #757575;
+    color: #152a25;
     left: 10px;
     top: 10px;
     transition: 300ms ease all;
@@ -153,4 +167,10 @@ textarea {
 input:focus,
 textarea:focus {
     outline: none;
+}
+
+hr {
+    height: 1px;
+    border: none;
+    background-color: #e2725a;
 }
