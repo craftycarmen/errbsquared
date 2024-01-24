@@ -45,17 +45,17 @@ export default function SpotDetails() {
                     </div>
 
                     <div>
-                        &#9733; {spot.avgStarRating}&nbsp;
+                        <span className='numStars'>&#9733; {spot.avgStarRating}&nbsp;</span>
                         {spot.numReviews === 1 &&
-                            <>
+                            <span className='numReviews'>
                                 · {spot.numReviews} review
-                            </>
+                            </span>
                         }
 
                         {spot.numReviews > 1 &&
-                            <>
+                            <span className='numReviews'>
                                 · {spot.numReviews} reviews
-                            </>
+                            </span>
                         }
                     </div>
                 </div>
