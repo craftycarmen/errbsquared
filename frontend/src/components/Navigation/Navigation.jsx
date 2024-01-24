@@ -12,10 +12,16 @@ function Navigation({ isLoaded }) {
 
             {isLoaded && (
                 <section className='profile'>
-                    {sessionUser &&
-                        <Link to='/spots/new'><span className='createSpot'>Create a New Spot</span></Link>
-                    }
-                    <ProfileButton user={sessionUser} />
+                    {sessionUser && (
+                        <div className='createSpotContainer'>
+                            <div className='createSpot'>
+                                <Link to='/spots/new'>Create a New Spot</Link>
+                            </div>
+                        </div>
+                    )}
+                    <div className='profileButton'>
+                        <ProfileButton user={sessionUser} />
+                    </div>
                 </section>
 
             )

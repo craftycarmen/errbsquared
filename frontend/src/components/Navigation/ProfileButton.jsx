@@ -49,13 +49,15 @@ function ProfileButton({ user }) {
                 </div>
             </div>
 
-            <div>
+            <div className='dropdown'>
                 {user ? (
                     <div className={ulClassName} ref={ulRef}>
-                        <div>Hello, {user.firstName}!</div>
-                        <div>{user.email}</div>
+                        <div className='hello'>
+                            <div>Hello, {user.firstName}!</div>
+                            <div>{user.email}</div>
+                        </div>
                         <hr />
-                        <div><Link to='/spots/current'>Manage Spots</Link></div>
+                        <div className='link'><Link to='/spots/current'>Manage Spots</Link></div>
                         <hr />
                         <div>
                             <Link to='/'><button onClick={logout}>Log Out</button></Link>
@@ -63,16 +65,21 @@ function ProfileButton({ user }) {
                     </div>
                 ) : (
                     <div className={ulClassName} ref={ulRef}>
-                        <OpenModalMenuItem
-                            itemText="Sign Up"
-                            onItemClick={closeMenu}
-                            modalComponent={<SignupFormModal />}
-                        />
-                        <OpenModalMenuItem
-                            itemText="Log In"
-                            onItemClick={closeMenu}
-                            modalComponent={<LoginFormModal />}
-                        />
+                        <div className='link'>
+                            <OpenModalMenuItem
+                                itemText="Sign Up"
+                                onItemClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </div>
+                        <div className='link'>
+                            <OpenModalMenuItem
+                                className='link'
+                                itemText="Log In"
+                                onItemClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
+                        </div>
                     </div>
                 )}
             </div >

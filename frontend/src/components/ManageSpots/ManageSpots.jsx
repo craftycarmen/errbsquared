@@ -22,7 +22,7 @@ export default function ManageSpots() {
     return (sessionUser && spots &&
         <>
             <h1>Manage Your Spots</h1>
-            <Link to='/spots/new'><button style={{ marginBottom: "10px" }}>Create a New Spot</button></Link>
+            <Link to='/spots/new'><button style={{ marginBottom: "20px" }}>Create a New Spot</button></Link>
             <div className='container'>
                 {spots.map(spot => (
                     <div key={spot.id} className='spotCard'>
