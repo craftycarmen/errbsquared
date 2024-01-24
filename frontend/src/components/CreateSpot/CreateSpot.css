@@ -25,7 +25,24 @@
     margin-top: 20px;
 }
 
+/* .previewImageContainer {
+    margin-bottom: 10px !important;
+} */
+
+.imageContainer {
+    margin-bottom: 20px !important;
+}
+
+#img2 {
+    width: 95%;
+    margin-top: 20px;
+}
+
 .countryError {
+    margin-bottom: -10px !important;
+}
+
+.imageError {
     margin-bottom: -10px !important;
 }
 
@@ -89,7 +106,7 @@
     margin-top: 10px;
 }
 
-hr {
+.createSpotForm hr {
     margin-top: 15px;
     margin-bottom: 10px;
     width: 494px;

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { updateSpot, createSpot, createSpotImage, editSpotImage } from "../../store/spots";
+import { updateSpot, createSpot, createSpotImage } from "../../store/spots";
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function SpotForm({ spot, img, formType }) {
@@ -46,6 +46,7 @@ export default function SpotForm({ spot, img, formType }) {
     useEffect(() => {
         const errs = {};
 
+
         if (!country) errs.country = 'Country is required';
         if (!address) errs.address = 'Address is required';
         if (!city) errs.city = 'City is required';
@@ -55,29 +56,30 @@ export default function SpotForm({ spot, img, formType }) {
         if (!description) errs.description = 'Description is required';
         if (!name) errs.name = 'Name is required';
         if (!price) errs.price = 'Price is required';
-        if (!url) errs.url = 'Preview image is required';
-        if (lat && (lat > 90 || lat < -90)) errs.lat = 'Latitude is not valid';
-        if (lng && (lng > 180 || lng < -180)) errs.lng = 'Longitude is not valid';
-        if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
-        if (price < 0) errs.price = 'Price per night must be greater than $0';
+        if (createForm) {
+            if (!url) errs.url = 'Preview image is required';
+            if (isNaN(lat) || lat > 90 || lat < -90) errs.lat = 'Latitude is not valid';
+            if (isNaN(lng) || lng > 180 || lng < -180) errs.lng = 'Longitude is not valid';
+            if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
+            if (price < 0) errs.price = 'Price per night must be greater than $0';
 
-        const urlFormat = url.split('.').pop();
-        const img2Format = img2.split('.').pop();
-        const img3Format = img3.split('.').pop();
-        const img4Format = img4.split('.').pop();
-        const img5Format = img5.split('.').pop();
-
-        if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
-
-        if (url) {
             const urlFormat = url.split('.').pop();
-            if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
-        }
+            const img2Format = img2.split('.').pop();
+            const img3Format = img3.split('.').pop();
+            const img4Format = img4.split('.').pop();
+            const img5Format = img5.split('.').pop();
 
+            if (url && (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png')) errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+            if (img2 && (img2Format !== 'jpg' && img2Format !== 'jpeg' && img2Format !== 'png')) errs.img2 = 'Image URL must end in .png, .jpg, or .jpeg';
+            if (img3 && (img3Format !== 'jpg' && img3Format !== 'jpeg' && img3Format !== 'png')) errs.img3 = 'Image URL must end in .png, .jpg, or .jpeg';
+            if (img4 && (img4Format !== 'jpg' && img4Format !== 'jpeg' && img4Format !== 'png')) errs.img4 = 'Image URL must end in .png, .jpg, or .jpeg';
+            if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
+
+            if (url) {
+                const urlFormat = url.split('.').pop();
+                if (urlFormat !== 'jpg' && urlFormat !== 'jpeg' && urlFormat !== 'png') errs.url = 'Image URL must end in .png, .jpg, or .jpeg';
+            }
+        }
         setErrors(errs)
     }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
 
@@ -100,26 +102,26 @@ export default function SpotForm({ spot, img, formType }) {
         if (updateForm) {
             dispatch(updateSpot(spotId, spot))
 
-                .then((spot) => {
-                    let spotImage;
-                    images.forEach((image, index) => {
-                        if (index === 0) {
-                            spotImage = {
-                                id: spot.id,
-                                url: image,
-                                preview: true
-                            }
-                        } else {
-                            spotImage = {
-                                id: spot.id,
-                                url: image,
-                                preview: false
-                            }
-                        }
-                        dispatch(editSpotImage(spotId, spotImage))
-                    })
+                // .then((spot) => {
+                //     let spotImage;
+                //     images.forEach((image, index) => {
+                //         if (index === 0) {
+                //             spotImage = {
+                //                 id: spot.id,
+                //                 url: image,
+                //                 preview: true
+                //             }
+                //         } else {
+                //             spotImage = {
+                //                 id: spot.id,
+                //                 url: image,
+                //                 preview: false
+                //             }
+                //         }
+                //         dispatch(editSpotImage(spotId, spotImage))
+                //     })
 
-                })
+                // })
                 .then(navigate(`/spots/${spot.id}`))
         } else if (createForm) {
             dispatch(createSpot(spot))
@@ -145,14 +147,13 @@ export default function SpotForm({ spot, img, formType }) {
                     })
 
                 })
-            spot = newSpot;
         }
 
-        // if (spot.errors) {
-        //     setErrors(spot.errors)
-        // } else {
-        //     navigate(`/spots/${spot.id}`)
-        // }
+        if (spot.errors) {
+            setErrors(spot.errors)
+        } else {
+            navigate(`/spots/${spot.id}`)
+        }
     }
 
     return (sessionUser &&
@@ -280,7 +281,7 @@ export default function SpotForm({ spot, img, formType }) {
                     <div>
                         <h2>Liven up your spot with photos</h2>
                         <div>Submit a link to at least one photo to publish your spot.</div>
-                        <div className="inputContainer">
+                        <div className="previewImageContainer inputContainer">
                             <input
                                 type='text'
                                 value={url}
@@ -289,9 +290,9 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="url"
                             />
                             <label htmlFor="url" className="floating-label">Preview Image URL*</label>
-                            <div className='error'>{errors.url && `${errors.url}`}</div>
+                            <div className='imageError error'>{errors.url && `${errors.url}`}</div>
                         </div>
-                        <div className="inputContainer">
+                        <div className="imageContainer inputContainer">
                             <input
                                 type='text'
                                 value={img2}
@@ -300,9 +301,9 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img2"
                             />
                             <label htmlFor="img2" className="floating-label">Image URL</label>
-                            <div className='error'>{errors.img2 && `${errors.img2}`}</div>
+                            <div className='imageError error'>{errors.img2 && `${errors.img2}`}</div>
                         </div>
-                        <div className="inputContainer">
+                        <div className="imageContainer inputContainer">
                             <input
                                 type='text'
                                 value={img3}
@@ -311,9 +312,9 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img3"
                             />
                             <label htmlFor="img3" className="floating-label">Image URL</label>
-                            <div className='error'>{errors.img3 && `${errors.img3}`}</div>
+                            <div className='imageError error'>{errors.img3 && `${errors.img3}`}</div>
                         </div>
-                        <div className="inputContainer">
+                        <div className="imageContainer inputContainer">
                             <input
                                 type='text'
                                 value={img4}
@@ -322,9 +323,9 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img4"
                             />
                             <label htmlFor="img4" className="floating-label">Image URL</label>
-                            <div className='error'>{errors.img4 && `${errors.img4}`}</div>
+                            <div className='imageError error'>{errors.img4 && `${errors.img4}`}</div>
                         </div>
-                        <div className="inputContainer">
+                        <div className="imageContainer inputContainer">
                             <input
                                 type='text'
                                 value={img5}
@@ -333,7 +334,7 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img5"
                             />
                             <label htmlFor="img5" className="floating-label">Image URL</label>
-                            <div className='error'>{errors.img5 && `${errors.img5}`}</div>
+                            <div className='imageError error'>{errors.img5 && `${errors.img5}`}</div>
                         </div>
                         <hr />
                     </div>}
