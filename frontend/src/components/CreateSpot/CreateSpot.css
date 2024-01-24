@@ -50,7 +50,7 @@
     display: inline-flex;
     grid-column: 1/2;
     grid-row: 1/2;
-    width: 98%;
+    width: 100%;
     align-items: baseline;
 }
 
@@ -58,7 +58,7 @@
     display: inline-flex;
     grid-column: 2/3;
     grid-row: 1/2;
-    width: 94.5%;
+    width: 98%;
     justify-self: start;
 }
 
@@ -67,13 +67,14 @@
     grid-template-columns: 50% 50%;
     width: 500px;
     margin-top: -5px;
+    column-gap: 8px;
 }
 
 #lat {
     display: inline-flex;
     grid-column: 1/2;
     grid-row: 1/2;
-    width: 243.05px;
+    width: 100%;
     align-items: baseline;
 }
 
@@ -81,14 +82,13 @@
     display: inline-flex;
     grid-column: 2/3;
     grid-row: 1/2;
-    /* margin-left: 10px; */
-    width: 239px;
+    width: 94.785%;
     justify-self: start;
 }
 
 .price {
     display: inline-flex;
-    width: 489px;
+    width: 496px;
     align-items: baseline;
 }
 
@@ -112,7 +112,54 @@
     width: 494px;
 }
 
+.createSpotForm hr:last-child {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
 #submit {
     display: flex;
     justify-content: center;
+}
+
+@media screen and (max-width:500px) {
+    form {
+        width: 95%;
+        margin-left: 10px;
+        margin-right: 15px;
+    }
+
+    .createSpotForm input,
+    input#streetaddress,
+    input#img2 {
+        width: 88%;
+    }
+
+    .cityState {
+        width: 93.1%;
+    }
+
+    .latLng {
+        width: 94%;
+    }
+
+    #lat {
+        width: 93%;
+    }
+
+    #lng {
+        width: 93%;
+    }
+
+    .price {
+        width: 96%;
+    }
+
+    .createSpotForm textarea {
+        width: 88%;
+    }
+
+    .createSpotForm hr {
+        width: 90%;
+    }
 }
