@@ -49,7 +49,7 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
                     <div style={{ marginTop: "-15px" }}>{review.review}</div>
                     {review.userId === userId &&
                         <div style={{ marginTop: "10px", marginBottom: "15px" }}>
-                            <DeleteReviewModalButton reviewId={review.id} />
+                            <DeleteReviewModalButton reviewId={review.id} spotId={spotId} />
                         </div>
                     }
                     <br />

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
+import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
@@ -12,15 +13,20 @@ export default function SpotDetails() {
         state.spots ? state.spots[spotId] : null);
     const sessionUser = useSelector((state) => state.session.user);
 
+    const reviews = Object.values(useSelector((state) => state.reviews))
+
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
-    }, [dispatch, spotId]);
+        if (reviews.length) {
+            dispatch(fetchSpotReviews(spotId))
+        }
+    }, [dispatch, spotId, reviews.length]);
 
     const spotPrice = (price) => {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    return (spot.SpotImages &&
+    return (spot && spot.SpotImages &&
         <section className='spotContainer'>
             <div className='header'>
                 <h1>{spot.name}</h1>

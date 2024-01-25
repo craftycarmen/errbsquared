@@ -2,13 +2,19 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/reviews";
 
-export default function DeleteSpotModal({ reviewId }) {
+export default function DeleteReviewModal({ reviewId, spotId }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
+    const yes = (e) => {
+        e.preventDefault();
 
-    const yes = () => {
-        return dispatch(deleteReview(reviewId))
+        dispatch(deleteReview(reviewId))
             .then(closeModal)
+            .catch(async res => {
+                const data = await res.json();
+                return data;
+            })
+
     }
 
     return (

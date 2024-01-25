@@ -59,6 +59,7 @@ export default function SpotForm({ spot, img, formType }) {
         if (isNaN(lat) || lat > 90 || lat < -90) errs.lat = 'Latitude is not valid';
         if (isNaN(lng) || lng > 180 || lng < -180) errs.lng = 'Longitude is not valid';
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
+        if (description && description.length > 255) errs.description = 'Description must be 255 characters at maximum';
         if (price <= 0) errs.price = 'Price per night must be greater than $0';
 
         if (createForm) {
