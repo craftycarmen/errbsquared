@@ -27,6 +27,14 @@ export default function SpotDetails() {
             </div>
             <div className='gallery galleryContainer'>
                 {spot.SpotImages?.map(image => (
+                    image.preview &&
+                    <img
+                        key={image.id}
+                        src={image.url}
+                    />
+                ))}
+                {spot.SpotImages?.map(image => (
+                    !image.preview &&
                     <img
                         key={image.id}
                         src={image.url}
@@ -45,7 +53,7 @@ export default function SpotDetails() {
                     </div>
 
                     <div>
-                        <span>&#9733; {spot.avgStarRating}&nbsp;</span>
+                        <span style={{ color: "#e2725a" }}>&#9733;</span><span> {spot.avgStarRating}&nbsp;</span>
                         {spot.numReviews === 1 &&
                             <span className='numReviews'>
                                 · {spot.numReviews} review
@@ -65,7 +73,7 @@ export default function SpotDetails() {
             </div>
             <div className='reviews'>
                 <hr />
-                <h2>&#9733; {spot.avgStarRating}
+                <h2 id='starReviews'>&#9733; {spot.avgStarRating}
 
                     {spot.numReviews === 1 &&
                         <>

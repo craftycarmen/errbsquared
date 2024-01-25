@@ -47,7 +47,6 @@ export default function SpotForm({ spot, img, formType }) {
     useEffect(() => {
         const errs = {};
 
-
         if (!country) errs.country = 'Country is required';
         if (!address) errs.address = 'Address is required';
         if (!city) errs.city = 'City is required';
@@ -78,7 +77,7 @@ export default function SpotForm({ spot, img, formType }) {
             if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
         }
         setErrors(errs)
-    }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5])
+    }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5, createForm])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -242,7 +241,7 @@ export default function SpotForm({ spot, img, formType }) {
                         placeholder=""
                         id="description"
                     />
-                    <label htmlFor="description" className="floating-label">Description*</label>
+                    <label htmlFor="description" className="floating-label">Please write at least 30 characters*</label>
                     <div className='error'>{errors.description && `${errors.description}`}</div>
                 </div>
                 {errors.description ? <hr className="errorHr" /> : <hr className="extraMarginHr" />}

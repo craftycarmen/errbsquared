@@ -1,20 +1,5 @@
-/* .reviewModal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    flex-basis: auto;
-    padding: 10px 25px 15px 25px;
-    width: fit-content;
-}
-
-.reviewModal button:not(#submit) {
-    box-shadow: none;
-    background-color: white;
-} */
-
 .stars .on {
-    color: #4a6274;
+    color: #e2725a !important;
     width: 50px;
     border: none;
 }

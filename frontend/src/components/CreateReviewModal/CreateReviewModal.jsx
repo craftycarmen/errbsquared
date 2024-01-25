@@ -43,7 +43,7 @@ export default function CreateReviewModal({ spotId }) {
     return (
         <section className='modal'>
             <form onSubmit={handleSubmit}>
-                <h1>How was your stay?</h1>
+                <h1 style={{ marginBottom: "50px" }}>How was your stay?</h1>
                 <p className="error">
                     {errors.reviewed && `${errors.reviewed}`}
                 </p>

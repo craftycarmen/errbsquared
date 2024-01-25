@@ -47,28 +47,28 @@ const listOfImages = [
     preview: true
   },
   {
-    imageableId: 2,
+    imageableId: 1,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/9/141225_800x.jpg',
-    preview: true
+    preview: false
   },
   {
-    imageableId: 2,
+    imageableId: 1,
     imageableType: 'Spot',
     url: 'https://i.pinimg.com/564x/b8/83/d2/b883d2b98b3af44aa77aefeccad4ddc7.jpg',
-    preview: true
+    preview: false
   },
   {
-    imageableId: 2,
+    imageableId: 1,
     imageableType: 'Spot',
     url: 'https://cdn.shopify.com/s/files/1/0268/8483/3383/files/xl-wall-mural-featuring-avengers-age-of-ultron-1024x1024.jpg?v=1582061926',
-    preview: true
+    preview: false
   },
   {
-    imageableId: 2,
+    imageableId: 1,
     imageableType: 'Spot',
     url: 'https://www.themeparkinsider.com/photos/images/dlp-marvel-ny1.jpg',
-    preview: true
+    preview: false
   },
   {
     imageableId: 2,
@@ -77,10 +77,46 @@ const listOfImages = [
     preview: true
   },
   {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/3/141219_800x.jpg',
+    preview: false
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/2/141218_800x.jpg',
+    preview: false
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/5/141221_800x.jpg',
+    preview: false
+  },
+  {
+    imageableId: 2,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/6/141222_800x.jpg',
+    preview: false
+  },
+  {
+    imageableId: 3,
+    imageableType: 'Spot',
+    url: 'https://static.tripzilla.com/thumb/a/1/141217_800x.jpg',
+    preview: false
+  },
+  {
     imageableId: 3,
     imageableType: 'Spot',
     url: 'https://static.tripzilla.com/thumb/a/8/141224_800x.jpg',
     preview: true
+  },
+  {
+    imageableId: 3,
+    imageableType: 'Spot',
+    url: 'https://i.shelterness.com/2017/06/02-a-gorgeous-3D-wall-art-inspired-by-Avengers-for-a-boys-bedroom.jpg',
+    preview: false
   },
   {
     imageableId: 4,
@@ -97,13 +133,13 @@ const listOfImages = [
   {
     imageableId: 6,
     imageableType: 'Spot',
-    url: 'https://www.themeparkinsider.com/photos/images/dlp-marvel-ny1.jpg',
+    url: 'https://st.hzcdn.com/simgs/pictures/bedrooms/avengers-murals-hand-painted-throughout-a-kids-bedroom-mural-art-llc-wall-murals-and-fine-art-img~80d18bc1056e3aff_14-8458-1-c26a5bc.jpg',
     preview: true
   },
   {
     imageableId: 7,
     imageableType: 'Spot',
-    url: 'https://static.tripzilla.com/thumb/9/d/141213_800x.jpg',
+    url: 'https://www.themeparkinsider.com/photos/images/dlp-marvel-ny1.jpg',
     preview: true
   },
   {

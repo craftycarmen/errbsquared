@@ -17,9 +17,9 @@
     margin-left: 10px;
     margin-top: 10px;
     padding: 2px 3px 1px 3px;
-    border: #4a6274 1px solid;
-    background-color: #4a6274;
-    /* font-family: 'Yeseva One', serif; */
+    border: #e2725a 1px solid;
+    background-color: #e2725a;
+    font-family: 'Yeseva One', serif;
     color: white;
     font-weight: 400;
 }
@@ -41,6 +41,11 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+#starReviews::first-letter {
+    color: #e2725a !important;
+}
+
 
 @media screen and (min-width:1200px) {
     .container {

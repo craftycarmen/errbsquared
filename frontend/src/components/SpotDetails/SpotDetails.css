@@ -62,6 +62,10 @@
     gap: 5px;
 }
 
+.box #starReviews::first-letter {
+    color: #e2725a !important;
+}
+
 .box div:nth-child(1) {
     grid-area: price;
     width: 100%;

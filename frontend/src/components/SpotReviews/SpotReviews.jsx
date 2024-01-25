@@ -17,7 +17,7 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
     const userReviewed = reviews.filter(review => {
         if (review.userId === userId) return true;
     })
-    console.log(userReviewed);
+
     useEffect(() => {
         dispatch(fetchSpotReviews(spotId));
 

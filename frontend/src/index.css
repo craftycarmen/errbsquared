@@ -56,7 +56,7 @@ h1 {
 h2 {
     margin-top: 35px;
     margin-bottom: 20px;
-    color: #4a6274;
+    color: #79aeb2;
     font-size: 22px;
 }
 
@@ -172,5 +172,5 @@ textarea:focus {
 hr {
     height: 1px;
     border: none;
-    background-color: #e2725a;
+    background-color: #94acbf;
 }

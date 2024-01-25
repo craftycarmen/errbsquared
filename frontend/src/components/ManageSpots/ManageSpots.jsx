@@ -13,41 +13,45 @@ export default function ManageSpots() {
 
     useEffect(() => {
         dispatch(fetchOwnerSpots(userId))
-    }, [dispatch])
+    }, [dispatch, userId])
 
     const spotPrice = (price) => {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    return (sessionUser && spots &&
+    return (sessionUser &&
         <>
             <h1 style={{ marginLeft: "20px" }}>Manage Your Spots</h1>
-            <Link to='/spots/new'><button style={{ marginBottom: "30px", marginLeft: "20px" }}>Create a New Spot</button></Link>
-            <div className='container'>
-                {spots.map(spot => (
-                    <div key={spot.id} className='spotCard'>
-                        <div>
-                            <Link to={`/spots/${spot.id}`}>
-                                <span className='toolTip'>{spot.name}</span>
-                                <img
-                                    className='spotImage'
-                                    src={spot.previewImage}
-                                />
-                                <div className='spotInfo'>
-                                    <span>{spot.city}, {spot.state}</span>
-                                    <span>&#9733; {spot.avgRating}</span>
-                                </div>
+            {spots.length === 0 &&
+                <Link to='/spots/new'><button style={{ marginBottom: "30px", marginLeft: "20px" }}>Create a New Spot</button></Link>
+            }
+            {spots &&
+                <div className='container'>
+                    {spots.map(spot => (
+                        <div key={spot.id} className='spotCard'>
+                            <div>
+                                <Link to={`/spots/${spot.id}`}>
+                                    <span className='toolTip'>{spot.name}</span>
+                                    <img
+                                        className='spotImage'
+                                        src={spot.previewImage}
+                                    />
+                                    <div className='spotInfo'>
+                                        <span>{spot.city}, {spot.state}</span>
+                                        <span>&#9733; {spot.avgRating}</span>
+                                    </div>
 
-                                <span style={{ fontWeight: '800' }}>${spot.price && spotPrice(spot.price)}</span> night
-                            </Link>
-                            <p className='buttonBlock'>
-                                <Link to={`/spots/${spot.id}/edit`}><button style={{ marginRight: "10px" }}>Update</button></Link>
-                                <DeleteSpotModalButton spotId={spot.id} />
-                            </p>
+                                    <span style={{ fontWeight: '800' }}>${spot.price && spotPrice(spot.price)}</span> night
+                                </Link>
+                                <p className='buttonBlock'>
+                                    <Link to={`/spots/${spot.id}/edit`}><button style={{ marginRight: "10px" }}>Update</button></Link>
+                                    <DeleteSpotModalButton spotId={spot.id} />
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            }
         </>
     )
 }
