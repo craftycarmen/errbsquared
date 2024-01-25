@@ -21,7 +21,8 @@ export default function SpotDetails() {
 
     useEffect(() => {
         dispatch(getAllSpots())
-        dispatch(fetchSpotDetails(spotId));
+            .then(() => { dispatch(fetchSpotDetails(spotId)) });
+
         if (reviews.length) {
             dispatch(fetchSpotReviews(spotId))
         }
