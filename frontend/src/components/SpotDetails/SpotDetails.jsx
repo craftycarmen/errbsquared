@@ -38,7 +38,7 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    return (spot && spot.SpotImages &&
+    return (spot &&
         <>
 
             <section className='spotContainer'>
