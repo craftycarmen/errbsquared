@@ -26,21 +26,21 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    return (
+    return (spot &&
         <section className='spotContainer'>
             <div className='header'>
-                <h1>{spot?.name}</h1>
-                <div>{spot?.city}, {spot?.state}, {spot?.country}</div>
+                <h1>{spot.name}</h1>
+                <div>{spot.city}, {spot.state}, {spot.country}</div>
             </div>
             <div className='gallery galleryContainer'>
-                {spot && spot?.SpotImages && spot?.SpotImages?.map(image => (
+                {spot && spot.SpotImages && spot.SpotImages?.map(image => (
                     image.preview &&
                     <img
                         key={image.id}
                         src={image.url}
                     />
                 ))}
-                {spot && spot?.SpotImages && spot?.SpotImages?.map(image => (
+                {spot && spot.SpotImages && spot.SpotImages?.map(image => (
                     !image.preview &&
                     <img
                         key={image.id}
@@ -49,27 +49,27 @@ export default function SpotDetails() {
                 ))}
             </div>
             <div className='details'>
-                <h2>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h2>
-                <div>{spot?.description}</div>
+                <h2>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</h2>
+                <div>{spot.description}</div>
             </div>
             <div className='box'>
 
                 <div className='boxInfo'>
                     <div>
-                        <span style={{ fontWeight: "600", fontSize: "24px" }}>${spot?.price && spotPrice(spot?.price)}</span> night
+                        <span style={{ fontWeight: "600", fontSize: "24px" }}>${spot.price && spotPrice(spot.price)}</span> night
                     </div>
 
                     <div>
-                        <span style={{ color: "#e2725a" }}>&#9733;</span><span> {spot?.avgStarRating}&nbsp;</span>
-                        {spot?.numReviews === 1 &&
+                        <span style={{ color: "#e2725a" }}>&#9733;</span><span> {spot.avgStarRating}&nbsp;</span>
+                        {spot.numReviews === 1 &&
                             <span className='numReviews'>
-                                · {spot?.numReviews} review
+                                · {spot.numReviews} review
                             </span>
                         }
 
-                        {spot?.numReviews > 1 &&
+                        {spot.numReviews > 1 &&
                             <span className='numReviews'>
-                                · {spot?.numReviews} reviews
+                                · {spot.numReviews} reviews
                             </span>
                         }
                     </div>
@@ -80,29 +80,29 @@ export default function SpotDetails() {
             </div>
             <div className='reviews'>
                 <hr />
-                <h2 id='starReviews'>&#9733; {spot?.avgStarRating}
+                <h2 id='starReviews'>&#9733; {spot.avgStarRating}
 
-                    {spot?.numReviews === 1 &&
+                    {spot.numReviews === 1 &&
                         <>
-                            <span>&nbsp; · &nbsp;{spot?.numReviews} review</span>
+                            <span>&nbsp; · &nbsp;{spot.numReviews} review</span>
                         </>
                     }
 
-                    {spot?.numReviews > 1 &&
+                    {spot.numReviews > 1 &&
                         <>
-                            <span>&nbsp; · &nbsp;{spot?.numReviews} reviews</span>
+                            <span>&nbsp; · &nbsp;{spot.numReviews} reviews</span>
                         </>
                     }
 
                 </h2>
 
-                {sessionUser === null && spot?.numReviews === 0 &&
+                {sessionUser === null && spot.numReviews === 0 &&
                     <>
                     </>
 
                 }
 
-                {(sessionUser && spot?.numReviews === 0 && sessionUser.id !== spot?.ownerId) &&
+                {(sessionUser && spot.numReviews === 0 && sessionUser.id !== spot.ownerId) &&
                     <>
                         <p>Be the first to post a review!</p>
                     </>}
