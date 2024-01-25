@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { getAllSpots, updateSpot, createSpot, createSpotImage } from "../../store/spots";
+import { updateSpot, createSpot, createSpotImage, fetchSpotDetails } from "../../store/spots";
 import { useDispatch, useSelector } from 'react-redux';
 import './SpotForm.css';
+import { fetchSpotReviews } from '../../store/reviews';
 
 export default function SpotForm({ spot, img, formType }) {
     const navigate = useNavigate();
@@ -45,6 +46,11 @@ export default function SpotForm({ spot, img, formType }) {
     const updateForm = formType === 'Update Your Spot';
 
     useEffect(() => {
+        async () => {
+            await dispatch(fetchSpotDetails(spotId))
+                .then(fetchSpotReviews(spotId))
+        }
+
         const errs = {};
 
         if (!country) errs.country = 'Country is required';
@@ -78,11 +84,11 @@ export default function SpotForm({ spot, img, formType }) {
             if (img5 && (img5Format !== 'jpg' && img5Format !== 'jpeg' && img5Format !== 'png')) errs.img5 = 'Image URL must end in .png, .jpg, or .jpeg';
         }
         setErrors(errs)
-    }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5, createForm])
+    }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5, createForm, dispatch, spotId])
 
-    useEffect(() => {
-        dispatch(getAllSpots())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getAllSpots())
+    // }, [dispatch])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
