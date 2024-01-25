@@ -34,6 +34,14 @@ export default function SpotDetails() {
             </div>
             <div className='gallery galleryContainer'>
                 {spot && spot.SpotImages?.map(image => (
+                    image.preview &&
+                    <img
+                        key={image.id}
+                        src={image.url}
+                    />
+                ))}
+                {spot && spot.SpotImages?.map(image => (
+                    !image.preview &&
                     <img
                         key={image.id}
                         src={image.url}

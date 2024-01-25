@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteReview } from "../../store/reviews";
 
-export default function DeleteReviewModal({ reviewId, spotId }) {
+export default function DeleteReviewModal({ reviewId }) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const yes = (e) => {
@@ -14,7 +14,6 @@ export default function DeleteReviewModal({ reviewId, spotId }) {
                 const data = await res.json();
                 return data;
             })
-
     }
 
     return (
