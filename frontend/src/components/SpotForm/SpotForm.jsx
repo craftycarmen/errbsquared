@@ -98,27 +98,6 @@ export default function SpotForm({ spot, img, formType }) {
 
         if (updateForm) {
             dispatch(updateSpot(spotId, spot))
-
-                // .then((spot) => {
-                //     let spotImage;
-                //     images.forEach((image, index) => {
-                //         if (index === 0) {
-                //             spotImage = {
-                //                 id: spot.id,
-                //                 url: image,
-                //                 preview: true
-                //             }
-                //         } else {
-                //             spotImage = {
-                //                 id: spot.id,
-                //                 url: image,
-                //                 preview: false
-                //             }
-                //         }
-                //         dispatch(editSpotImage(spotId, spotImage))
-                //     })
-
-                // })
                 .then(navigate(`/spots/${spot.id}`))
         } else if (createForm) {
             dispatch(createSpot(spot))
@@ -149,9 +128,6 @@ export default function SpotForm({ spot, img, formType }) {
         if (spot.errors) {
             setErrors(spot.errors)
         }
-        // else {
-        //     navigate(`/spots/${spot.id}`)
-        // }
     }
 
     return (sessionUser &&
