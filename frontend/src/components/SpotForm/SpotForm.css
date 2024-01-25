@@ -42,12 +42,14 @@
     margin-bottom: -10px !important;
 }
 
+
 #city {
     display: inline-flex;
     grid-column: 1/2;
     grid-row: 1/2;
     width: 100%;
     align-items: baseline;
+
 }
 
 #state {
@@ -97,8 +99,10 @@
     margin-left: 24px !important;
 }
 
-.cityState .floating-label,
-.latLng .floating-label {
+#city .floating-label,
+#state .floating-label,
+#lat .floating-label,
+#lng .floating-label {
     margin-top: 10px;
 }
 
@@ -106,6 +110,9 @@
     margin-top: 20px !important;
     margin-bottom: 10px !important;
     width: 494px;
+    height: 1px;
+    border: none;
+    background-color: #e2725a;
 }
 
 .spotForm hr.extraMarginHr {

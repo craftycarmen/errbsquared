@@ -139,17 +139,18 @@ export default function SpotForm({ spot, img, formType }) {
                             }
                         }
                         dispatch(createSpotImage(spot.id, spotImage))
-                            .then(navigate(`/spots/${spot.id}`))
                     })
-
+                    return spot;
                 })
+                .then((spot) => navigate(`/spots/${spot.id}`))
         }
 
         if (spot.errors) {
             setErrors(spot.errors)
-        } else {
-            navigate(`/spots/${spot.id}`)
         }
+        // else {
+        //     navigate(`/spots/${spot.id}`)
+        // }
     }
 
     return (sessionUser &&
@@ -187,11 +188,13 @@ export default function SpotForm({ spot, img, formType }) {
                             value={city}
                             onChange={updateCity}
                             placeholder=""
-                            id="city"
+                            id="cityId"
                         />
-                        <label htmlFor="city" className="floating-label">City*</label>
+                        <label htmlFor="cityId" className="floating-label">City*</label>
+
                         &nbsp;,&nbsp;
                     </div>
+
                     <div className='error'>{errors.city && `${errors.city}`}</div>
                     <div id='state' className='inputContainer'>
                         <input
@@ -199,9 +202,9 @@ export default function SpotForm({ spot, img, formType }) {
                             value={state}
                             onChange={updateState}
                             placeholder=""
-                            id="state"
+                            id="stateId"
                         />
-                        <label htmlFor="state" className="floating-label">State*</label>
+                        <label htmlFor="stateId" className="floating-label">State*</label>
                     </div>
                     <div className='error'>{errors.state && `${errors.state}`}</div>
                 </div>
@@ -212,9 +215,9 @@ export default function SpotForm({ spot, img, formType }) {
                             value={lat}
                             onChange={updateLat}
                             placeholder=""
-                            id="lat"
+                            id="latId"
                         />
-                        <label htmlFor="lat" className="floating-label">Latitude*</label>
+                        <label htmlFor="latId" className="floating-label">Latitude*</label>
                         &nbsp;,&nbsp;
                     </div>
                     <div className='error'>{errors.lat && `${errors.lat}`}</div>
@@ -224,9 +227,9 @@ export default function SpotForm({ spot, img, formType }) {
                             value={lng}
                             onChange={updateLng}
                             placeholder=""
-                            id="lng"
+                            id="lngId"
                         />
-                        <label htmlFor="lng" className="floating-label">Longitude*</label>
+                        <label htmlFor="lngId" className="floating-label">Longitude*</label>
                     </div>
                     <div className='error'>{errors.lng && `${errors.lng}`}</div>
                 </div>

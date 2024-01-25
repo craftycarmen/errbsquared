@@ -11,6 +11,7 @@ export default function SpotDetails() {
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
     const sessionUser = useSelector((state) => state.session.user);
+
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId));
     }, [dispatch, spotId]);
@@ -19,7 +20,7 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    return (spot &&
+    return (spot.SpotImages &&
         <section className='spotContainer'>
             <div className='header'>
                 <h1>{spot.name}</h1>
