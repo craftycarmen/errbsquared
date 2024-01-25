@@ -32,6 +32,10 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
+    if (!spot.SpotImages) {
+        return (<div className='spotContainer'>Loading...</div>)
+    }
+
     return (spot &&
         <section className='spotContainer'>
             <div className='header'>

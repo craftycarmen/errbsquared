@@ -17,11 +17,12 @@ export default function SignupFormModal() {
     useEffect(() => {
         const errs = {};
         if (!email) errs.email = '';
-        if (!username && username.length < 4) errs.username = 'Username must be at least 4 characters or more';
+        if (!username) errs.username = '';
         if (!firstName) errs.firstName = '';
         if (!lastName) errs.lastName = '';
         if (!password) errs.password = '';
         if (!confirmPassword) errs.confirmPassword = '';
+        if (username && username.length < 4) errs.username = 'Username must be at least 4 characters or more';
         if (password && password.length < 6) errs.password = 'Password must be 6 characters or more'
         if (confirmPassword && password !== confirmPassword) errs.confirmPassword = 'Password and confirm password must match';
 
