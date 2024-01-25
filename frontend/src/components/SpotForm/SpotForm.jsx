@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { updateSpot, createSpot, createSpotImage } from "../../store/spots";
+import { getAllSpots, updateSpot, createSpot, createSpotImage } from "../../store/spots";
 import { useDispatch, useSelector } from 'react-redux';
 import './SpotForm.css';
 
@@ -79,6 +79,10 @@ export default function SpotForm({ spot, img, formType }) {
         }
         setErrors(errs)
     }, [country, address, city, state, lat, lng, description, name, price, url, img2, img3, img4, img5, createForm])
+
+    useEffect(() => {
+        dispatch(getAllSpots())
+    }, [dispatch])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
