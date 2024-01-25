@@ -6,7 +6,8 @@ import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
 
 export default function SpotDetails() {
-    const { spotId } = useParams();
+    let { spotId } = useParams();
+    spotId = +spotId
     const dispatch = useDispatch();
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);

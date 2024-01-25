@@ -6,7 +6,8 @@ import SpotForm from "../SpotForm";
 
 
 export default function UpdateSpotForm() {
-    const { spotId } = useParams();
+    let { spotId } = useParams();
+    spotId = +spotId
     const spot = useSelector(state => state.spots ? state.spots[spotId] : null);
     const dispatch = useDispatch();
 
