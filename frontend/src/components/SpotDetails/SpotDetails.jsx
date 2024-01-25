@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpotDetails } from '../../store/spots';
+import { getAllSpots, fetchSpotDetails } from '../../store/spots';
 import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
@@ -16,6 +16,11 @@ export default function SpotDetails() {
     const reviews = Object.values(useSelector((state) => state.reviews))
 
     useEffect(() => {
+        dispatch(getAllSpots())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(getAllSpots())
         dispatch(fetchSpotDetails(spotId));
         if (reviews.length) {
             dispatch(fetchSpotReviews(spotId))
