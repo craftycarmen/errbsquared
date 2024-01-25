@@ -17,10 +17,6 @@ export default function SpotDetails() {
 
     useEffect(() => {
         dispatch(getAllSpots())
-    }, [dispatch])
-
-    useEffect(() => {
-        dispatch(getAllSpots())
             .then(() => { dispatch(fetchSpotDetails(spotId)) });
 
         if (reviews.length) {
