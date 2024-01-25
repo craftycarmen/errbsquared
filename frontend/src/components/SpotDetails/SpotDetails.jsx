@@ -6,8 +6,7 @@ import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
 
 export default function SpotDetails() {
-    let { spotId } = useParams();
-    spotId = +spotId
+    const { spotId } = useParams();
     const dispatch = useDispatch();
     const spot = useSelector(state =>
         state.spots ? state.spots[spotId] : null);
@@ -27,14 +26,14 @@ export default function SpotDetails() {
                 <div>{spot.city}, {spot.state}, {spot.country}</div>
             </div>
             <div className='gallery galleryContainer'>
-                {spot.SpotImages?.map(image => (
+                {spot?.SpotImages?.map(image => (
                     image.preview &&
                     <img
                         key={image.id}
                         src={image.url}
                     />
                 ))}
-                {spot.SpotImages?.map(image => (
+                {spot?.SpotImages?.map(image => (
                     !image.preview &&
                     <img
                         key={image.id}
