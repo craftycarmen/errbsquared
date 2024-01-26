@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const listOfReviews = [
   {
-    userId: 1,
+    userId: 2,
     spotId: 1,
     review: 'This place was awesome!',
     stars: 5
