@@ -15,7 +15,6 @@ export default function SpotDetails() {
 
     const reviews = Object.values(useSelector((state) => state.reviews))
 
-
     useEffect(() => {
         dispatch(getAllSpots())
             .then(() => { dispatch(fetchSpotDetails(spotId)) })
@@ -31,6 +30,9 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
+    if (!spot) {
+        return (<div className='spotContainer'>Loading... </div>)
+    }
     return (spot &&
         <>
 
