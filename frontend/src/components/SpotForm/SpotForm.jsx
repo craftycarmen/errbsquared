@@ -53,23 +53,23 @@ export default function SpotForm({ spot, img, formType }) {
 
         const errs = {};
 
-        if (!country) errs.country = 'Country is required';
-        if (!address) errs.address = 'Address is required';
-        if (!city) errs.city = 'City is required';
-        if (!state) errs.state = 'State is required';
-        if (!lat) errs.lat = 'Latitude is required';
-        if (!lng) errs.lng = 'Longitude is required';
-        if (!description) errs.description = 'Description is required';
-        if (!name) errs.name = 'Name is required';
-        if (!price) errs.price = 'Price is required';
+        if (!country) errs.country = '';
+        if (!address) errs.address = '';
+        if (!city) errs.city = '';
+        if (!state) errs.state = '';
+        if (!lat) errs.lat = '';
+        if (!lng) errs.lng = '';
+        if (!description) errs.description = '';
+        if (!name) errs.name = '';
+        if (!price) errs.price = '';
         if (isNaN(lat) || lat > 90 || lat < -90) errs.lat = 'Latitude is not valid';
         if (isNaN(lng) || lng > 180 || lng < -180) errs.lng = 'Longitude is not valid';
         if (description && description.length < 30) errs.description = 'Description must be 30 characters at minimum';
-        if (description && description.length > 255) errs.description = 'Description must be 255 characters at maximum';
-        if (price <= 0) errs.price = 'Price per night must be greater than $0';
+        if (description && description.length > 250) errs.description = 'Description must be 250 characters at maximum';
+        if (price && price <= 0) errs.price = 'Price per night must be greater than $0';
 
         if (createForm) {
-            if (!url) errs.url = 'Preview image is required';
+            if (!url) errs.url = '';
 
             const urlFormat = url.split('.').pop();
             const img2Format = img2.split('.').pop();

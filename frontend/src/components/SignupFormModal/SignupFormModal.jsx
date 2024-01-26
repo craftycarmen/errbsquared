@@ -22,8 +22,8 @@ export default function SignupFormModal() {
         if (!lastName) errs.lastName = '';
         if (!password) errs.password = '';
         if (!confirmPassword) errs.confirmPassword = '';
-        if (username && username.length < 4) errs.username = 'Username must be 4 characters or more';
-        if (password && password.length < 6) errs.password = 'Password must be 6 characters or more'
+        if (username && username.length < 4) errs.username = 'Username must be 4 characters at minimum';
+        if (password && password.length < 6) errs.password = 'Password must be 6 characters at minimum';
         if (confirmPassword && password !== confirmPassword) errs.confirmPassword = 'Password and confirm password must match';
 
         setErrors(errs);
@@ -71,7 +71,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="email"
                     />
-                    <label htmlFor="email" className="floating-label">Email</label>
+                    <label htmlFor="email" className="floating-label">Email*</label>
                     <div className="error">{errors.email && `${errors.email}`}</div>
                 </div>
                 <div className="inputContainer">
@@ -82,7 +82,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="username"
                     />
-                    <label htmlFor="username" className="floating-label">Username</label>
+                    <label htmlFor="username" className="floating-label">Username*</label>
                 </div>
                 <div className="error">{errors.username && `${errors.username}`}</div>
                 <div className="inputContainer">
@@ -93,7 +93,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="firstname"
                     />
-                    <label htmlFor="firstname" className="floating-label">First Name</label>
+                    <label htmlFor="firstname" className="floating-label">First Name*</label>
                     <div className="error">{errors.firstName && `${errors.firstName}`}</div>
                 </div>
                 <div className="inputContainer">
@@ -104,7 +104,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="lastname"
                     />
-                    <label htmlFor="lastname" className="floating-label">Last Name</label>
+                    <label htmlFor="lastname" className="floating-label">Last Name*</label>
                     <div className="error">{errors.lastName && `${errors.lastName}`}</div>
                 </div>
                 <div className="inputContainer">
@@ -115,7 +115,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="password"
                     />
-                    <label htmlFor="password" className="floating-label">Password</label>
+                    <label htmlFor="password" className="floating-label">Password*</label>
                     <div className="error">{errors.password && `${errors.password}`}</div>
                 </div>
                 <div className="inputContainer">
@@ -126,7 +126,7 @@ export default function SignupFormModal() {
                         placeholder=""
                         id="confirmpassword"
                     />
-                    <label htmlFor="confirmpassword" className="floating-label">Confirm Password</label>
+                    <label htmlFor="confirmpassword" className="floating-label">Confirm Password*</label>
                     <div className="error">{errors.confirmPassword && `${errors.confirmPassword}`}</div>
                 </div>
                 <div>
