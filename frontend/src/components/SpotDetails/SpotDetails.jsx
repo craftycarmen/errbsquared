@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllSpots, fetchSpotDetails } from '../../store/spots';
+import { fetchSpotDetails } from '../../store/spots';
 import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
@@ -14,6 +14,25 @@ export default function SpotDetails() {
     const sessionUser = useSelector((state) => state.session.user);
 
     const reviews = Object.values(useSelector((state) => state.reviews))
+
+    useEffect(() => {
+        dispatch(fetchSpotDetails(spotId))
+            .then(() => {
+                if (reviews.length) {
+                    dispatch(fetchSpotReviews(spotId))
+                }
+            })
+
+    }, [dispatch, spotId, reviews.length])
+
+    // useEffect(() => {
+    //     dispatch(getAllSpots())
+    //         .then(() => { dispatch(fetchSpotDetails(spotId)) });
+
+    //     if (reviews.length) {
+    //         dispatch(fetchSpotReviews(spotId))
+    //     }
+    // }, [dispatch, spotId, reviews.length]);
 
     useEffect(() => {
         dispatch(getAllSpots())
@@ -30,6 +49,7 @@ export default function SpotDetails() {
 
     return (spot &&
         <>
+
             <section className='spotContainer'>
 
                 <div className='header'>
