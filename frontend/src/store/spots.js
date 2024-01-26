@@ -175,8 +175,8 @@ const spotsReducer = (state = initialState, action) => {
             return allSpots;
         }
         case LOAD_SPOT_DETAILS:
-            // return { ...state, [action.spot.id]: action.spot };
-            return { spotDetails: action.spot }
+            return { ...state, [action.spot.id]: action.spot };
+        // return { spotDetails: action.spot }
 
         case UPDATE_SPOT:
             return { ...state, [action.spot.id]: action.spot }
