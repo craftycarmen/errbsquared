@@ -43,8 +43,8 @@ export default function CreateReviewModal({ spotId }) {
 
     return (
         <section className='modal'>
+            <h1>How was your stay?</h1>
             <form onSubmit={handleSubmit}>
-                <h1 style={{ marginBottom: "50px" }}>How was your stay?</h1>
                 <p className="error">
                     {errors.reviewed && `${errors.reviewed}`}
                 </p>
@@ -75,7 +75,7 @@ export default function CreateReviewModal({ spotId }) {
                                     setHover(0);
                                 }}
                             >
-                                <span className='star'>&#9733;</span>
+                                <span style={{ textShadow: "1px 1px #f9ddd2" }}>&#9733;</span>
                             </button>
                         )
                     })}

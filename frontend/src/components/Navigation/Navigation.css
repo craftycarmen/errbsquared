@@ -41,7 +41,7 @@
 }
 
 .createSpot:hover {
-    background-color: #f9ddd2;
+    background-color: #fdd8d6;
     border-radius: 5px;
 }
 
@@ -68,9 +68,10 @@
     color: #79aeb2;
     cursor: pointer;
     border: #79aeb2 solid 2px;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 15px 8px 12px 15px;
     width: 50px;
+    box-shadow: 2px 2px 0px #f9ddd2;
 }
 
 .dropdown {
@@ -83,6 +84,7 @@
 .profile-dropdown {
     position: absolute;
     border: #79aeb2 solid 2px;
+    box-shadow: 2px 2px 0px #f9ddd2;
     border-radius: 5px;
     padding: 15px;
     background-color: white;
@@ -115,7 +117,7 @@
 }
 
 .link:hover {
-    background-color: #f9ddd2;
+    background-color: #fdd8d6;
     border-radius: 5px;
     padding: 5px;
     width: max-content;
@@ -132,6 +134,10 @@
     .menuIcon {
         order: -1;
     }
+
+    .nav {
+        margin-bottom: 20px;
+    }
 }
 
 .dropdown button {
@@ -144,7 +150,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         justify-items: center;
-        margin-bottom: 0px;
+        margin-bottom: 20px;
     }
 
     .profile {
@@ -166,6 +172,5 @@
 
     .menuIcon {
         order: -1;
-        margin-right: -10px;
     }
 }

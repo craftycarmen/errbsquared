@@ -50,7 +50,7 @@ export default function SpotDetails() {
             <section className='spotContainer'>
 
                 <div className='header'>
-                    <h1>{spot.name}</h1>
+                    <div className='spotName'>{spot.name}</div>
                     <div>{spot.city}, {spot.state}, {spot.country}</div>
                 </div>
                 <div className='gallery galleryContainer'>
@@ -81,7 +81,7 @@ export default function SpotDetails() {
                         </div>
 
                         <div>
-                            <span style={{ color: "#e2725a" }}>&#9733;</span><span> {spot.avgStarRating}&nbsp;</span>
+                            <span style={{ color: "#e2725a", textShadow: "1px 1px #f9ddd2" }}>&#9733;</span><span> {spot.avgStarRating}&nbsp;</span>
                             {spot.numReviews === 1 &&
                                 <span className='numReviews'>
                                     · {spot.numReviews} review

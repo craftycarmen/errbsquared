@@ -2,6 +2,7 @@
 body {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 300;
+    color: #4a6274;
     line-height: 24px;
     margin-left: calc(100% - 98%);
     margin-right: calc(100% - 98%);
@@ -11,13 +12,13 @@ body {
 a {
     text-decoration: none;
     cursor: pointer;
-    color: black;
+    color: #4a6274;
 }
 
 button {
     font-family: 'Josefin Sans', sans-serif;
     color: white !important;
-    background-color: #d294af;
+    background-color: #e2725a;
     font-size: medium;
     font-weight: bold;
     border-radius: 5px;
@@ -26,9 +27,9 @@ button {
     box-shadow: 2px 2px 0px #f9ddd2;
 }
 
-.modal button:last-child {
+/* .modal button:last-child {
     margin-bottom: 10px;
-}
+} */
 
 .buttonContainer {
     display: flex;
@@ -66,9 +67,13 @@ h2 {
     align-items: center;
     justify-items: center;
     flex-basis: auto;
-    padding: 10px 25px 5% 25px;
-    width: fit-content;
+    padding: 15px 25px 40px 25px;
+    width: 100%;
     background-color: #79aeb2;
+    border-radius: 10px;
+    border: 2px #e2725a solid;
+    /* outline: 4px solid #FDD8D6; */
+    box-shadow: 3px 3px 0px #FDD8D6;
 }
 
 .modal h1 {
@@ -76,6 +81,7 @@ h2 {
     justify-content: center;
     margin-bottom: 10px;
     color: #FDD8D6;
+    text-shadow: 2px 2px #e2725a;
 }
 
 .modal button {
@@ -99,7 +105,11 @@ h2 {
     margin-top: -10px;
     margin-left: 10px;
     font-size: 12px;
-    color: red;
+    color: #e2725a;
+}
+
+.modal .error {
+    color: white;
 }
 
 input {
@@ -115,7 +125,7 @@ input {
     border: none;
     border-bottom: 1px solid #79aeb2;
     border-left: 1px solid #79aeb2;
-    color: black;
+    color: #4a6274;
     line-height: 1.25;
 }
 
@@ -133,7 +143,7 @@ textarea {
     border: none;
     border-bottom: 1px solid #79aeb2;
     border-left: 1px solid #79aeb2;
-    color: black;
+    color: #4a6274;
     line-height: 1.25;
 }
 
@@ -150,13 +160,13 @@ textarea {
     top: -12px;
     font-size: 12px;
     font-weight: 400;
-    color: #152a25;
+    color: #4a6274;
     cursor: default;
 }
 
 .floating-label {
     position: absolute;
-    color: #152a25;
+    color: #4a6274;
     left: 10px;
     top: 10px;
     transition: 300ms ease all;
@@ -173,4 +183,49 @@ hr {
     height: 1px;
     border: none;
     background-color: #94acbf;
+}
+
+.demoContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.demoContainer button {
+    margin-left: -6px;
+}
+
+@media screen and (min-width: 536px),
+(max-width: 700px) {
+    .modal {
+        width: 100%;
+    }
+
+    .demoContainer button {
+        margin-left: 1px;
+    }
+
+    .modal h1 {
+        display: flex;
+        justify-items: center;
+    }
+
+    .modal textarea {
+        width: 92%;
+    }
+
+    .modal input {
+        width: 92%;
+    }
+
+}
+
+@media screen and (max-width: 536px) {
+    .modal {
+        width: 80%;
+    }
+
+    .modal input {
+        width: 93%;
+    }
 }
