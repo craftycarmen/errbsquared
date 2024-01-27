@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
-import { fetchSpotReviews } from '../../store/reviews';
+// import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
@@ -19,7 +19,7 @@ export default function SpotDetails() {
 
     const sessionUser = useSelector((state) => state.session.user);
 
-    const reviews = Object.values(useSelector((state) => state.reviews))
+    // const reviews = Object.values(useSelector((state) => state.reviews))
 
     // useEffect(() => {
     //     dispatch(getAllSpots())
@@ -34,10 +34,10 @@ export default function SpotDetails() {
 
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId))
-            .then(() => {
-                if (reviews.length) dispatch(fetchSpotReviews(spotId))
-            })
-    }, [dispatch, spotId, reviews.length])
+        // .then(() => {
+        //     if (reviews.length) dispatch(fetchSpotReviews(spotId))
+        // })
+    }, [dispatch, spotId])
 
     const spotPrice = (price) => {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -71,15 +71,15 @@ export default function SpotDetails() {
                         />
                     ))} */}
 
-                    {spot.SpotImages.map(image => (
-                        image && image.preview &&
+                    {spot?.SpotImages?.map(image => (
+                        image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
                         />
                     ))}
-                    {spot.SpotImages.map(image => (
-                        image && !image.preview &&
+                    {spot?.SpotImages?.map(image => (
+                        !image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
