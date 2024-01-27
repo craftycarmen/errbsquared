@@ -51,15 +51,15 @@ export const addReview = (spotId, review) => async (dispatch, getState) => {
         dispatch(fetchSpotReviews(spotId));
     }
 }
-export const deleteReview = (reviewId, spotId) => async dispatch => {
+export const deleteReview = (reviewId) => async dispatch => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: 'DELETE'
     })
 
     if (res.ok) {
         dispatch(removeReview(reviewId));
-        dispatch(fetchSpotDetails(spotId));
-        dispatch(fetchSpotReviews(spotId));
+        // dispatch(fetchSpotDetails(spotId));
+        // dispatch(fetchSpotReviews(spotId));
     }
 }
 
