@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotDetails } from '../../store/spots';
-// import { fetchSpotReviews } from '../../store/reviews';
+import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
@@ -19,7 +19,7 @@ export default function SpotDetails() {
 
     const sessionUser = useSelector((state) => state.session.user);
 
-    // const reviews = Object.values(useSelector((state) => state.reviews))
+    const reviews = Object.values(useSelector((state) => state.reviews))
 
     // useEffect(() => {
     //     dispatch(getAllSpots())
@@ -35,18 +35,18 @@ export default function SpotDetails() {
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId))
 
-        // .then(() => {
-        //     if (reviews.length) dispatch(fetchSpotReviews(spotId))
-        // })
-    }, [dispatch, spotId])
+            .then(() => {
+                if (reviews.length) dispatch(fetchSpotReviews(spotId))
+            })
+    }, [dispatch, spotId, reviews.length])
 
     const spotPrice = (price) => {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    if (!spot?.SpotImages) {
-        return (<div className='spotContainer'>Loading... </div>)
-    }
+    // if (!spot?.SpotImages) {
+    //     return (<div className='spotContainer'>Loading... </div>)
+    // }
     return (spot &&
         <>
 
