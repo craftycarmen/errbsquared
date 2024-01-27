@@ -34,6 +34,7 @@ export default function SpotDetails() {
 
     useEffect(() => {
         dispatch(fetchSpotDetails(spotId))
+
         // .then(() => {
         //     if (reviews.length) dispatch(fetchSpotReviews(spotId))
         // })
@@ -75,14 +76,14 @@ export default function SpotDetails() {
 
                     ) : <div>Loading...</div>} */}
 
-                    {spot && spot.SpotImages.map(image => (
+                    {spot.SpotImages && spot.SpotImages.map(image => (
                         image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
                         />
                     ))}
-                    {spot && spot.SpotImages.map(image => (
+                    {spot.SpotImages && spot.SpotImages.map(image => (
                         !image.preview &&
                         <img
                             key={image.id}
