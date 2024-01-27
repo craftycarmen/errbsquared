@@ -65,13 +65,15 @@ export default function SpotDetails() {
                     )
 
                     ) : <div>Loading...</div>}
-                    {spot && spot.SpotImages && spot.SpotImages?.map(image => (
+                    {spot && spot.SpotImages ? spot.SpotImages.map(image => (
                         !image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
                         />
-                    ))}
+                    )
+
+                    ) : <div>Loading...</div>}
 
                     {/* {spot && spot.SpotImages && spot.SpotImages.map(image => (
                         image.preview &&
