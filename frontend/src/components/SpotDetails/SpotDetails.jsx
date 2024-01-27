@@ -79,7 +79,7 @@ export default function SpotDetails() {
                         />
                     ))}
                     {spot.SpotImages.map(image => (
-                        !image.preview &&
+                        image && !image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
