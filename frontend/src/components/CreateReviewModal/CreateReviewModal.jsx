@@ -16,7 +16,7 @@ export default function CreateReviewModal({ spotId }) {
         const errs = {};
 
         if (review && review.length < 10) errs.review = 'Review must be 10 characters at minimum';
-        if (review.length > 5000) errs.review = 'Review must be 5,000 characters at maximum';
+        if (review.length > 500) errs.review = 'Review must be 500 characters at maximum';
         if (stars === 0) errs.stars = 'Star rating must be between 1 and 5';
 
         setErrors(errs)
