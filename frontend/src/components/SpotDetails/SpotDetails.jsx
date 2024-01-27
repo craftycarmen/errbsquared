@@ -53,7 +53,7 @@ export default function SpotDetails() {
                     <div>{spot.city}, {spot.state}, {spot.country}</div>
                 </div>
                 <div className='gallery galleryContainer'>
-                    {spot && spot.SpotImages ? spot.SpotImages?.map(image => (
+                    {/* {spot && spot.SpotImages ? spot.SpotImages.map(image => (
                         image.preview &&
                         <img
                             key={image.id}
@@ -61,6 +61,21 @@ export default function SpotDetails() {
                         />
                     )) : <div>Loading...</div>}
                     {spot && spot.SpotImages && spot.SpotImages?.map(image => (
+                        !image.preview &&
+                        <img
+                            key={image.id}
+                            src={image.url}
+                        />
+                    ))} */}
+
+                    {spot.SpotImages.map(image => (
+                        image.preview &&
+                        <img
+                            key={image.id}
+                            src={image.url}
+                        />
+                    ))}
+                    {spot.SpotImages.map(image => (
                         !image.preview &&
                         <img
                             key={image.id}
