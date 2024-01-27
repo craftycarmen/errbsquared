@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
 import DeleteReviewModalButton from '../DeleteReviewModal/DeleteReviewModalButton';
-import { fetchSpotDetails } from '../../store/spots';
+// import { fetchSpotDetails } from '../../store/spots';
 
 export default function SpotReviews({ spotId, sessionUser, spot }) {
     const dispatch = useDispatch();
@@ -19,10 +19,19 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
         if (review.userId === userId) return true;
     })
 
+    // useEffect(() => {
+
+    //     dispatch(fetchSpotDetails(spotId))
+    //         .then(async () => await dispatch(fetchSpotReviews(spotId)))
+
+    //     // return () => {
+    //     //     dispatch(clearReviews());
+    //     // }
+    // }, [dispatch, spotId])
+
     useEffect(() => {
 
-        dispatch(fetchSpotDetails(spotId))
-            .then(async () => await dispatch(fetchSpotReviews(spotId)))
+        dispatch(fetchSpotReviews(spotId))
 
         // return () => {
         //     dispatch(clearReviews());
