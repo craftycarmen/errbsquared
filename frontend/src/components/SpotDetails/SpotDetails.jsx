@@ -71,14 +71,14 @@ export default function SpotDetails() {
                         />
                     ))} */}
 
-                    {spot?.SpotImages?.map(image => (
+                    {spot && spot.SpotImages && spot.SpotImages.map(image => (
                         image.preview &&
                         <img
                             key={image.id}
                             src={image.url}
                         />
                     ))}
-                    {spot?.SpotImages?.map(image => (
+                    {spot && spot.SpotImages && spot.SpotImages.map(image => (
                         !image.preview &&
                         <img
                             key={image.id}
