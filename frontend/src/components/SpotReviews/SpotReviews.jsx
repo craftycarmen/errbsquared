@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSpotReviews } from '../../store/reviews';
 import CreateReviewButton from '../CreateReviewModal/CreateReviewButton';
 import DeleteReviewModalButton from '../DeleteReviewModal/DeleteReviewModalButton';
-// import { fetchSpotDetails } from '../../store/spots';
+import { fetchSpotDetails } from '../../store/spots';
 
 export default function SpotReviews({ spotId, sessionUser, spot }) {
     const dispatch = useDispatch();
@@ -32,11 +32,16 @@ export default function SpotReviews({ spotId, sessionUser, spot }) {
     useEffect(() => {
 
         dispatch(fetchSpotReviews(spotId))
+            .then(async () => {
+                if (reviews.length) {
+                    await dispatch(fetchSpotDetails(spotId))
+                }
+            })
 
         // return () => {
         //     dispatch(clearReviews());
         // }
-    }, [dispatch, spotId])
+    }, [dispatch, spotId, reviews.length])
 
     const reviewDate = (date) => {
         const newDate = new Date(date)
