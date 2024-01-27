@@ -89,7 +89,7 @@ export default function SpotDetails() {
                     ))}
                 </div>
                 <div className='details'>
-                    <h2>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</h2>
+                    <h2 style={{ marginTop: "20px" }}>Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</h2>
                     <div>{spot.description}</div>
                 </div>
                 <div className='box'>
