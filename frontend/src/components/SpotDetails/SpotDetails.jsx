@@ -43,10 +43,10 @@ export default function SpotDetails() {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
     }
 
-    if (!spot) {
+    if (!spot.SpotImages) {
         return (<div className='spotContainer'>Loading... </div>)
     }
-    return (spot && spot.SpotImages &&
+    return (spot &&
         <>
 
             <section className='spotContainer'>
@@ -56,7 +56,7 @@ export default function SpotDetails() {
                     <div>{spot.city}, {spot.state}, {spot.country}</div>
                 </div>
                 <div className='gallery galleryContainer'>
-                    {spot && spot.SpotImages ? spot.SpotImages.map(image => (
+                    {spot && spot.SpotImages ? spot?.SpotImages?.map(image => (
                         image.preview &&
                         <img
                             key={image.id}
@@ -65,7 +65,7 @@ export default function SpotDetails() {
                     )
 
                     ) : <div>Loading...</div>}
-                    {spot && spot.SpotImages ? spot.SpotImages.map(image => (
+                    {spot && spot.SpotImages ? spot?.SpotImages?.map(image => (
                         !image.preview &&
                         <img
                             key={image.id}
