@@ -42,7 +42,7 @@ export default function SpotDetails() {
     }
 
     if (!spot?.SpotImages) {
-        return (<div className='spotContainer'>&nbsp;</div>)
+        return (<div className='spotContainer'>Loading...</div>)
     }
     return (spot &&
         <>
