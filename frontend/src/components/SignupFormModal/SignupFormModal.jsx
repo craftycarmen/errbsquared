@@ -72,7 +72,8 @@ export default function SignupFormModal() {
                         id="email"
                     />
                     <label htmlFor="email" className="floating-label">Email*</label>
-                    <div className="error">{errors.email && `${errors.email}`}</div>
+                    <div className="error">{errors.email &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.email}</>}</div>
                 </div>
                 <div className="inputContainer">
                     <input
@@ -84,7 +85,8 @@ export default function SignupFormModal() {
                     />
                     <label htmlFor="username" className="floating-label">Username*</label>
                 </div>
-                <div className="error">{errors.username && `${errors.username}`}</div>
+                <div className="error">{errors.username &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.username}</>}</div>
                 <div className="inputContainer">
                     <input
                         type="text"
@@ -94,7 +96,8 @@ export default function SignupFormModal() {
                         id="firstname"
                     />
                     <label htmlFor="firstname" className="floating-label">First Name*</label>
-                    <div className="error">{errors.firstName && `${errors.firstName}`}</div>
+                    <div className="error">{errors.firstName &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.firstName}</>}</div>
                 </div>
                 <div className="inputContainer">
                     <input
@@ -105,7 +108,8 @@ export default function SignupFormModal() {
                         id="lastname"
                     />
                     <label htmlFor="lastname" className="floating-label">Last Name*</label>
-                    <div className="error">{errors.lastName && `${errors.lastName}`}</div>
+                    <div className="error">{errors.lastName &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.lastName}</>}</div>
                 </div>
                 <div className="inputContainer">
                     <input
@@ -116,7 +120,8 @@ export default function SignupFormModal() {
                         id="password"
                     />
                     <label htmlFor="password" className="floating-label">Password*</label>
-                    <div className="error">{errors.password && `${errors.password}`}</div>
+                    <div className="error">{errors.password &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.password}</>}</div>
                 </div>
                 <div className="inputContainer">
                     <input
@@ -127,7 +132,8 @@ export default function SignupFormModal() {
                         id="confirmpassword"
                     />
                     <label htmlFor="confirmpassword" className="floating-label">Confirm Password*</label>
-                    <div className="error">{errors.confirmPassword && `${errors.confirmPassword}`}</div>
+                    <div className="error">{errors.confirmPassword &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.confirmPassword}</>}</div>
                 </div>
                 <div>
                     <button style={{ marginTop: "15px" }}

@@ -46,7 +46,8 @@ export default function CreateReviewModal({ spotId }) {
             <h1>How was your stay?</h1>
             <form onSubmit={handleSubmit}>
                 <p className="error">
-                    {errors.reviewed && `${errors.reviewed}`}
+                    {errors.reviewed &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.reviewed}</>}
                 </p>
                 <div className="inputContainer">
                     <textarea
@@ -58,7 +59,8 @@ export default function CreateReviewModal({ spotId }) {
                     />
                     <label htmlFor="review" className="floating-label">Leave your review here...</label>
                 </div>
-                <div className='error'>{errors.review && `${errors.review}`}</div>
+                <div className='error'>{errors.review &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.review}</>}</div>
                 <div className='stars'>
                     {[...Array(5)].map((star, index) => {
                         index += 1;

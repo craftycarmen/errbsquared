@@ -62,7 +62,8 @@ export const fetchSpotDetails = spotId => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(loadSpotDetails(data, spotId));
+        // dispatch(loadSpotDetails(data, spotId));
+        dispatch(loadSpotDetails(data));
         return data;
     }
 };

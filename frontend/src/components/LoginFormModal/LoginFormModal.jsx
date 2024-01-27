@@ -55,7 +55,8 @@ export default function LoginFormModal() {
         <section className="modal">
             <h1>Log In</h1>
             <p className="error" style={{ marginTop: "10px", marginBottom: "0px" }}>
-                {errors.credential && `${errors.credential}`}
+                {errors.credential &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.credential}</>}
             </p>
             <form onSubmit={handleSubmit}>
                 <div className="inputContainer">

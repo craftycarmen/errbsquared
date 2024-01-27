@@ -156,7 +156,8 @@ export default function SpotForm({ spot, img, formType }) {
                     />
                     <label htmlFor="country" className="countryLabel floating-label">Country*</label>
                 </div>
-                <div className='countryError error'>{errors.country && `${errors.country}`}</div>
+                <div className='countryError error'>{errors.country &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.country}</>}</div>
                 <div className="inputContainer">
                     <input
                         type='text'
@@ -167,7 +168,8 @@ export default function SpotForm({ spot, img, formType }) {
                     />
                     <label htmlFor="streetaddress" className="floating-label">Street Address*</label>
                 </div>
-                <div className='error'>{errors.address && `${errors.address}`}</div>
+                <div className='error'>{errors.address &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.address}</>}</div>
                 <div className='cityState'>
                     <div id='city' className='inputContainer'>
                         <input
@@ -182,7 +184,8 @@ export default function SpotForm({ spot, img, formType }) {
                         &nbsp;,&nbsp;
                     </div>
 
-                    <div className='error'>{errors.city && `${errors.city}`}</div>
+                    <div className='error'>{errors.city &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.city}</>}</div>
                     <div id='state' className='inputContainer'>
                         <input
                             type='text'
@@ -193,7 +196,8 @@ export default function SpotForm({ spot, img, formType }) {
                         />
                         <label htmlFor="stateId" className="floating-label">State*</label>
                     </div>
-                    <div className='error'>{errors.state && `${errors.state}`}</div>
+                    <div className='error'>{errors.state &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.state}</>}</div>
                 </div>
                 <div className='latLng'>
                     <div id='lat' className='inputContainer'>
@@ -207,7 +211,8 @@ export default function SpotForm({ spot, img, formType }) {
                         <label htmlFor="latId" className="floating-label">Latitude*</label>
                         &nbsp;,&nbsp;
                     </div>
-                    <div className='error'>{errors.lat && `${errors.lat}`}</div>
+                    <div className='error'>{errors.lat &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.lat}</>}</div>
                     <div id='lng' className='inputContainer'>
                         <input
                             type='text'
@@ -218,7 +223,8 @@ export default function SpotForm({ spot, img, formType }) {
                         />
                         <label htmlFor="lngId" className="floating-label">Longitude*</label>
                     </div>
-                    <div className='error'>{errors.lng && `${errors.lng}`}</div>
+                    <div className='error'>{errors.lng &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.lng}</>}</div>
                 </div>
                 <hr />
                 <h2>Describe your place to guests</h2>
@@ -232,7 +238,8 @@ export default function SpotForm({ spot, img, formType }) {
                         id="description"
                     />
                     <label htmlFor="description" className="floating-label">Please write at least 30 characters*</label>
-                    <div className='error'>{errors.description && `${errors.description}`}</div>
+                    <div className='error'>{errors.description &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.description}</>}</div>
                 </div>
                 {errors.description ? <hr className="errorHr" /> : <hr className="extraMarginHr" />}
 
@@ -245,9 +252,11 @@ export default function SpotForm({ spot, img, formType }) {
                         onChange={updateName}
                         placeholder=""
                         id="name"
+                        autoComplete='spotName'
                     />
                     <label htmlFor="name" className="floating-label">Name of Your Spot*</label>
-                    <div className='error'>{errors.name && `${errors.name}`}</div>
+                    <div className='error'>{errors.name &&
+                        <><i className="fa-solid fa-circle-exclamation" /> {errors.name}</>}</div>
                     {errors.name ? <hr className="errorHr" /> : <hr className="extraMarginHr" />}
                 </div>
                 <h2>Set a base price for your spot</h2>
@@ -262,7 +271,8 @@ export default function SpotForm({ spot, img, formType }) {
                     />
                     <label htmlFor="price" className="floating-label">Price Per Night (USD)*</label>
                 </div>
-                <div className='priceError error'>{errors.price && `${errors.price}`}</div>
+                <div className='priceError error'>{errors.price &&
+                    <><i className="fa-solid fa-circle-exclamation" /> {errors.price}</>}</div>
                 {errors.price ? <hr className="errorHr" /> : <hr className="extraMarginHrPrice" />}
                 {createForm &&
                     <>
@@ -277,7 +287,8 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="url"
                             />
                             <label htmlFor="url" className="floating-label">Preview Image URL*</label>
-                            <div className='imageError error'>{errors.url && `${errors.url}`}</div>
+                            <div className='imageError error'>{errors.url &&
+                                <><i className="fa-solid fa-circle-exclamation" /> {errors.url}</>}</div>
                         </div>
                         <div className="imageContainer inputContainer">
                             <input
@@ -288,7 +299,8 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img2"
                             />
                             <label htmlFor="img2" className="floating-label">Image URL</label>
-                            <div className='imageError error'>{errors.img2 && `${errors.img2}`}</div>
+                            <div className='imageError error'>{errors.img2 &&
+                                <><i className="fa-solid fa-circle-exclamation" /> {errors.img2}</>}</div>
                         </div>
                         <div className="imageContainer inputContainer">
                             <input
@@ -299,7 +311,8 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img3"
                             />
                             <label htmlFor="img3" className="floating-label">Image URL</label>
-                            <div className='imageError error'>{errors.img3 && `${errors.img3}`}</div>
+                            <div className='imageError error'>{errors.img3 &&
+                                <><i className="fa-solid fa-circle-exclamation" /> {errors.img3}</>}</div>
                         </div>
                         <div className="imageContainer inputContainer">
                             <input
@@ -310,7 +323,8 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img4"
                             />
                             <label htmlFor="img4" className="floating-label">Image URL</label>
-                            <div className='imageError error'>{errors.img4 && `${errors.img4}`}</div>
+                            <div className='imageError error'>{errors.img4 &&
+                                <><i className="fa-solid fa-circle-exclamation" /> {errors.img4}</>}</div>
                         </div>
                         <div className="imageContainer inputContainer">
                             <input
@@ -321,7 +335,8 @@ export default function SpotForm({ spot, img, formType }) {
                                 id="img5"
                             />
                             <label htmlFor="img5" className="floating-label">Image URL</label>
-                            <div className='imageError error'>{errors.img5 && `${errors.img5}`}</div>
+                            <div className='imageError error'>{errors.img5 &&
+                                <><i className="fa-solid fa-circle-exclamation" /> {errors.img5}</>}</div>
                         </div>
                         {errors.img5 ? <hr className="errorHr" /> : <hr className="extraMarginHrImg5" />}
                     </>

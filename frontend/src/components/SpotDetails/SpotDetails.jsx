@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllSpots, fetchSpotDetails } from '../../store/spots';
-import { fetchSpotReviews } from '../../store/reviews';
+import { fetchSpotDetails } from '../../store/spots';
+// import { fetchSpotReviews } from '../../store/reviews';
 import { useEffect } from 'react';
 import SpotReviews from '../SpotReviews';
 import './SpotDetails.css';
@@ -9,33 +9,32 @@ import './SpotDetails.css';
 export default function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    const spot = useSelector(state =>
-        state.spots ? state.spots[spotId] : null);
+    // const spot = useSelector(state =>
+    //     state.spots ? state.spots[spotId] : null);
 
     // const spot = useSelector(state => state.spots.spotDetails)
+
+    const spot = useSelector(state =>
+        state.spots ? state.spots[spotId] : []);
+
     const sessionUser = useSelector((state) => state.session.user);
 
-    const reviews = Object.values(useSelector((state) => state.reviews))
-
-    useEffect(() => {
-        dispatch(getAllSpots())
-            .then(() => { dispatch(fetchSpotDetails(spotId)) })
-            .then(() => {
-                if (reviews.length) {
-                    dispatch(fetchSpotReviews(spotId))
-                }
-            })
-
-    }, [dispatch, spotId, reviews.length]);
+    // const reviews = Object.values(useSelector((state) => state.reviews))
 
     // useEffect(() => {
-    //     dispatch(fetchSpotDetails(spotId))
+    //     dispatch(getAllSpots())
+    //         .then(() => { dispatch(fetchSpotDetails(spotId)) })
     //         .then(() => {
     //             if (reviews.length) {
     //                 dispatch(fetchSpotReviews(spotId))
     //             }
     //         })
-    // }, [dispatch, spotId, reviews.length])
+
+    // }, [dispatch, spotId, reviews.length]);
+
+    useEffect(() => {
+        dispatch(fetchSpotDetails(spotId))
+    }, [dispatch, spotId])
 
     const spotPrice = (price) => {
         return price.toLocaleString('en-US', { maximumFractionDigits: 2 });
@@ -44,7 +43,7 @@ export default function SpotDetails() {
     if (!spot) {
         return (<div className='spotContainer'>Loading... </div>)
     }
-    return (spot &&
+    return (spot && spot.SpotImages &&
         <>
 
             <section className='spotContainer'>
